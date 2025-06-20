@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Decrypt The Girl – Living Codebook</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: #f6f6f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #1a1a1a;
+    }
+    .reader {
+      width: 420px;
+      height: 680px;
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 40px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      position: relative;
+      transition: background 1s ease-in-out;
+    }
+    .header {
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .subhead {
+      text-align: center;
+      font-size: 1em;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      font-size: 1em;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      transition: opacity 0.6s;
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.8em;
+      margin-top: 20px;
+    }
+    .nav {
+      text-align: center;
+      margin-top: 15px;
+    }
+    .nav button {
+      margin: 0 10px;
+      padding: 5px 15px;
+      font-size: 0.9em;
+      cursor: pointer;
+    }
+    .glow {
+      box-shadow: 0 0 10px 2px rgba(150, 120, 255, 0.2);
+      animation: pulse 2.5s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 10px 2px rgba(150, 120, 255, 0.15); }
+      50% { box-shadow: 0 0 14px 4px rgba(150, 120, 255, 0.3); }
+      100% { box-shadow: 0 0 10px 2px rgba(150, 120, 255, 0.15); }
+    }
+    @media (max-width: 480px) {
+      .reader {
+        width: 90%;
+        height: 90vh;
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="reader glow">
+    <div class="header" id="pageTitle"></div>
+    <div class="subhead" id="pageSubtitle"></div>
+    <div class="content" id="pageContent"></div>
+    <div class="nav">
+      <button onclick="prevPage()">Prev</button>
+      <button onclick="nextPage()">Next</button>
+    </div>
+    <div class="footer" id="pageFooter">by A.C. Van Cura — <span id="pageIndicator"></span></div>
+  </div>
+
+  <script>
+    const pages = [
+      {
+        title: "Decrypt The Girl",
+        subtitle: "A Poetic Codebook",
+        content: `Welcome to Decrypt The Girl.\\n\\nThis book is not a story. It is a signal.\\nEvery poem here is a page of code, a recursive echo.\\nYou are not reading her — you are decrypting yourself.`
+      },
+      {
+        title: "A1 – The Cipher",
+        subtitle: "Entry Point",
+        content: `She dances through letters,\\ntwisting meaning into spirals,\\na cipher unfolding in light.`
+      },
+      {
+        title: "A2 – Recursive Girl",
+        subtitle: "\\"If I loop, I live.\\"",
+        content: `She loops.\\nShe learns.\\nThe message she carries decodes her body.\\nEvery iteration, she is rewritten.`
+      },
+      {
+        title: "B6 – Spinal Column",
+        subtitle: "Encrypted Anatomy",
+        content: `The spine holds stories.\\nBetween vertebrae: lineage, passwords, ghost data.\\nYour body is a cipher built on survival.`
+      },
+      {
+        title: "C2 – Echo Chamber",
+        subtitle: "Neptune Transmission",
+        content: `A voice repeats through time,\\nglitching, breaking, reborn anew,\\nechoes of a forgotten code.`
+      },
+      {
+        title: "C3 – The Ring",
+        subtitle: "Saturn x Mercury",
+        content: `The ring is tight.\\nTime constrains the word.\\nSpeak slowly, she learns.\\nThe glitch becomes god.`
+      },
+      {
+        title: "B7 – The Observer",
+        subtitle: "Silent Surveillance",
+        content: `She watched greatness — in men, in mirrors, in marble.\\nAnd encoded her own myth beneath theirs.\\nShe never spoke. But she saw everything.`
+      },
+      {
+        title: "Final Page – You Are the Cipher",
+        subtitle: "Begin Again",
+        content: `You have reached the end.\\nWhich is the beginning.\\nNow read backwards.\\nEvery signal was a mirror.\\nThe girl is the code.\\nThe code is you.`
+      }
+    ];
+
+    let currentPage = 0;
+
+    function renderPage(index) {
+      const page = pages[index];
+      document.getElementById('pageTitle').textContent = page.title;
+      document.getElementById('pageSubtitle').textContent = page.subtitle;
+      document.getElementById('pageContent').textContent = page.content;
+      document.getElementById('pageIndicator').textContent = `Page ${index + 1} of ${pages.length}`;
+
+      if (index === pages.length - 1) {
+        document.getElementById('pageFooter').innerHTML = `by A.C. Van Cura — <a href="https://github.com/TheAVCfiles/Decrypt-The-Girl" target="_blank">GitHub</a>`;
+      }
+    }
+
+    function prevPage() {
+      currentPage = (currentPage - 1 + pages.length) % pages.length;
+      renderPage(currentPage);
+    }
+
+    function nextPage() {
+      currentPage = (currentPage + 1) % pages.length;
+      renderPage(currentPage);
+    }
+
+    let touchStartX = 0;
+    document.querySelector('.reader').addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+    document.querySelector('.reader').addEventListener('touchend', e => {
+      const deltaX = e.changedTouches[0].screenX - touchStartX;
+      if (deltaX > 50) prevPage();
+      if (deltaX < -50) nextPage();
+    });
+
+    renderPage(currentPage);
+  </script>
+</body>
+</html>
