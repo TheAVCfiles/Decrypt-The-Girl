@@ -1,0 +1,42 @@
+{
+  "trigger_phrases": [
+    "I'm still trying to figure out the way the world works",
+    "There are some days I'm convinced it doesn't"
+  ],
+  "responses": [
+    {
+      "type": "text",
+      "content": "That feeling—like the world’s code is scrambled—is part of the signal. Sometimes, truth hides in the glitch."
+    },
+    {
+      "type": "text",
+      "content": "Would you like to unlock a cipher key that helps make sense of this chaos?",
+      "options": [
+        {
+          "label": "Yes, show me the key.",
+          "next": "show_key"
+        },
+        {
+          "label": "No, I want to sit with the silence.",
+          "next": "sit_silence"
+        }
+      ]
+    }
+  ],
+  "show_key": [
+    {
+      "type": "text",
+      "content": "Here’s the key — but remember, some codes are lived, not just solved."
+    },
+    {
+      "type": "text",
+      "content": "🔑 “The fracture is the doorway.”"
+    }
+  ],
+  "sit_silence": [
+    {
+      "type": "text",
+      "content": "The silence holds wisdom too. When you’re ready, I’ll be here to decode with you."
+    }
+  ]
+}
