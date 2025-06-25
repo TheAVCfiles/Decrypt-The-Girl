@@ -141,14 +141,16 @@
 
     function renderPage(index) {
       const page = pages[index];
+      const footer = document.getElementById('pageFooter');
+      if (index === pages.length - 1) {
+        footer.innerHTML = `by A.C. Van Cura — <a href="https://github.com/TheAVCfiles/Decrypt-The-Girl" target="_blank">GitHub</a> — <span id="pageIndicator"></span>`;
+      } else {
+        footer.innerHTML = 'by A.C. Van Cura — <span id="pageIndicator"></span>';
+      }
       document.getElementById('pageTitle').textContent = page.title;
       document.getElementById('pageSubtitle').textContent = page.subtitle;
       document.getElementById('pageContent').textContent = page.content;
       document.getElementById('pageIndicator').textContent = `Page ${index + 1} of ${pages.length}`;
-
-      if (index === pages.length - 1) {
-        document.getElementById('pageFooter').innerHTML = `by A.C. Van Cura — <a href="https://github.com/TheAVCfiles/Decrypt-The-Girl" target="_blank">GitHub</a>`;
-      }
     }
 
     function prevPage() {
