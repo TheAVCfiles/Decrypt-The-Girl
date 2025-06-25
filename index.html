@@ -1,6 +1,45 @@
 <!DOCTYPE html
 <html lang="en">
-<head>
+<head>{
+  "project-index/": {
+    "index.html": "Main entrypoint for Decrypt The Girl",
+    "styles.css": "Base styling for interface",
+    "quicklinks.json": "Navigation anchors and decoder links"
+  },
+  "assets/": {
+    "decoder/": {
+      "decoder.html": "Interactive Vigenère + Balanchine decoder",
+      "balanchine.js": "Balanchine cipher logic",
+      "vigenere.js": "Vigenère cipher logic"
+    },
+    "deck/": {
+      "deck_mockup.html": "Tarot-style poetic card layout",
+      "deck_cards.pdf": "Printable or embedded PDF version",
+      "card_key_glossary.json": "Symbol/meaning glossary for cards"
+    },
+    "manuscript/": {
+      "cipher_AURORA_sample.md": "AURORA-mode cipher-tagged poem",
+      "echo_mama_loop.txt": "Echo loop voiceover thread",
+      "cipher_SORA.md": "SORA-mode AI cipher logic sample"
+    },
+    "notion/": {
+      "notion_schema.json": "Database schema with Surface/Cipher/Echo fields",
+      "astro_sync_allison.json": "Natal chart to decoder mapping",
+      "README.md": "System metadata"
+    },
+    "system-map/": {
+      "decrypt_os_mermaid_map.mmd": "Mermaid.js logic map",
+      "system_diagram.png": "Visual reference image"
+    }
+  },
+  "vercel.json": {
+    "builds": [],
+    "routes": [
+      { "src": "/(.*)", "dest": "/project-index/$1" }
+    ]
+  }
+}
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Decrypt The Girl – Living Codebook</title>
