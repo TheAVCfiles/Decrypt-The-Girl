@@ -82,16 +82,6 @@
   </style>
 </head>
 <body>
-  <div class="reader glow">
-    <div class="header" id="pageTitle"></div>
-    <div class="subhead" id="pageSubtitle"></div>
-    <div class="content" id="pageContent"></div>
-    <div class="nav">
-      <button onclick="prevPage()">Prev</button>
-      <button onclick="nextPage()">Next</button>
-    </div>
-    <div class="footer" id="pageFooter">by A.C. Van Cura — <span id="pageIndicator"></span></div>
-  </div>
 
   <script>
     const pages = [
@@ -173,7 +163,17 @@
       if (deltaX < -50) nextPage();
     });
 
-    renderPage(currentPage);
+    renderPage(currentPage);  <div class="reader glow">
+    <div class="header" id="pageTitle"></div>
+    <div class="subhead" id="pageSubtitle"></div>
+    <div class="content" id="pageContent"></div>
+    <div class="nav">
+      <button onclick="prevPage()">Prev</button>
+      <button onclick="nextPage()">Next</button>
+    </div>
+    <div class="footer" id="pageFooter">by A.C. Van Cura — <span id="pageIndicator"></span></div>
+  </div>
+
   </script>
 </body>
 </html>
