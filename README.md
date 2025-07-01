@@ -1,6 +1,5 @@
 # Decrypt-The-Girl
 Interactive poetic codebook by A.C. Van Cura
-# Ivy Pagination Footer Demo
 
 A demo project showcasing a dynamically rendered, elegantly styled pagination system with a refined footer that only appears on the last page.
 
@@ -15,6 +14,17 @@ A demo project showcasing a dynamically rendered, elegantly styled pagination sy
 
 1. Clone or download this repo
 2. Open `index.html` in your browser
+
+## 🌀 What is Scrollplay?
+
+Scrollplay is a positional storytelling engine where the reader's interaction *renders* the narrative.
+
+It’s not about choosing an ending.  
+It’s about becoming the loop that reveals one.
+
+- Readers aren't characters. They're gravitational fields.
+- Every hover, pause, or scroll is signal.
+- No two readings render the same output.
 
 ---
 # Decrypt The Girl – Living Codebook
