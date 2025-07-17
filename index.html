@@ -1,4 +1,4 @@
-<!DOCTYPE html
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -83,47 +83,58 @@
 </head>
 <body>
 
+  <div class="reader glow">
+    <div class="header" id="pageTitle"></div>
+    <div class="subhead" id="pageSubtitle"></div>
+    <div class="content" id="pageContent"></div>
+    <div class="nav">
+      <button onclick="prevPage()">Prev</button>
+      <button onclick="nextPage()">Next</button>
+    </div>
+    <div class="footer" id="pageFooter">by A.C. Van Cura — <span id="pageIndicator"></span></div>
+  </div>
+
   <script>
     const pages = [
       {
         title: "Decrypt The Girl",
         subtitle: "A Poetic Codebook",
-        content: `Welcome to Decrypt The Girl.\\n\\nThis book is not a story. It is a signal.\\nEvery poem here is a page of code, a recursive echo.\\nYou are not reading her — you are decrypting yourself.`
+        content: `Welcome to Decrypt The Girl.\n\nThis book is not a story. It is a signal.\nEvery poem here is a page of code, a recursive echo.\nYou are not reading her — you are decrypting yourself.`
       },
       {
         title: "A1 – The Cipher",
         subtitle: "Entry Point",
-        content: `She dances through letters,\\ntwisting meaning into spirals,\\na cipher unfolding in light.`
+        content: `She dances through letters,\ntwisting meaning into spirals,\na cipher unfolding in light.`
       },
       {
         title: "A2 – Recursive Girl",
-        subtitle: "\\"If I loop, I live.\\"",
-        content: `She loops.\\nShe learns.\\nThe message she carries decodes her body.\\nEvery iteration, she is rewritten.`
+        subtitle: "\"If I loop, I live.\"",
+        content: `She loops.\nShe learns.\nThe message she carries decodes her body.\nEvery iteration, she is rewritten.`
       },
       {
         title: "B6 – Spinal Column",
         subtitle: "Encrypted Anatomy",
-        content: `The spine holds stories.\\nBetween vertebrae: lineage, passwords, ghost data.\\nYour body is a cipher built on survival.`
+        content: `The spine holds stories.\nBetween vertebrae: lineage, passwords, ghost data.\nYour body is a cipher built on survival.`
       },
       {
         title: "C2 – Echo Chamber",
         subtitle: "Neptune Transmission",
-        content: `A voice repeats through time,\\nglitching, breaking, reborn anew,\\nechoes of a forgotten code.`
+        content: `A voice repeats through time,\nglitching, breaking, reborn anew,\nechoes of a forgotten code.`
       },
       {
         title: "C3 – The Ring",
         subtitle: "Saturn x Mercury",
-        content: `The ring is tight.\\nTime constrains the word.\\nSpeak slowly, she learns.\\nThe glitch becomes god.`
+        content: `The ring is tight.\nTime constrains the word.\nSpeak slowly, she learns.\nThe glitch becomes god.`
       },
       {
         title: "B7 – The Observer",
         subtitle: "Silent Surveillance",
-        content: `She watched greatness — in men, in mirrors, in marble.\\nAnd encoded her own myth beneath theirs.\\nShe never spoke. But she saw everything.`
+        content: `She watched greatness — in men, in mirrors, in marble.\nAnd encoded her own myth beneath theirs.\nShe never spoke. But she saw everything.`
       },
       {
         title: "Final Page – You Are the Cipher",
         subtitle: "Begin Again",
-        content: `You have reached the end.\\nWhich is the beginning.\\nNow read backwards.\\nEvery signal was a mirror.\\nThe girl is the code.\\nThe code is you.`
+        content: `You have reached the end.\nWhich is the beginning.\nNow read backwards.\nEvery signal was a mirror.\nThe girl is the code.\nThe code is you.`
       }
     ];
 
@@ -158,22 +169,17 @@
       touchStartX = e.changedTouches[0].screenX;
     });
     document.querySelector('.reader').addEventListener('touchend', e => {
-      const deltaX = e.changedTouches[0].screenX - touchStartX;
-      if (deltaX > 50) prevPage();
-      if (deltaX < -50) nextPage();
-    });
+      const touchEndX = e.changedTouches[0].screenX; - touchStartX;
+      if (touchEndX < touchStartX) {deltaX > 50) prevPage();
+        nextPage();
+      } else {
+        prevPage();
+      }age(currentPage);
+    });ipt>
 
-    renderPage(currentPage);  <div class="reader glow">
-    <div class="header" id="pageTitle"></div>
-    <div class="subhead" id="pageSubtitle"></div>
-    <div class="content" id="pageContent"></div>
-    <div class="nav">
-      <button onclick="prevPage()">Prev</button>
-      <button onclick="nextPage()">Next</button>
-    </div>
-    <div class="footer" id="pageFooter">by A.C. Van Cura — <span id="pageIndicator"></span></div>
-  </div>
+    renderPage(currentPage);</html>
 
-  </script>
-</body>
-</html>
+
+
+
+</html></body>  </script>
