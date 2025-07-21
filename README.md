@@ -54,7 +54,15 @@ Experience the interactive codebook live here:
 
 Mystic-coded poet and cipher architect.  
 Explore more of my work at [https://ko-fi.com/decryptthegirl/commissions] 
+
 Follow on Instagram: [@DeCrypt_The_Girl](https://instagram.com/DeCrypt_The_Girl)
+
+## Weekly Astro Finance Guide
+
+The file `astro-finance.html` offers a quick, day‑by‑day look at market trends
+through a financial astrology lens. It mixes Andrew Diaz's Stock Market Wolf
+confluence approach with current planetary movements. Open the file in your
+browser and swipe or click through each day for a fun, shareable summary.
 
 ---
 
