@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weekly Astro Finance Guide</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #222;
+    }
+    .reader {
+      width: 420px;
+      height: 680px;
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 40px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .header {
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .subhead {
+      text-align: center;
+      font-size: 1em;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      font-size: 1em;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+    .nav {
+      text-align: center;
+      margin-top: 15px;
+    }
+    .nav button {
+      margin: 0 10px;
+      padding: 5px 15px;
+      font-size: 0.9em;
+      cursor: pointer;
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.75em;
+      margin-top: 20px;
+    }
+    @media (max-width: 480px) {
+      .reader {
+        width: 90%;
+        height: 90vh;
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="reader">
+    <div class="header" id="pageTitle"></div>
+    <div class="subhead" id="pageSubtitle"></div>
+    <div class="content" id="pageContent"></div>
+    <div class="nav">
+      <button onclick="prevPage()">Prev</button>
+      <button onclick="nextPage()">Next</button>
+    </div>
+    <div class="footer">For entertainment only. Data courtesy Reuters.</div>
+  </div>
+
+  <script>
+    const pages = [
+      {
+        title: 'Intro',
+        subtitle: 'Stock Market Wolf x Astrology',
+        content: `Quick guide for this week's market mood.\nAndrew Diaz uses confluence: align tech levels, price action, and astro cues. Scroll for a day‑by‑day view.`
+      },
+      {
+        title: 'Monday',
+        subtitle: 'Gemini Moon',
+        content: `Communication sector buzz.\nLook for morning tech strength then guard against a midday fade.\nConsider small bullish plays early, hedged with SPY puts.`
+      },
+      {
+        title: 'Tuesday',
+        subtitle: 'Sun enters Leo',
+        content: `Sentiment warms.\nWatch for breakouts in growth names.\nAvoid overtrading—Mercury retroshade still causes misreads.`
+      },
+      {
+        title: 'Wednesday',
+        subtitle: 'Major Earnings',
+        content: `Alphabet and Tesla report.\nStock Market Wolf looks for price to hold key levels pre‑earnings.\nHigh volatility expected—stay nimble.`
+      },
+      {
+        title: 'Thursday',
+        subtitle: 'Prep for Fed',
+        content: `Investors position ahead of next week's Fed decision.\nDiaz favors mixed setups: partial longs with protective puts.`
+      },
+      {
+        title: 'Friday',
+        subtitle: 'Review + Reset',
+        content: `End of week recalibration.\nClose weak positions.\nMap confluence zones for next week using Wolf strategy.`
+      }
+    ];
+
+    let currentPage = 0;
+    function renderPage(index) {
+      const page = pages[index];
+      document.getElementById('pageTitle').textContent = page.title;
+      document.getElementById('pageSubtitle').textContent = page.subtitle;
+      document.getElementById('pageContent').textContent = page.content;
+    }
+    function prevPage() {
+      currentPage = (currentPage - 1 + pages.length) % pages.length;
+      renderPage(currentPage);
+    }
+    function nextPage() {
+      currentPage = (currentPage + 1) % pages.length;
+      renderPage(currentPage);
+    }
+    document.querySelector('.reader').addEventListener('touchstart', e => {
+      this.touchStartX = e.changedTouches[0].screenX;
+    });
+    document.querySelector('.reader').addEventListener('touchend', e => {
+      const deltaX = e.changedTouches[0].screenX - this.touchStartX;
+      if (deltaX > 50) prevPage();
+      if (deltaX < -50) nextPage();
+    });
+    renderPage(currentPage);
+  </script>
+</body>
+</html>
