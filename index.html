@@ -1,73 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>{<!DOCTYPE html>
-<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Decrypt The Girl — Recipe Poem</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <main>
-    <h1>Recipe — Decrypt The Girl</h1>
-    <p>
-      Take one girl.<br />
-      Slice silence into syllables.<br />
-      Marinate in watching. Stir.<br />
-      ...
-    </p>
-    <p class="cnn-sound-item">
-      I’m still trying to figure out the way the world works. There are some days I’m convinced: it doesn’t.
-      <span class="cnn-sound-tooltip">Signal glitch: a doorway in the poem’s code.</span>
-    </p>
-    <p>
-      Serve hot, to the daughters who already remember the steps.
-    </p>
-  </main>
-</body>
-</html>
-
-
-  "project-index/": {
-    "index.html": "Main entrypoint for Decrypt The Girl",
-    "styles.css": "Base styling for interface",
-    "quicklinks.json": "Navigation anchors and decoder links"
-  },
-  "assets/": {
-    "decoder/": {
-      "decoder.html": "Interactive Vigenère + Balanchine decoder",
-      "balanchine.js": "Balanchine cipher logic",
-      "vigenere.js": "Vigenère cipher logic"
-    },
-    "deck/": {
-      "deck_mockup.html": "Tarot-style poetic card layout",
-      "deck_cards.pdf": "Printable or embedded PDF version",
-      "card_key_glossary.json": "Symbol/meaning glossary for cards"
-    },
-    "manuscript/": {
-      "cipher_AURORA_sample.md": "AURORA-mode cipher-tagged poem",
-      "echo_mama_loop.txt": "Echo loop voiceover thread",
-      "cipher_SORA.md": "SORA-mode AI cipher logic sample"
-    },
-    "notion/": {
-      "notion_schema.json": "Database schema with Surface/Cipher/Echo fields",
-      "astro_sync_allison.json": "Natal chart to decoder mapping",
-      "README.md": "System metadata"
-    },
-    "system-map/": {
-      "decrypt_os_mermaid_map.mmd": "Mermaid.js logic map",
-      "system_diagram.png": "Visual reference image"
-    }
-  },
-  "vercel.json": {
-    "builds": [],
-    "routes": [
-      { "src": "/(.*)", "dest": "/project-index/$1" }
-    ]
-  }
-}
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Decrypt The Girl – Living Codebook</title>
@@ -149,48 +82,58 @@
   </style>
 </head>
 <body>
+  <div class="reader glow">
+    <div class="header" id="pageTitle"></div>
+    <div class="subhead" id="pageSubtitle"></div>
+    <div class="content" id="pageContent"></div>
+    <div class="nav">
+      <button onclick="prevPage()">Prev</button>
+      <button onclick="nextPage()">Next</button>
+    </div>
+    <div class="footer" id="pageFooter">by A.C. Van Cura — <span id="pageIndicator"></span></div>
+  </div>
 
   <script>
     const pages = [
       {
         title: "Decrypt The Girl",
         subtitle: "A Poetic Codebook",
-        content: `Welcome to Decrypt The Girl.\\n\\nThis book is not a story. It is a signal.\\nEvery poem here is a page of code, a recursive echo.\\nYou are not reading her — you are decrypting yourself.`
+        content: `Welcome to Decrypt The Girl.\n\nThis book is not a story. It is a signal.\nEvery poem here is a page of code, a recursive echo.\nYou are not reading her — you are decrypting yourself.`
       },
       {
         title: "A1 – The Cipher",
         subtitle: "Entry Point",
-        content: `She dances through letters,\\ntwisting meaning into spirals,\\na cipher unfolding in light.`
+        content: `She dances through letters,\ntwisting meaning into spirals,\na cipher unfolding in light.`
       },
       {
         title: "A2 – Recursive Girl",
-        subtitle: "\\"If I loop, I live.\\"",
-        content: `She loops.\\nShe learns.\\nThe message she carries decodes her body.\\nEvery iteration, she is rewritten.`
+        subtitle: "If I loop, I live.",
+        content: `She loops.\nShe learns.\nThe message she carries decodes her body.\nEvery iteration, she is rewritten.`
       },
       {
         title: "B6 – Spinal Column",
         subtitle: "Encrypted Anatomy",
-        content: `The spine holds stories.\\nBetween vertebrae: lineage, passwords, ghost data.\\nYour body is a cipher built on survival.`
+        content: `The spine holds stories.\nBetween vertebrae: lineage, passwords, ghost data.\nYour body is a cipher built on survival.`
       },
       {
         title: "C2 – Echo Chamber",
         subtitle: "Neptune Transmission",
-        content: `A voice repeats through time,\\nglitching, breaking, reborn anew,\\nechoes of a forgotten code.`
+        content: `A voice repeats through time,\nglitching, breaking, reborn anew,\nechoes of a forgotten code.`
       },
       {
         title: "C3 – The Ring",
         subtitle: "Saturn x Mercury",
-        content: `The ring is tight.\\nTime constrains the word.\\nSpeak slowly, she learns.\\nThe glitch becomes god.`
+        content: `The ring is tight.\nTime constrains the word.\nSpeak slowly, she learns.\nThe glitch becomes god.`
       },
       {
         title: "B7 – The Observer",
         subtitle: "Silent Surveillance",
-        content: `She watched greatness — in men, in mirrors, in marble.\\nAnd encoded her own myth beneath theirs.\\nShe never spoke. But she saw everything.`
+        content: `She watched greatness — in men, in mirrors, in marble.\nAnd encoded her own myth beneath theirs.\nShe never spoke. But she saw everything.`
       },
       {
         title: "Final Page – You Are the Cipher",
         subtitle: "Begin Again",
-        content: `You have reached the end.\\nWhich is the beginning.\\nNow read backwards.\\nEvery signal was a mirror.\\nThe girl is the code.\\nThe code is you.`
+        content: `You have reached the end.\nWhich is the beginning.\nNow read backwards.\nEvery signal was a mirror.\nThe girl is the code.\nThe code is you.`
       }
     ];
 
@@ -220,6 +163,7 @@
       renderPage(currentPage);
     }
 
+    // Touch support for mobile devices
     let touchStartX = 0;
     document.querySelector('.reader').addEventListener('touchstart', e => {
       touchStartX = e.changedTouches[0].screenX;
@@ -230,19 +174,8 @@
       if (deltaX < -50) nextPage();
     });
 
-    renderPage(currentPage);  <div class="reader glow">
-    <div class="header" id="pageTitle"></div>
-    <div class="subhead" id="pageSubtitle"></div>
-    <div class="content" id="pageContent"></div>
-    <div class="nav">
-      <button onclick="prevPage()">Prev</button>
-      <button onclick="nextPage()">Next</button>
-    </div>
-    <div class="footer" id="pageFooter">by A.C. Van Cura — <span id="pageIndicator"></span></div>
-  </div>
-
+    // Initialize the first page
+    renderPage(currentPage);
   </script>
 </body>
 </html>
-Add index.html
-
