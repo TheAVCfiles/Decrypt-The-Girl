@@ -1,0 +1,71 @@
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime Data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage Directory Used by Tools Like Istanbul
+coverage/
+
+# nyc Test Coverage
+.nyc_output
+
+# Grunt Intermediate Storage
+.grunt
+
+# Bower Dependency Directory
+bower_components
+
+# Node Dependencies
+node_modules/
+jspm_packages/
+
+# Build Output
+dist/
+build/
+.tmp/
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Backup Files
+*.bak
+*.backup
+*.old
+
+# Development
+.cache/
+.parcel-cache/
