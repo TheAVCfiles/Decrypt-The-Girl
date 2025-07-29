@@ -1,0 +1,33 @@
+{
+  "name": "decrypt-the-girl",
+  "version": "1.0.0",
+  "description": "An interactive poetic codebook that blends myth, encryption, and feminine mystery into a unique digital narrative experience",
+  "keywords": [
+    "interactive-poetry",
+    "digital-art",
+    "web-app",
+    "codebook",
+    "narrative",
+    "vanilla-javascript",
+    "responsive-design",
+    "accessibility",
+    "poetry",
+    "encryption"
+  ],
+  "homepage": "https://theavcfiles.github.io/Decrypt-The-Girl/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheAVCfiles/Decrypt-The-Girl.git"
+  },
+  "author": "A.C. Van Cura",
+  "license": "MIT",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "test": "python3 -m json.tool chatbot.json",
+    "deploy": "echo 'Deployment handled by GitHub Actions'"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

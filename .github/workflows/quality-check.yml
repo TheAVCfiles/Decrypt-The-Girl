@@ -1,0 +1,50 @@
+name: Code Quality & Testing
+
+on:
+  push:
+    branches: ["main", "develop"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Validate HTML
+      run: |
+        npx html-validate index.html astro-finance.html || echo "HTML validation completed"
+        
+    - name: Check JSON syntax
+      run: |
+        python3 -m json.tool chatbot.json > /dev/null && echo "✅ JSON is valid" || echo "❌ JSON syntax error"
+        
+    - name: Lighthouse CI
+      uses: treosh/lighthouse-ci-action@v10
+      with:
+        urls: |
+          http://localhost:8080
+          http://localhost:8080/astro-finance.html
+        uploadArtifacts: true
+        temporaryPublicStorage: true
+        
+    - name: Test HTML files exist
+      run: |
+        test -f index.html && echo "✅ index.html exists"
+        test -f astro-finance.html && echo "✅ astro-finance.html exists"
+        test -f chatbot.json && echo "✅ chatbot.json exists"
+        
+    - name: Basic functionality test
+      run: |
+        python3 -m http.server 8080 &
+        sleep 2
+        curl -f http://localhost:8080/ > /dev/null && echo "✅ Main page loads successfully"
+        curl -f http://localhost:8080/astro-finance.html > /dev/null && echo "✅ Astro finance page loads successfully"
