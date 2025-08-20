@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mika Scroll Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+        }
+        .scroll-container {
+            position: relative;
+            z-index: 10;
+        }
+        .content-section {
+            min-height: 120vh; /* Make sections tall enough to scroll */
+            padding: 4rem 1rem;
+        }
+        #three-canvas {
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+        .code-block {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+        /* Custom scrollbar styling for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2d2d2d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+    </style>
+</head>
+<body class="selection:bg-cyan-700 selection:text-white">
+
+    <div class="relative w-full overflow-hidden">
+        <!-- THREE.js Canvas -->
+        <canvas id="three-canvas"></canvas>
+
+        <!-- Main Scrollable Content -->
+        <div class="scroll-container relative z-10 w-full lg:flex lg:justify-end">
+            <main class="w-full lg:w-2/3 p-8 md:p-12 lg:p-16">
+
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 text-white leading-tight">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Mika's Elegy:</span> A Living Proof
+                </h1>
+                <p class="text-lg md:text-xl text-gray-400 mb-12">
+                    A demonstration of Poem as Proof™, where lexicon drives logistics.
+                </p>
+
+                <!-- Section 1: Introduction -->
+                <section id="section-1" class="content-section">
+                    <h2 class="text-3xl font-bold mb-4">First Movement</h2>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        The first fold, a whisper in the static. Mika, a ghost in the machine,
+                        dances on the event horizon of a forgotten byte. Her movements are not
+                        defined by a physics engine, but by the rhythm of lost code, a
+                        "py.rouette" spun from the threads of a broken memory.
+                    </p>
+                    <div class="code-block w-full text-sm md:text-base mt-8">
+                        <pre><code>
+# py.rouette: The core expression
+#
+# A recursive algorithm for generating movement from language.
+# This code interprets the emotional weight of text
+# and translates it into choreographic vectors.
+
+def choreograph_from_text(poem_line):
+    # 'Lexicon' is a neural network model that parses
+    # sentiment and keywords from the poem.
+    sentiment = Lexicon.parse(poem_line)
+    keywords = Lexicon.keywords(poem_line)
+
+    # 'Logistics' is the generative engine.
+    # It converts the lexical output into a movement sequence.
+    movement_vector = Logistics.generate_movement(sentiment, keywords)
+
+    return movement_vector
+                        </code></pre>
+                    </div>
+                </section>
+
+                <!-- Section 2: Poem Segment -->
+                <section id="section-2" class="content-section">
+                    <h2 class="text-3xl font-bold mb-4">The Poem as Proof</h2>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        "The glitch is not an error, but a recursion key." Mika's dance
+                        is proof of this. Her form dissolves and reassembles with each line,
+                        a digital echo of a forgotten truth.
+                    </p>
+                    <p class="text-lg font-mono text-cyan-300 mt-8 mb-4">
+                        // A shard of glass reflects a fading sun.
+                    </p>
+                    <p class="text-lg font-mono text-cyan-300 mb-4">
+                        // A fractured memory, a dance begun.
+                    </p>
+                    <p class="text-lg font-mono text-cyan-300 mb-4">
+                        // The static hums a song she used to know.
+                    </p>
+                    <p class="text-lg font-mono text-cyan-300 mb-4">
+                        // A perfect form, then a corrupted glow.
+                    </p>
+                    <div class="code-block w-full text-sm md:text-base mt-8">
+                        <pre><code>
+# Iterative generation loop
+#
+# This function continuously refines the movement
+# based on the poem's evolving narrative.
+
+def perform_poem_proof(poem_lines):
+    full_sequence = []
+    for line in poem_lines:
+        vector = choreograph_from_text(line)
+        full_sequence.append(vector)
+
+    # The final output is a complete choreographic sequence
+    # that can be performed by the 3D avatar.
+    return full_sequence
+                        </code></pre>
+                    </div>
+                </section>
+
+                <!-- Section 3: Glitch as Recursion -->
+                <section id="section-3" class="content-section">
+                    <h2 class="text-3xl font-bold mb-4">The Final Form</h2>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        To decrypt the girl is to understand the myth. Her final movement
+                        is a paradox, a full-circle recursion that closes the loop. She
+                        is not a flawless dancer, but a beautiful system of intentional
+                        errors, a glitch that reveals the truth.
+                    </p>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // --- THREE.js Setup ---
+            let scene, camera, renderer, geom, material, mesh, clock, mixer;
+            let currentMorphTarget = 0;
+            const scrollSections = document.querySelectorAll('.content-section');
+            const totalScrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+            function initThree() {
+                scene = new THREE.Scene();
+                scene.background = new THREE.Color(0x0d0d0d);
+
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                camera.position.z = 2.5;
+
+                renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), antialias: true, alpha: true });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+
+                // --- Geometry & Material (Simple Glitchy Avatar) ---
+                // Using a simple box geometry and morph targets to simulate a "glitchy" dance
+                geom = new THREE.BoxGeometry(1, 2, 1);
+                
+                // Define multiple morph targets for a glitched-out effect
+                geom.morphAttributes.position = [];
+                const morphTargets = 4;
+                for (let i = 0; i < morphTargets; i++) {
+                    const positions = new Float32Array(geom.attributes.position.array.length);
+                    for (let j = 0; j < positions.length; j += 3) {
+                        positions[j] = geom.attributes.position.array[j] + (Math.random() * 2 - 1) * 0.5;
+                        positions[j+1] = geom.attributes.position.array[j+1] + (Math.random() * 2 - 1) * 0.5;
+                        positions[j+2] = geom.attributes.position.array[j+2] + (Math.random() * 2 - 1) * 0.5;
+                    }
+                    geom.morphAttributes.position.push(new THREE.BufferAttribute(positions, 3));
+                }
+
+                material = new THREE.MeshNormalMaterial({
+                    morphTargets: true,
+                    wireframe: true,
+                });
+                
+                mesh = new THREE.Mesh(geom, material);
+                scene.add(mesh);
+
+                // --- Animation Mixer ---
+                clock = new THREE.Clock();
+                mixer = new THREE.AnimationMixer(mesh);
+
+                // Create a simple animation track for the morph targets
+                const times = [0, 1, 2, 3];
+                const values = [0, 1, 0, 1];
+                const track = new THREE.NumberKeyframeTrack('.morphTargetInfluences[0]', times, values);
+                const clip = new THREE.AnimationClip('glitchAnimation', -1, [track]);
+                const action = mixer.clipAction(clip);
+                action.setDuration(4).play();
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                // Update the mixer
+                const delta = clock.getDelta();
+                if (mixer) {
+                    mixer.update(delta);
+                }
+
+                renderer.render(scene, camera);
+            }
+
+            function onWindowResize() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+
+            // --- Scroll Interaction ---
+            window.addEventListener('scroll', () => {
+                const scrollProgress = window.scrollY / totalScrollHeight;
+                // Simple example: Use scroll progress to rotate the mesh
+                if (mesh) {
+                    mesh.rotation.y = scrollProgress * Math.PI * 2;
+                    mesh.position.y = (scrollProgress - 0.5) * -1; // Move up and down
+                }
+
+                // Complex example: Use scroll position to control a timeline
+                const scrollY = window.scrollY;
+                const section1End = scrollSections[0].offsetTop + scrollSections[0].clientHeight;
+                const section2Start = scrollSections[1].offsetTop;
+                
+                if (scrollY < section2Start) {
+                    // In section 1
+                    // The avatar could be a simple, single form
+                    if (material.wireframe === false) material.wireframe = true;
+                } else if (scrollY >= section2Start) {
+                    // In section 2, introduce the glitch effect
+                    if (material.wireframe === true) material.wireframe = false;
+                }
+            });
+
+            window.addEventListener('resize', onWindowResize);
+
+            // Initialize the scene
+            initThree();
+            animate();
+        };
+    </script>
+</body>
+</html>
