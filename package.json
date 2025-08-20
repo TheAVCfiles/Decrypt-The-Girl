@@ -1,0 +1,13 @@
+{
+  "name": "decrypt-the-girl",
+  "version": "1.0.0",
+  "description": "Interactive poetic codebook by A.C. Van Cura",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No test suite configured\" && exit 0"
+  },
+  "keywords": [],
+  "author": "A.C. Van Cura",
+  "license": "MIT",
+  "type": "commonjs"
+}
