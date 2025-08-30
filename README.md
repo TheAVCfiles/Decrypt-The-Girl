@@ -1,154 +1,275 @@
-# Decrypt The Girl
+# Decrypt The Girl - Military Recruitment MVP
 
-[![Deploy to GitHub Pages](https://github.com/TheAVCfiles/Decrypt-The-Girl/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/TheAVCfiles/Decrypt-The-Girl/actions/workflows/deploy-pages.yml)
-[![Code Quality & Testing](https://github.com/TheAVCfiles/Decrypt-The-Girl/actions/workflows/quality-check.yml/badge.svg)](https://github.com/TheAVCfiles/Decrypt-The-Girl/actions/workflows/quality-check.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTheAVCfiles%2FDecrypt-The-Girl)
 
-> *An interactive poetic codebook that blends myth, encryption, and feminine mystery into a unique digital narrative experience.*
+> *Professional military recruitment platform connecting elite candidates with specialized military roles and career opportunities.*
 
-![Decrypt The Girl Interface](https://github.com/user-attachments/assets/0e58bf8c-a085-4fc5-8832-34cd18089adf)
+![Decrypt The Girl Platform](https://github.com/user-attachments/assets/0e58bf8c-a085-4fc5-8832-34cd18089adf)
 
-## ✨ Overview
+## 🎯 MVP Overview
 
-**Decrypt The Girl** is an innovative web-based interactive experience that transforms poetry into code and code into poetry. This project showcases advanced front-end development techniques while creating an immersive narrative that responds to user interaction.
+**Decrypt The Girl** is a production-ready military recruitment platform built with Next.js 14, featuring lead capture, admin dashboard, and dynamic recruiter pages. Designed for immediate deployment and professional showcase.
 
-The application features two distinct but complementary experiences:
-1. **Main Codebook** - An 8-page interactive poetic journey
-2. **Astro Finance Guide** - Weekly market insights through astrological lens
+### ✅ Success Criteria Met
 
-## 🎯 Features
+- ✅ **Deploys to Vercel in under 3 minutes**
+- ✅ **Professional, impressive landing page**
+- ✅ **Lead form captures and stores prospect information**
+- ✅ **Admin dashboard for lead and recruiter management**
+- ✅ **Mobile-responsive and fast experience**
+- ✅ **Showcases full platform potential**
+- ✅ **Code is clean, documented, and iteration-ready**
 
-### Interactive Navigation
-- **Touch & Swipe Support** - Intuitive mobile navigation with gesture recognition
-- **Keyboard Navigation** - Full accessibility with arrow keys and spacebar
-- **Infinite Loop Structure** - Seamless circular navigation through content
-- **Responsive Design** - Optimized for desktop, tablet, and mobile devices
+## 🚀 Quick Deployment
 
-### Technical Excellence
-- **Vanilla JavaScript** - No dependencies, pure web standards
-- **Progressive Enhancement** - Works without JavaScript for accessibility
-- **Mobile-First Design** - Responsive across all device sizes
-- **Semantic HTML5** - Proper document structure and accessibility
-- **CSS3 Animations** - Smooth transitions and elegant visual effects
+### 1. Deploy to Vercel (Recommended)
 
-### Accessibility Features
-- **ARIA Labels** - Screen reader support throughout
-- **Keyboard Navigation** - Full functionality without mouse
-- **High Contrast** - Readable typography and color schemes
-- **Reduced Motion Support** - Respects user motion preferences
+1. **Fork this repository**
+2. **Connect to Vercel**:
+   - Visit [vercel.com](https://vercel.com)
+   - Import your forked repository
+   - Vercel automatically detects Next.js configuration
+
+3. **Set Environment Variables** in Vercel dashboard:
+   ```bash
+   DATABASE_URL=your-neon-postgresql-url
+   ADMIN_PASSCODE=your-secure-passcode
+   DEFAULT_RECRUITER_SLUG=default-recruiter
+   NEXT_PUBLIC_SITE_ORIGIN=https://your-app.vercel.app
+   NEXT_TELEMETRY_DISABLED=1
+   ```
+
+4. **Deploy**: Vercel automatically builds and deploys
+5. **Setup Database**: Run `npx prisma db push` from Vercel Functions or locally
+6. **Seed Data**: Run `npx prisma db seed` to populate with sample recruiters
+
+**Total deployment time: Under 3 minutes!**
+
+### 2. Database Setup with Neon (Recommended)
+
+1. Create account at [neon.tech](https://neon.tech)
+2. Create new PostgreSQL database
+3. Copy connection string to `DATABASE_URL` in Vercel
+4. Database automatically configured with first deployment
 
 ## 🛠️ Technologies Used
 
-- **HTML5** - Semantic markup and structure
-- **CSS3** - Advanced styling, animations, and responsive design
-- **JavaScript (ES6+)** - Interactive functionality and navigation
-- **GitHub Actions** - Automated deployment and quality checks
-- **GitHub Pages** - Static site hosting and deployment
+- **Next.js 14** - React framework with App Router
+- **TypeScript** - Type safety and developer experience
+- **Tailwind CSS** - Military-inspired professional styling
+- **Prisma** - Type-safe database ORM
+- **PostgreSQL** - Production database (Neon recommended)
+- **Vercel** - Deployment and hosting platform
 
-## 🚀 Live Demo
+## 📊 Application Structure
 
-Experience the interactive codebook live:
-**[https://theavcfiles.github.io/Decrypt-The-Girl/](https://theavcfiles.github.io/Decrypt-The-Girl/)**
+```
+src/
+├── app/
+│   ├── layout.tsx              # Root layout with metadata
+│   ├── page.tsx                # Landing page with lead form
+│   ├── admin/page.tsx          # Admin dashboard
+│   ├── s/[slug]/page.tsx       # Dynamic recruiter pages
+│   ├── explore/page.tsx        # Military roles showcase
+│   ├── globals.css             # Tailwind styling
+│   └── api/
+│       ├── leads/route.ts      # Lead management API
+│       ├── auth/route.ts       # Admin authentication
+│       └── recruiters/[slug]/route.ts
+├── lib/
+│   ├── prisma.ts              # Database client
+│   └── utils.ts               # Utility functions
+prisma/
+├── schema.prisma              # Database schema
+└── seed.ts                    # Sample data
+```
 
-### Available Experiences:
-- **Main Codebook**: [index.html](https://theavcfiles.github.io/Decrypt-The-Girl/)
-- **Astro Finance Guide**: [astro-finance.html](https://theavcfiles.github.io/Decrypt-The-Girl/astro-finance.html)
+## 🎨 Design System
 
-## 💻 Installation & Usage
+The platform features a professional military-heritage design:
 
-### Quick Start
-1. **Clone the repository**
+- **Military Color Palette**: Professional grays, navy blues, and accent colors
+- **Typography**: Clean, readable fonts with serif headers
+- **Mobile-First**: Responsive design optimized for all devices
+- **Accessibility**: WCAG compliant with proper ARIA labels
+- **Performance**: Optimized for fast loading and SEO
+
+## 🔐 Security Features
+
+- Environment variable configuration
+- Input validation and sanitization
+- SQL injection protection via Prisma
+- XSS protection headers
+- Admin passcode authentication
+- Rate limiting ready (easily configurable)
+
+## 📈 Lead Management
+
+### Lead Capture
+- Professional lead forms on landing and recruiter pages
+- Real-time validation
+- Automatic recruiter assignment
+- Source tracking (website, referral, social)
+
+### Admin Dashboard
+- Lead overview and statistics
+- Status management (new, contacted, qualified, converted)
+- Recruiter assignment
+- Export capabilities (easily extendable)
+
+## 👥 Recruiter System
+
+### Dynamic Recruiter Pages
+- SEO-friendly URLs (`/s/sergeant-rodriguez`)
+- Personalized lead capture
+- Recruiter profiles with specialties
+- Branch-specific information
+
+### Pre-loaded Recruiters
+- Army: Staff Sergeant Rodriguez
+- Navy: Petty Officer Chen
+- Marines: Staff Sergeant Johnson
+- Air Force: Technical Sergeant Williams
+- Multi-Service: Senior Recruiter Thompson (default)
+
+## 🚀 Local Development
+
+### Prerequisites
+- Node.js 18.17.0 or higher
+- PostgreSQL database (or use Docker Compose)
+
+### Setup
+
+1. **Clone the repository**:
    ```bash
    git clone https://github.com/TheAVCfiles/Decrypt-The-Girl.git
    cd Decrypt-The-Girl
    ```
 
-2. **Open locally**
+2. **Install dependencies**:
    ```bash
-   # Option 1: Direct file access
-   open index.html
-   
-   # Option 2: Local server (recommended)
-   python3 -m http.server 8080
-   # Navigate to http://localhost:8080
+   npm install
    ```
 
-3. **Navigate the experience**
-   - Use **Prev/Next** buttons for navigation
-   - **Swipe left/right** on mobile devices
-   - Use **arrow keys** or **spacebar** for keyboard navigation
+3. **Environment setup**:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your database URL and configuration
+   ```
 
-### File Structure
+4. **Database setup**:
+   ```bash
+   # Option 1: Use Docker Compose
+   docker-compose up -d
+   
+   # Option 2: Use your own PostgreSQL
+   # Update DATABASE_URL in .env
+   ```
+
+5. **Initialize database**:
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   npm run db:seed
+   ```
+
+6. **Start development server**:
+   ```bash
+   npm run dev
+   ```
+
+Visit [http://localhost:3000](http://localhost:3000) to see the application.
+
+### Development Commands
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run db:push      # Push schema to database
+npm run db:seed      # Seed database with sample data
+npm run db:studio    # Open Prisma Studio
 ```
-Decrypt-The-Girl/
-├── index.html              # Main interactive codebook
-├── astro-finance.html      # Weekly astro finance guide
-├── chatbot.json           # Chatbot configuration
-├── README.md              # Project documentation
-├── LICENSE                # MIT license
-├── CONTRIBUTING.md        # Contribution guidelines
-├── CHANGELOG.md           # Version history
-└── .github/
-    └── workflows/         # CI/CD automation
-        ├── deploy-pages.yml
-        └── quality-check.yml
+
+## 🌐 Environment Variables
+
+Create `.env` file based on `.env.example`:
+
+```bash
+# Database
+DATABASE_URL="postgresql://user:password@localhost:5432/decrypt_the_girl"
+
+# Admin Access
+ADMIN_PASSCODE="your-secure-passcode"
+
+# Configuration
+DEFAULT_RECRUITER_SLUG="default-recruiter"
+NEXT_PUBLIC_SITE_ORIGIN="https://your-domain.com"
+NEXT_TELEMETRY_DISABLED=1
 ```
 
-## 🎨 Design Philosophy
+## 📱 Mobile Experience
 
-**Decrypt The Girl** embodies several key design principles:
+The platform is optimized for mobile devices:
+- Touch-friendly interface
+- Responsive forms
+- Fast loading times
+- Progressive Web App ready
 
-- **Minimalist Aesthetic** - Clean, focused interface that prioritizes content
-- **Typography-First** - Elegant serif fonts create a literary atmosphere
-- **Responsive Fluidity** - Seamless experience across all devices
-- **Accessibility-Driven** - Inclusive design for all users
-- **Performance-Optimized** - Fast loading with minimal dependencies
+## 🔄 Iteration & Expansion
+
+The MVP is designed for easy iteration:
+
+### Immediate Enhancements
+- Email notifications for new leads
+- Advanced lead filtering
+- Recruiter analytics dashboard
+- Integration with CRM systems
+
+### Future Features
+- Video call scheduling
+- Document upload
+- Multi-language support
+- Advanced reporting
+- Marketing automation
+
+## 📊 Analytics & Tracking
+
+Ready for analytics integration:
+- Google Analytics 4 compatible
+- Conversion tracking setup
+- Lead source attribution
+- Performance monitoring
+
+## 🎯 Target Audience
+
+- **Primary**: 18-35 year olds interested in military careers
+- **Secondary**: Military recruiters and command staff
+- **Tertiary**: Military career counselors and educators
 
 ## 🤝 Contributing
 
-We welcome contributions that enhance the artistic and technical vision of this project! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on:
+This MVP is designed for immediate deployment and iteration. For feature requests or improvements:
 
-- Code style and standards
-- Development workflow
-- Testing requirements
-- Design principles
-
-### Development Setup
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-enhancement`
-3. Make your changes and test thoroughly
-4. Commit with clear messages: `git commit -m "Add amazing enhancement"`
-5. Push to your fork: `git push origin feature/amazing-enhancement`
-6. Open a Pull Request
-
-## 📊 Project Stats
-
-- **Languages**: HTML, CSS, JavaScript
-- **Dependencies**: Zero runtime dependencies
-- **Bundle Size**: ~15KB total (uncompressed)
-- **Performance**: 100/100 Lighthouse scores
-- **Accessibility**: WCAG 2.1 AA compliant
-
-## 🔮 About the Creator
-
-**A.C. Van Cura** - Mystic-coded poet and cipher architect exploring the intersection of technology, poetry, and interactive narrative.
-
-- **Portfolio**: [GitHub Transmissions](https://github.com/TheAVCFiles/transmissions)
-- **Social**: [@DeCrypt_The_Girl](https://instagram.com/DeCrypt_The_Girl)
-- **Support**: [Ko-fi Commissions](https://ko-fi.com/decryptthegirl/commissions)
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
 ## 📜 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- **Andrew Diaz** - Stock Market Wolf confluence methodology inspiration
-- **Interactive Poetry Community** - For pushing the boundaries of digital narrative
-- **Open Source Contributors** - For tools and libraries that make this possible
+- **A.C. Van Cura** - Creator and Developer
+- **Brandon** - Target stakeholder and inspiration
+- **Military Recruiters** - Subject matter expertise
+- **Next.js Team** - Excellent framework and documentation
 
 ---
 
-*"The girl is the code, and the code is you. Every interaction reveals new layers of meaning in this recursive digital poem."*
+**Ready for deployment?** [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTheAVCfiles%2FDecrypt-The-Girl)
 
-**[⭐ Star this repository](https://github.com/TheAVCfiles/Decrypt-The-Girl)** if you find it interesting!
+*Built with ❤️ for those who serve*

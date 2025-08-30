@@ -48,6 +48,13 @@ dist/
 build/
 .tmp/
 
+# Next.js
+.next/
+out/
+
+# Production
+/build
+
 # Environment Variables
 .env
 .env.local
@@ -69,3 +76,17 @@ temp/
 # Development
 .cache/
 .parcel-cache/
+
+# Legacy Files (backed up from original static site)
+legacy/
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Database
+*.db
+*.sqlite

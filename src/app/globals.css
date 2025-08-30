@@ -1,0 +1,210 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 antialiased;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+  
+  .btn-primary {
+    @apply btn bg-blue-600 text-white hover:bg-blue-700 px-6 py-3;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-gray-200 text-gray-800 hover:bg-gray-300 px-6 py-3;
+  }
+  
+  .btn-accent {
+    @apply btn bg-orange-600 text-white hover:bg-orange-700 px-6 py-3;
+  }
+  
+  .input {
+    @apply flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  
+  .textarea {
+    @apply flex min-h-[80px] w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  
+  .select {
+    @apply flex h-10 w-full items-center justify-between rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  
+  .card {
+    @apply rounded-lg border border-gray-200 bg-white shadow-sm;
+  }
+  
+  .card-header {
+    @apply flex flex-col space-y-1.5 p-6;
+  }
+  
+  .card-content {
+    @apply p-6 pt-0;
+  }
+  
+  .badge {
+    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2;
+  }
+  
+  .badge-success {
+    @apply badge border-green-200 bg-green-100 text-green-800;
+  }
+  
+  .badge-warning {
+    @apply badge border-yellow-200 bg-yellow-100 text-yellow-800;
+  }
+  
+  .badge-info {
+    @apply badge border-blue-200 bg-blue-100 text-blue-800;
+  }
+  
+  /* Custom military color classes since they're not in default Tailwind */
+  .text-military-800 {
+    @apply text-gray-800;
+  }
+  
+  .text-military-600 {
+    @apply text-gray-600;
+  }
+  
+  .text-military-500 {
+    @apply text-gray-500;
+  }
+  
+  .text-military-300 {
+    @apply text-gray-300;
+  }
+  
+  .text-military-200 {
+    @apply text-gray-200;
+  }
+  
+  .text-military-100 {
+    @apply text-gray-100;
+  }
+  
+  .bg-military-800 {
+    @apply bg-gray-800;
+  }
+  
+  .bg-military-50 {
+    @apply bg-gray-50;
+  }
+  
+  .bg-military-100 {
+    @apply bg-gray-100;
+  }
+  
+  .bg-military-200 {
+    @apply bg-gray-200;
+  }
+  
+  .bg-military-300 {
+    @apply bg-gray-300;
+  }
+  
+  .border-military-200 {
+    @apply border-gray-200;
+  }
+  
+  .border-military-300 {
+    @apply border-gray-300;
+  }
+  
+  .divide-military-200 {
+    @apply divide-gray-200;
+  }
+  
+  .hover\\:bg-military-50:hover {
+    @apply hover:bg-gray-50;
+  }
+  
+  .hover\\:bg-military-300:hover {
+    @apply hover:bg-gray-300;
+  }
+  
+  .from-military-50 {
+    @apply from-gray-50;
+  }
+  
+  .to-military-100 {
+    @apply to-gray-100;
+  }
+  
+  .from-military-800 {
+    @apply from-gray-800;
+  }
+  
+  .from-military-900 {
+    @apply from-gray-900;
+  }
+  
+  .to-primary-50 {
+    @apply to-blue-50;
+  }
+  
+  .to-primary-800 {
+    @apply to-blue-800;
+  }
+  
+  .to-primary-900 {
+    @apply to-blue-900;
+  }
+  
+  .from-primary-600 {
+    @apply from-blue-600;
+  }
+  
+  .to-accent-600 {
+    @apply to-orange-600;
+  }
+  
+  .bg-primary-100 {
+    @apply bg-blue-100;
+  }
+  
+  .text-primary-600 {
+    @apply text-blue-600;
+  }
+  
+  .text-primary-100 {
+    @apply text-blue-100;
+  }
+  
+  .bg-accent-100 {
+    @apply bg-orange-100;
+  }
+  
+  .text-accent-600 {
+    @apply text-orange-600;
+  }
+  
+  .border-primary-300 {
+    @apply border-blue-300;
+  }
+  
+  .hover\\:border-primary-300:hover {
+    @apply hover:border-blue-300;
+  }
+  
+  .animate-pulse-glow {
+    @apply animate-pulse;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

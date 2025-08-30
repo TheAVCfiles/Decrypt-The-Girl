@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id          String   @id @default(cuid())
+  firstName   String
+  lastName    String
+  email       String   @unique
+  phone       String?
+  branch      String?  // Preferred military branch
+  role        String?  // Interested role/position
+  experience  String?  // Military experience level
+  recruiter   Recruiter? @relation(fields: [recruiterId], references: [id])
+  recruiterId String?
+  notes       String?  // Additional information
+  status      String   @default("new") // new, contacted, qualified, converted
+  source      String   @default("website") // website, referral, social
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("leads")
+}
+
+model Recruiter {
+  id          String   @id @default(cuid())
+  slug        String   @unique // URL-friendly identifier
+  firstName   String
+  lastName    String
+  email       String   @unique
+  phone       String?
+  branch      String   // Army, Navy, Air Force, Marines, Space Force, Coast Guard
+  rank        String?
+  region      String?  // Geographic area of responsibility
+  specialties String[] // Areas of expertise/recruitment focus
+  bio         String?  // Professional biography
+  imageUrl    String?  // Profile image URL
+  isActive    Boolean  @default(true)
+  leads       Lead[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("recruiters")
+}
