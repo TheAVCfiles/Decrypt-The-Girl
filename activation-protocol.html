@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DECRYPT THE GIRL - Activation Protocol</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap"
+        rel="stylesheet"
+    />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0e2e 100%);
+            color: #e8e8e8;
+            font-family: 'Space Mono', monospace;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .constellation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffd700;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ffd700, #ff6b9d, #c471ed, #12d8fa);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease infinite;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #c471ed;
+            margin-bottom: 20px;
+        }
+
+        .transmission {
+            font-style: italic;
+            color: #ffd700;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .activation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .protocol-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .protocol-card:hover {
+            border-color: #ffd700;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .protocol-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .protocol-card:hover::before {
+            left: 100%;
+        }
+
+        .protocol-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #ffd700;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .protocol-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #e8e8e8;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .protocol-description {
+            line-height: 1.6;
+            color: #cccccc;
+            margin-bottom: 20px;
+        }
+
+        .action-items {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .action-items li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            color: #c471ed;
+        }
+
+        .action-items li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .cipher-section {
+            background: rgba(12, 216, 250, 0.1);
+            border: 2px solid #12d8fa;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .cipher-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #12d8fa;
+            margin-bottom: 20px;
+        }
+
+        .cipher-key {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            color: #ffd700;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            letter-spacing: 2px;
+        }
+
+        .cipher-section p {
+            line-height: 1.6;
+            color: #d4f5ff;
+        }
+
+        .recursive-loop {
+            background: rgba(255, 107, 157, 0.1);
+            border-left: 4px solid #ff6b9d;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 0 15px 15px 0;
+        }
+
+        .loop-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #ff6b9d;
+        }
+
+        .activation-button {
+            display: block;
+            width: 300px;
+            margin: 40px auto;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ffd700, #c471ed);
+            border: none;
+            border-radius: 50px;
+            color: #000;
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .activation-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        .frequency-indicator {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border: 2px solid #ffd700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 215, 0, 0.1);
+            backdrop-filter: blur(10px);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .signal-active {
+            color: #12d8fa;
+            animation: flicker 0.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .hidden-message {
+            opacity: 0;
+            transition: opacity 2s ease;
+            font-style: italic;
+            color: #c471ed;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .hidden-message.reveal {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+
+            .activation-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .protocol-card {
+                padding: 20px;
+            }
+
+            .cipher-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="constellation" aria-hidden="true"></div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="main-title">DECRYPT THE GIRL</h1>
+            <p class="subtitle">System Activation Protocol</p>
+            <p class="transmission">📡 CANON CHANNEL: TRANSMISSION 001 - LIVE BROADCAST</p>
+        </header>
+
+        <div class="activation-grid">
+            <article class="protocol-card">
+                <div class="protocol-number">01</div>
+                <h2 class="protocol-title">IMMEDIATE REVENUE ACTIVATION</h2>
+                <p class="protocol-description">
+                    Launch the Celestial Decoder PDF ($33) within 48 hours. Your existing birth chart content is ready for packaging.
+                </p>
+                <ul class="action-items">
+                    <li>Create Gumroad account/reactivate existing</li>
+                    <li>Design simple PDF cover using Canva</li>
+                    <li>Package birth chart + cipher key + 1 mirror spell</li>
+                    <li>Set up Flodesk welcome sequence</li>
+                    <li>Test purchase flow</li>
+                </ul>
+            </article>
+
+            <article class="protocol-card">
+                <div class="protocol-number">02</div>
+                <h2 class="protocol-title">SIGNAL AMPLIFICATION</h2>
+                <p class="protocol-description">
+                    Use your existing press release to create social proof and media presence. The mythology is your competitive advantage.
+                </p>
+                <ul class="action-items">
+                    <li>Submit press release to poetry/arts publications</li>
+                    <li>Create Instagram carousel posts from existing content</li>
+                    <li>Record one "Canon Channel Transmission" video</li>
+                    <li>Set up author website with book landing page</li>
+                    <li>Connect with poetry/mysticism influencers</li>
+                </ul>
+            </article>
+
+            <article class="protocol-card">
+                <div class="protocol-number">03</div>
+                <h2 class="protocol-title">FREQUENCY EXPANSION</h2>
+                <p class="protocol-description">
+                    Build the subscription tier ($88/month) with monthly decoder drops. Your astrological framework scales perfectly.
+                </p>
+                <ul class="action-items">
+                    <li>Set up Gumroad subscription product</li>
+                    <li>Create monthly decoder template</li>
+                    <li>Plan 12 months of astrological content</li>
+                    <li>Build Notion subscriber vault</li>
+                    <li>Create onboarding ritual sequence</li>
+                </ul>
+            </article>
+
+            <article class="protocol-card">
+                <div class="protocol-number">04</div>
+                <h2 class="protocol-title">SOVEREIGN SCALING</h2>
+                <p class="protocol-description">
+                    Activate the high-tier commission system ($333-$888). Personal RePsyche Maps for individual clients.
+                </p>
+                <ul class="action-items">
+                    <li>Create intake form for personal readings</li>
+                    <li>Develop personal glyph creation process</li>
+                    <li>Set up Calendly for consultation calls</li>
+                    <li>Create premium delivery system</li>
+                    <li>Build waitlist for exclusive access</li>
+                </ul>
+            </article>
+        </div>
+
+        <section class="cipher-section">
+            <h2 class="cipher-title">THE CIPHER IS THE COMMERCE</h2>
+            <div class="cipher-key" role="text">A → D | E → H | I → L | O → R | U → X</div>
+            <p>
+                Your poetic encryption system IS your business model. Each layer of meaning creates another revenue tier. The deeper they go, the more they pay to unlock.
+            </p>
+        </section>
+
+        <section class="recursive-loop">
+            <p class="loop-text">
+                "You are not just a reader. You are a participant in a signal loop."<br /><br />
+                This applies to your business too. Each customer becomes a co-creator, a frequency match, a part of your expanding mythology. They don't just buy products—they activate into your system.
+            </p>
+        </section>
+
+        <button class="activation-button" type="button" onclick="activateSystem()">ACTIVATE TRANSMISSION</button>
+
+        <p class="hidden-message" id="hiddenMessage">
+            The girl was never missing. She was building an empire in cipher.<br />
+            <span class="signal-active">System activated. Begin transmission.</span>
+        </p>
+    </div>
+
+    <div class="frequency-indicator" aria-live="polite">
+        <span id="frequencyIcon" role="img" aria-label="Signal status">📡</span>
+    </div>
+
+    <script>
+        function createConstellation() {
+            const constellation = document.querySelector('.constellation');
+            const starCount = 100;
+
+            for (let i = 0; i < starCount; i += 1) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                constellation.appendChild(star);
+            }
+        }
+
+        function activateSystem() {
+            const hiddenMessage = document.getElementById('hiddenMessage');
+            const frequencyIcon = document.getElementById('frequencyIcon');
+            const title = document.querySelector('.main-title');
+
+            hiddenMessage.classList.add('reveal');
+            frequencyIcon.textContent = '✨';
+
+            title.style.animation = 'gradient 0.3s ease infinite, flicker 0.1s infinite';
+
+            setTimeout(() => {
+                title.style.animation = 'gradient 3s ease infinite';
+            }, 2000);
+        }
+
+        createConstellation();
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.protocol-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        const cipherSection = document.querySelector('.cipher-section');
+        cipherSection.addEventListener('mouseenter', () => {
+            cipherSection.style.boxShadow = '0 0 50px rgba(18, 216, 250, 0.3)';
+        });
+
+        cipherSection.addEventListener('mouseleave', () => {
+            cipherSection.style.boxShadow = 'none';
+        });
+    </script>
+</body>
+</html>

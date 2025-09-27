@@ -53,6 +53,7 @@ Experience the interactive codebook live:
 ### Available Experiences:
 - **Main Codebook**: [index.html](https://theavcfiles.github.io/Decrypt-The-Girl/)
 - **Astro Finance Guide**: [astro-finance.html](https://theavcfiles.github.io/Decrypt-The-Girl/astro-finance.html)
+- **Activation Protocol Dashboard**: [activation-protocol.html](https://theavcfiles.github.io/Decrypt-The-Girl/activation-protocol.html)
 
 ## 💻 Installation & Usage
 
