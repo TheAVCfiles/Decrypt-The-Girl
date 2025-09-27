@@ -1,0 +1,1 @@
+{"hosting":{"public":"apps/web/public","rewrites":[{"source":"/agent/**","function":"agent"}]},"functions":{"source":"functions"}}
