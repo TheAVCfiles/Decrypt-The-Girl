@@ -470,18 +470,18 @@
 
         createConstellation();
 
-        window.addEventListener('scroll', () => {
-            const cards = document.querySelectorAll('.protocol-card');
-            const windowHeight = window.innerHeight;
-
-            cards.forEach((card) => {
-                const cardTop = card.getBoundingClientRect().top;
-
-                if (cardTop < windowHeight * 0.8) {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
                 }
             });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.protocol-card').forEach(card => {
+            observer.observe(card);
         });
 
         const cipherSection = document.querySelector('.cipher-section');
