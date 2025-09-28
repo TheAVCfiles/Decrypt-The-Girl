@@ -26,7 +26,12 @@ jobs:
     - name: Check JSON syntax
       run: |
         python3 -m json.tool chatbot.json > /dev/null && echo "✅ JSON is valid" || echo "❌ JSON syntax error"
-        
+
+    - name: Start local server
+      run: |
+        python3 -m http.server 8080 &
+        sleep 3
+
     - name: Lighthouse CI
       uses: treosh/lighthouse-ci-action@v10
       with:
@@ -44,7 +49,5 @@ jobs:
         
     - name: Basic functionality test
       run: |
-        python3 -m http.server 8080 &
-        sleep 2
         curl -f http://localhost:8080/ > /dev/null && echo "✅ Main page loads successfully"
         curl -f http://localhost:8080/astro-finance.html > /dev/null && echo "✅ Astro finance page loads successfully"
