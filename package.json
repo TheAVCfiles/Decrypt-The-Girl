@@ -23,8 +23,20 @@
   "license": "MIT",
   "scripts": {
     "start": "python3 -m http.server 8080",
+    "start:firebase": "cd firebase-app && python3 -m http.server 8080",
     "test": "python3 -m json.tool chatbot.json",
-    "deploy": "echo 'Deployment handled by GitHub Actions'"
+    "deploy": "firebase deploy --non-interactive",
+    "deploy:default": "firebase deploy --project default --non-interactive",
+    "deploy:app1": "firebase deploy --project app1 --non-interactive",
+    "deploy:app2": "firebase deploy --project app2 --non-interactive",
+    "deploy:app3": "firebase deploy --project app3 --non-interactive",
+    "deploy:app4": "firebase deploy --project app4 --non-interactive",
+    "deploy:app5": "firebase deploy --project app5 --non-interactive",
+    "deploy:app6": "firebase deploy --project app6 --non-interactive",
+    "deploy:app7": "firebase deploy --project app7 --non-interactive",
+    "deploy:app8": "firebase deploy --project app8 --non-interactive",
+    "deploy:app9": "firebase deploy --project app9 --non-interactive",
+    "deploy:app10": "firebase deploy --project app10 --non-interactive"
   },
   "devDependencies": {},
   "engines": {

@@ -78,6 +78,30 @@ Experience the interactive codebook live:
    - **Swipe left/right** on mobile devices
    - Use **arrow keys** or **spacebar** for keyboard navigation
 
+### Firebase Systems Base (New)
+
+The repository now includes a Firebase-ready control room inside [`firebase-app/`](firebase-app/) for orchestrating the **AVC Systems Studios** brand stack.
+
+1. **Copy the Firebase config template**
+   ```bash
+   cp firebase-app/firebase-config.example.js firebase-app/firebase-config.js
+   # Paste your Firebase web app credentials into firebase-config.js
+   ```
+
+2. **Preview locally**
+   ```bash
+   npm run start:firebase
+   # Navigate to http://localhost:8080 to view the control room
+   ```
+
+3. **Deploy to Firebase Hosting**
+   ```bash
+   firebase login
+   firebase deploy
+   ```
+
+   The included [`firebase.json`](firebase.json) and [`.firebaserc`](.firebaserc) files target the `firebase-app/` directory by default. Update `.firebaserc` with your real project ID or use `firebase use <project-id>`.
+
 ### File Structure
 ```
 Decrypt-The-Girl/

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AVC Systems Studios Base – Firebase Control Room</title>
+  <meta name="description" content="Firebase-ready command center for AVC Systems Studios, organizing the Recursive Semantic OS and its product families." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="app" aria-labelledby="app-title">
+    <header class="hero">
+      <div class="hero__intro">
+        <p class="hero__eyebrow">Firebase Systems Base</p>
+        <h1 class="hero__title" id="app-title">AVC Systems Studios</h1>
+        <p class="hero__tagline">Recursive semantic infrastructure for poetic operating systems.</p>
+        <p class="hero__summary">This command center maps the AVC Servers &amp; Systems Studio umbrella brand into Firebase collections so you can iterate, deploy, and govern GlisseOS™, Execlopedia™, MythOS™, and the Semantic Spine™ from one canonical source of truth.</p>
+      </div>
+      <aside class="hero__status" id="connectionStatus" role="status" aria-live="polite"></aside>
+    </header>
+
+    <section class="panel" aria-labelledby="architecture-title">
+      <header class="panel__header">
+        <div>
+          <h2 class="panel__title" id="architecture-title">Recursive Semantic Architecture</h2>
+          <p class="panel__subtitle">Understand how the core invention activates each product family.</p>
+        </div>
+        <div class="panel__controls">
+          <button type="button" class="control-button" data-view="grid" aria-pressed="true">Grid View</button>
+          <button type="button" class="control-button" data-view="list" aria-pressed="false">List View</button>
+        </div>
+      </header>
+      <div class="architecture" id="architecture"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="programs-title">
+      <header class="panel__header">
+        <div>
+          <h2 class="panel__title" id="programs-title">Studios &amp; Product Lines</h2>
+          <p class="panel__subtitle">Curate and publish structured definitions for every studio initiative.</p>
+        </div>
+      </header>
+      <div class="programs" id="programs" role="list"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="timeline-title">
+      <header class="panel__header">
+        <div>
+          <h2 class="panel__title" id="timeline-title">Activation Roadmap</h2>
+          <p class="panel__subtitle">Milestones to graduate the Recursive Semantic OS from concept to production.</p>
+        </div>
+      </header>
+      <ol class="timeline" id="timeline"></ol>
+    </section>
+
+    <section class="panel" aria-labelledby="actions-title">
+      <header class="panel__header">
+        <div>
+          <h2 class="panel__title" id="actions-title">Firebase Deployment Checklist</h2>
+          <p class="panel__subtitle">Ship your command center to hosting with confidence.</p>
+        </div>
+      </header>
+      <div class="actions" id="actions"></div>
+    </section>
+
+    <footer class="footer">
+      <p>&copy; <span id="footerYear"></span> AVC Systems Studios · Crafted for the Myth Tech dance between art and engineering.</p>
+    </footer>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
