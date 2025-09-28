@@ -24,7 +24,18 @@
   "scripts": {
     "start": "python3 -m http.server 8080",
     "test": "python3 -m json.tool chatbot.json",
-    "deploy": "echo 'Deployment handled by GitHub Actions'"
+    "deploy": "node scripts/deploy.js",
+    "deploy:default": "node scripts/deploy.js default",
+    "deploy:app1": "node scripts/deploy.js app1",
+    "deploy:app2": "node scripts/deploy.js app2",
+    "deploy:app3": "node scripts/deploy.js app3",
+    "deploy:app4": "node scripts/deploy.js app4",
+    "deploy:app5": "node scripts/deploy.js app5",
+    "deploy:app6": "node scripts/deploy.js app6",
+    "deploy:app7": "node scripts/deploy.js app7",
+    "deploy:app8": "node scripts/deploy.js app8",
+    "deploy:app9": "node scripts/deploy.js app9",
+    "deploy:app10": "node scripts/deploy.js app10"
   },
   "devDependencies": {},
   "engines": {

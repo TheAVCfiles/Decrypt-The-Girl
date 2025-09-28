@@ -78,6 +78,24 @@ Experience the interactive codebook live:
    - **Swipe left/right** on mobile devices
    - Use **arrow keys** or **spacebar** for keyboard navigation
 
+### Deployment Playbooks
+
+Local deployment is not required because publishing is orchestrated through GitHub Actions. However, the repository now ships
+with helper scripts that mirror the deployment playbooks used by the automation pipeline. These commands surface meaningful
+context when run locally and make it easy to reference the correct GitHub Pages workflow:
+
+```bash
+# Inspect the default GitHub Pages deployment target
+npm run deploy:default
+
+# Explore the specialised application deployments
+npm run deploy:app1
+npm run deploy:app2
+# ... through npm run deploy:app10
+```
+
+The full list of playbooks is also stored in [`playbooks.yml`](playbooks.yml) for quick reference by tooling or documentation.
+
 ### File Structure
 ```
 Decrypt-The-Girl/
