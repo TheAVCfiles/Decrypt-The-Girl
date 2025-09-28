@@ -23,6 +23,7 @@
   "license": "MIT",
   "scripts": {
     "start": "python3 -m http.server 8080",
+    "start:firebase": "cd firebase-app && python3 -m http.server 8080",
     "test": "python3 -m json.tool chatbot.json",
     "deploy": "firebase deploy --non-interactive",
     "deploy:default": "firebase deploy --project default --non-interactive",
