@@ -96,12 +96,83 @@ npm run deploy:app2
 
 The full list of playbooks is also stored in [`playbooks.yml`](playbooks.yml) for quick reference by tooling or documentation.
 
+### 🔥 Firebase Integration (Demo Bundle)
+
+This repository includes a complete Firebase starter bundle for demonstrating cloud integration capabilities. The bundle provides two deployment paths:
+
+#### Path A: Static Hosting + Client-side Firestore
+**Fastest setup for demonstrations**
+
+1. **Setup Firebase project**
+   ```bash
+   # Install Firebase CLI globally
+   npm install -g firebase-tools
+   
+   # Login to Firebase
+   firebase login
+   
+   # Initialize project (use existing files)
+   firebase init
+   ```
+
+2. **Configure your project**
+   - Replace `firebaseConfig` in `public/app.js` with your project settings
+   - Update project ID in `.firebaserc`
+   - Deploy with: `firebase deploy`
+
+#### Path B: Functions + Server-side Processing
+**Full-stack demo with HTTP functions**
+
+1. **Use functions configuration**
+   ```bash
+   # Swap config files for functions setup
+   cp firebase.functions.json firebase.json
+   
+   # Install function dependencies
+   cd functions && npm install
+   ```
+
+2. **Deploy with functions**
+   ```bash
+   firebase deploy --only functions,hosting,firestore
+   ```
+
+#### Demo Bundle Contents
+```
+firebase-demo/
+├── public/
+│   ├── index.html          # Tiny decoder UI (unlock + deck interest buttons)
+│   └── app.js              # Client-side Firestore logging
+├── functions/
+│   ├── index.js            # HTTP Function for /ledger endpoint
+│   └── package.json        # Functions dependencies
+├── firestore.rules         # Demo-open write permissions
+├── firestore.indexes.json  # Query optimization indexes
+├── firebase.json           # Hosting config (Path A)
+├── firebase.functions.json # Functions routing config (Path B)
+└── .firebaserc             # Project ID configuration
+```
+
+**⚠️ Security Note**: The included `firestore.rules` are intentionally open for demo purposes. Always implement proper security rules for production deployments.
+
 ### File Structure
 ```
 Decrypt-The-Girl/
 ├── index.html              # Main interactive codebook
 ├── astro-finance.html      # Weekly astro finance guide
+├── mika-scroll.html        # Additional interactive experience
 ├── chatbot.json           # Chatbot configuration
+├── public/                 # Firebase demo bundle
+│   ├── index.html          # Decoder UI for Firebase demo
+│   └── app.js              # Client-side Firestore integration
+├── functions/              # Firebase Functions (Path B)
+│   ├── index.js            # HTTP functions (/ledger endpoint)
+│   └── package.json        # Functions dependencies
+├── firebase.json           # Firebase hosting config (Path A)
+├── firebase.functions.json # Firebase functions config (Path B)
+├── firestore.rules         # Firestore security rules (demo-open)
+├── firestore.indexes.json  # Firestore query indexes
+├── .firebaserc             # Firebase project configuration
 ├── README.md              # Project documentation
 ├── LICENSE                # MIT license
 ├── CONTRIBUTING.md        # Contribution guidelines
