@@ -1,0 +1,56 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Demo-open rules for development and testing
+    // WARNING: These rules allow unrestricted access - flip to stricter rules for production!
+    
+    // Allow read/write access to the decryptions collection for demo purposes
+    match /decryptions/{document} {
+      allow read, write: if true;
+    }
+    
+    // Allow read/write access to user interactions for analytics
+    match /interactions/{document} {
+      allow read, write: if true;
+    }
+    
+    // Allow read access to cipher data
+    match /ciphers/{document} {
+      allow read: if true;
+      allow write: if true; // Demo mode - normally would restrict writes
+    }
+    
+    // Allow deck interest tracking
+    match /deck_interests/{document} {
+      allow read, write: if true;
+    }
+    
+    // Fallback rule - in production, this should be more restrictive
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
+
+// PRODUCTION RULES TEMPLATE (commented out for demo):
+// 
+// service cloud.firestore {
+//   match /databases/{database}/documents {
+//     // Restrict to authenticated users only
+//     match /decryptions/{document} {
+//       allow read, write: if request.auth != null;
+//     }
+//     
+//     // Public read for cipher data, auth required for writes
+//     match /ciphers/{document} {
+//       allow read: if true;
+//       allow write: if request.auth != null && request.auth.uid == resource.data.author;
+//     }
+//     
+//     // Default deny all
+//     match /{document=**} {
+//       allow read, write: if false;
+//     }
+//   }
+// }
