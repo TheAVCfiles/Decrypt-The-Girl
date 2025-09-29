@@ -24,6 +24,7 @@
   "scripts": {
     "start": "python3 -m http.server 8080",
     "test": "python3 -m json.tool chatbot.json",
+    "start:api": "node server/app.mjs",
     "deploy": "node scripts/deploy.js",
     "deploy:default": "node scripts/deploy.js default",
     "deploy:app1": "node scripts/deploy.js app1",
@@ -37,8 +38,10 @@
     "deploy:app9": "node scripts/deploy.js app9",
     "deploy:app10": "node scripts/deploy.js app10"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
   }
 }
