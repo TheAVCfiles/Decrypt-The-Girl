@@ -51,6 +51,7 @@ Experience the interactive codebook live:
 **[https://theavcfiles.github.io/Decrypt-The-Girl/](https://theavcfiles.github.io/Decrypt-The-Girl/)**
 
 ### Available Experiences:
+- **AVC Systems Studios Base**: [avc-systems-studios.html](https://theavcfiles.github.io/Decrypt-The-Girl/avc-systems-studios.html)
 - **Main Codebook**: [index.html](https://theavcfiles.github.io/Decrypt-The-Girl/)
 - **Astro Finance Guide**: [astro-finance.html](https://theavcfiles.github.io/Decrypt-The-Girl/astro-finance.html)
 
@@ -78,12 +79,26 @@ Experience the interactive codebook live:
    - **Swipe left/right** on mobile devices
    - Use **arrow keys** or **spacebar** for keyboard navigation
 
+### Firebase Hosting Deployment
+Use Firebase Hosting to publish the AVC Systems Studios base alongside the existing narrative experiences.
+
+```bash
+npm install -g firebase-tools   # one-time CLI install
+firebase login                  # authenticate with your Google account
+npm run deploy                  # deploy using firebase.json + .firebaserc configuration
+```
+
+The default site alias is set to `avc-systems-studios` inside [`.firebaserc`](.firebaserc); update it if you are deploying to a different Firebase project.
+
 ### File Structure
 ```
 Decrypt-The-Girl/
 ├── index.html              # Main interactive codebook
 ├── astro-finance.html      # Weekly astro finance guide
+├── avc-systems-studios.html # Firebase-ready studio base
 ├── chatbot.json           # Chatbot configuration
+├── firebase.json          # Firebase Hosting configuration
+├── .firebaserc            # Firebase project alias
 ├── README.md              # Project documentation
 ├── LICENSE                # MIT license
 ├── CONTRIBUTING.md        # Contribution guidelines

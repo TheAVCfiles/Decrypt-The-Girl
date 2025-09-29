@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AVC Systems Studios Base – Recursive Mythic Computing</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Central Firebase-ready hub for AVC Systems Studios featuring Myth Tech, GlisseOS, Execlopedia, and Semantic Spine." />
+  <meta name="keywords" content="AVC Systems Studios, Myth Tech, GlisseOS, Execlopedia, Semantic Spine, Firebase hosting" />
+  <meta name="author" content="A.C. Van Cura" />
+
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0d1117;
+      --bg-card: rgba(13, 17, 23, 0.85);
+      --text: #e6edf3;
+      --accent: #7bdff2;
+      --accent-2: #c77dff;
+      --shadow: 0 20px 60px rgba(2, 6, 23, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+      background: radial-gradient(circle at top left, #181b27, #06070d 55%, #010203);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 16px 80px;
+      gap: 40px;
+    }
+
+    .top-nav {
+      display: flex;
+      gap: 12px;
+      position: sticky;
+      top: 18px;
+      z-index: 20;
+      align-self: flex-end;
+    }
+
+    .top-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(123, 223, 242, 0.12);
+      border: 1px solid rgba(123, 223, 242, 0.25);
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .top-nav a:hover,
+    .top-nav a:focus {
+      background: rgba(199, 125, 255, 0.18);
+      border-color: rgba(199, 125, 255, 0.4);
+      outline: none;
+    }
+
+    .top-nav a:focus-visible {
+      outline: 3px solid rgba(199, 125, 255, 0.45);
+      outline-offset: 3px;
+    }
+
+    header {
+      max-width: 960px;
+      width: 100%;
+      text-align: center;
+      padding: 48px 24px;
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: -40% 30%;
+      background: linear-gradient(135deg, rgba(123, 223, 242, 0.35), rgba(199, 125, 255, 0.2));
+      filter: blur(70px);
+      z-index: 0;
+    }
+
+    header h1,
+    header p,
+    header .tagline {
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.4rem, 5vw, 3rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .tagline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: rgba(123, 223, 242, 0.12);
+      color: var(--accent);
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      max-width: 640px;
+      margin: 22px auto 0;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: rgba(230, 237, 243, 0.8);
+    }
+
+    .grid {
+      width: 100%;
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-2);
+    }
+
+    .card p {
+      margin: 0;
+      line-height: 1.6;
+      color: rgba(230, 237, 243, 0.84);
+      font-size: 0.98rem;
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      color: rgba(230, 237, 243, 0.74);
+    }
+
+    .card ul li::before {
+      content: "✶";
+      margin-right: 8px;
+      color: var(--accent);
+    }
+
+    .cta-area {
+      width: 100%;
+      max-width: 960px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .cta {
+      position: relative;
+      overflow: hidden;
+      padding: 28px;
+      background: linear-gradient(135deg, rgba(199, 125, 255, 0.16), rgba(123, 223, 242, 0.12));
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cta:hover,
+    .cta:focus-within {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 50px rgba(123, 223, 242, 0.25);
+    }
+
+    .cta h3 {
+      margin: 0 0 12px;
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cta p {
+      margin: 0 0 18px;
+      line-height: 1.6;
+      color: rgba(230, 237, 243, 0.76);
+    }
+
+    .cta a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(13, 17, 23, 0.65);
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+
+    .cta a:focus-visible {
+      outline: 3px solid rgba(123, 223, 242, 0.6);
+      outline-offset: 3px;
+    }
+
+    section[aria-labelledby="firebase"] {
+      width: 100%;
+      max-width: 960px;
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 28px 30px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 16px;
+    }
+
+    section[aria-labelledby="firebase"] h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    section[aria-labelledby="firebase"] ol {
+      margin: 0;
+      padding-left: 20px;
+      line-height: 1.6;
+      color: rgba(230, 237, 243, 0.8);
+    }
+
+    footer {
+      width: 100%;
+      max-width: 960px;
+      color: rgba(230, 237, 243, 0.6);
+      font-size: 0.85rem;
+      text-align: center;
+      padding-bottom: 20px;
+    }
+
+    .system-map {
+      width: 100%;
+      max-width: 720px;
+      text-align: center;
+      color: rgba(230, 237, 243, 0.7);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .system-map strong {
+      color: var(--accent-2);
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding-top: 32px;
+        gap: 32px;
+      }
+
+      header {
+        padding: 40px 18px;
+      }
+
+      .cta-area,
+      .grid {
+        gap: 16px;
+      }
+
+      .cta {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Studio navigation">
+    <a href="index.html">Decrypt The Girl</a>
+    <a href="astro-finance.html">Astro Finance</a>
+  </nav>
+
+  <header>
+    <span class="tagline" aria-label="AVC Systems Studios Umbrella">AVC Systems Studios</span>
+    <h1>Recursive Myth-Tech Base</h1>
+    <p>
+      A luminous command center for the AVC Servers &amp; Systems constellation. This hub unifies poetic UX (GlisseOS),
+      executable knowledge (Execlopedia), recursive myth mathematics (MythOS), and the Semantic Spine architecture into one
+      Firebase-ready operations base.
+    </p>
+  </header>
+
+  <section class="grid" aria-label="Core systems overview">
+    <article class="card">
+      <h2>GlisseOS™</h2>
+      <p>Poetic UX flow systems for guiding seekers through mythic interfaces with tactile, choreography-inspired motion.</p>
+      <ul>
+        <li>Somatic UX choreography</li>
+        <li>Gesture-driven navigation</li>
+        <li>Atmospheric storytelling layers</li>
+      </ul>
+    </article>
+    <article class="card">
+      <h2>Execlopedia™</h2>
+      <p>Executable glossary for civic, technical, and artistic lexicons that can power AI agents and interactive reference flows.</p>
+      <ul>
+        <li>Command-summonable definitions</li>
+        <li>Context aware reference APIs</li>
+        <li>Curated civic knowledge decks</li>
+      </ul>
+    </article>
+    <article class="card">
+      <h2>MythOS™</h2>
+      <p>Recursive mathematics of myth—harmonizing numerology, archetypes, and symbolic computation for narrative engines.</p>
+      <ul>
+        <li>Archetypal calculus modules</li>
+        <li>Mythic recursion matrices</li>
+        <li>Creative AI companion hooks</li>
+      </ul>
+    </article>
+    <article class="card">
+      <h2>Semantic Spine</h2>
+      <p>The technical architecture weaving APIs, databases, and automation processes into a living semantic nervous system.</p>
+      <ul>
+        <li>Graph-oriented data contracts</li>
+        <li>Event streaming choreography</li>
+        <li>Multi-cloud deployment arteries</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="system-map" aria-label="System diagram description">
+    <p>
+      <strong>Recursive Semantic OS</strong> sits at the core, radiating four luminous expressions—<strong>GlisseOS</strong>,
+      <strong>Execlopedia</strong>, <strong>MythOS</strong>, and the <strong>Semantic Spine</strong>—all unified beneath the
+      <strong>AVC Servers &amp; Systems Studio</strong> umbrella brand.
+    </p>
+  </section>
+
+  <section class="cta-area" aria-label="Featured deployments">
+    <article class="cta">
+      <h3>Decrypt The Girl</h3>
+      <p>Enter the interactive poetic codebook that launched the myth-tech continuum—an eight page recursive narrative.</p>
+      <a href="index.html">Launch Experience →</a>
+    </article>
+    <article class="cta">
+      <h3>Astro Finance Guide</h3>
+      <p>Weekly astro-economic choreography blending Stock Market Wolf confluence with celestial forecasting.</p>
+      <a href="astro-finance.html">Open Guide →</a>
+    </article>
+    <article class="cta">
+      <h3>Studio Intelligence Stack</h3>
+      <p>Integrate chatbot.json with Firebase Hosting and Functions for a responsive knowledge companion.</p>
+      <a href="chatbot.json">Review Schema →</a>
+    </article>
+  </section>
+
+  <section aria-labelledby="firebase">
+    <h2 id="firebase">Firebase Launch Checklist</h2>
+    <ol>
+      <li>Install Firebase CLI: <code>npm install -g firebase-tools</code></li>
+      <li>Authenticate: <code>firebase login</code> and select the AVC Systems Studios project.</li>
+      <li>Deploy: <code>npm run deploy</code> to publish this base and linked experiences to Firebase Hosting.</li>
+      <li>Extend: Attach Firestore, Functions, or Generative AI extensions as needed for live myth-tech services.</li>
+    </ol>
+  </section>
+
+  <footer>
+    Crafted for the Myth Tech Dance Company &mdash; digitizing choreography, semantics, and story into luminous systems.
+  </footer>
+</body>
+</html>

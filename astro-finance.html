@@ -35,6 +35,38 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
+    .global-nav {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 10;
+    }
+    .global-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(34, 34, 34, 0.06);
+      color: #222;
+      text-decoration: none;
+      font-size: 0.78em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid rgba(34, 34, 34, 0.12);
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .global-nav a:hover,
+    .global-nav a:focus {
+      background: rgba(74, 144, 226, 0.14);
+      border-color: rgba(74, 144, 226, 0.4);
+      color: #0f3d75;
+      outline: none;
+    }
+    .global-nav a:focus-visible {
+      outline: 2px solid rgba(74, 144, 226, 0.6);
+      outline-offset: 2px;
+    }
     /* Main Reader Container */
     .reader {
       width: 420px;
@@ -127,6 +159,10 @@
   </style>
 </head>
 <body>
+  <nav class="global-nav" aria-label="Primary navigation">
+    <a href="avc-systems-studios.html">AVC Systems Base</a>
+  </nav>
+
   <!-- Main Application Container -->
   <main class="reader" role="main" aria-label="Weekly Astro Finance Guide">
     <!-- Page Header -->
