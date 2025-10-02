@@ -30,6 +30,8 @@ The application features two distinct but complementary experiences:
 - **Mobile-First Design** - Responsive across all device sizes
 - **Semantic HTML5** - Proper document structure and accessibility
 - **CSS3 Animations** - Smooth transitions and elegant visual effects
+- **Reusable Ephemeris Component** - Drop-in `DayZeroScroll` widget with auto-initialisation, manual factory, and web component
+  support
 
 ### Accessibility Features
 - **ARIA Labels** - Screen reader support throughout
@@ -53,6 +55,7 @@ Experience the interactive codebook live:
 ### Available Experiences:
 - **Main Codebook**: [index.html](https://theavcfiles.github.io/Decrypt-The-Girl/)
 - **Astro Finance Guide**: [astro-finance.html](https://theavcfiles.github.io/Decrypt-The-Girl/astro-finance.html)
+- **Day Zero Scroll**: [day-zero-scroll.html](https://theavcfiles.github.io/Decrypt-The-Girl/day-zero-scroll.html)
 
 ## 💻 Installation & Usage
 
@@ -101,6 +104,7 @@ The full list of playbooks is also stored in [`playbooks.yml`](playbooks.yml) fo
 Decrypt-The-Girl/
 ├── index.html              # Main interactive codebook
 ├── astro-finance.html      # Weekly astro finance guide
+├── day-zero-scroll.html    # Ephemeris intelligence timeline experience
 ├── chatbot.json           # Chatbot configuration
 ├── README.md              # Project documentation
 ├── LICENSE                # MIT license
