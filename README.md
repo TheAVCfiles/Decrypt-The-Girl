@@ -48,11 +48,11 @@ The application features two distinct but complementary experiences:
 ## 🚀 Live Demo
 
 Experience the interactive codebook live:
-**[https://theavcfiles.github.io/Decrypt-The-Girl/](https://theavcfiles.github.io/Decrypt-The-Girl/)**
+**[https://theavcfiles.github.io/](https://theavcfiles.github.io/)**
 
 ### Available Experiences:
-- **Main Codebook**: [index.html](https://theavcfiles.github.io/Decrypt-The-Girl/)
-- **Astro Finance Guide**: [astro-finance.html](https://theavcfiles.github.io/Decrypt-The-Girl/astro-finance.html)
+- **Main Codebook**: [index.html](https://theavcfiles.github.io/)
+- **Astro Finance Guide**: [astro-finance.html](https://theavcfiles.github.io/astro-finance.html)
 
 ## 💻 Installation & Usage
 
