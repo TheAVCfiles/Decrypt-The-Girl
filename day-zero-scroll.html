@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Day Zero Scroll – Ephemeris Intelligence Feed</title>
+  <meta name="description" content="A living ephemeris timeline that decrypts planetary alignments leading into the Day Zero event horizon." />
+  <meta name="keywords" content="ephemeris, astrology, timeline, decrypt the girl, day zero" />
+  <meta name="author" content="A.C. Van Cura" />
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at 20% 20%, #1f2236, #090a13 68%);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(2rem, 4vw, 4rem) clamp(1.25rem, 4vw, 4rem);
+      color: #e7e9ff;
+    }
+
+    main {
+      width: min(960px, 100%);
+      display: grid;
+      gap: clamp(1.75rem, 4vw, 3rem);
+    }
+
+    header {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .page-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(231, 233, 255, 0.65);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 4vw, 3.75rem);
+      font-weight: 600;
+    }
+
+    .page-intro {
+      margin: 0;
+      max-width: 65ch;
+      color: rgba(231, 233, 255, 0.75);
+      line-height: 1.7;
+    }
+
+    .page-notes {
+      border-left: 2px solid rgba(231, 233, 255, 0.2);
+      padding-left: 1.5rem;
+      margin: 0;
+      color: rgba(231, 233, 255, 0.6);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #8c6dff;
+    }
+
+    noscript p {
+      margin: 0;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      background: rgba(255, 72, 66, 0.14);
+      border: 1px solid rgba(255, 72, 66, 0.45);
+      color: #ffd7d4;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="page-eyebrow">Decrypt the Girl Transmission Node</span>
+      <h1>Day Zero Scroll</h1>
+      <p class="page-intro">
+        A responsive ephemeris briefing stream that synchronises real-time planetary intelligence with the Day Zero narrative arc.
+        Load the feed from your preferred ephemeris endpoint or run the encrypted sample playlist for offline rehearsal.
+      </p>
+    </header>
+
+    <div
+      id="day-zero-scroll"
+      data-day-zero-scroll
+      data-ephemeris-url="/api/ephemeris"
+      data-title="Day Zero Ephemeris Stream"
+      data-subtitle="Monitoring the skyfield for mission-critical alignments."
+      data-eyebrow="Operations Console"
+      data-fallback='[{"timestamp":"2024-09-29T05:42:00Z","body":"Moon","aspect":"Conjunct Sun","summary":"Dark Moon ignition. Ritual reset syncs the collective pulse before the Day Zero signal cascades.","metadata":[{"label":"Sign","value":"06° Libra"},{"label":"House","value":"V – Creative Well"}]},{"timestamp":"2024-09-30T12:18:00Z","body":"Saturn","aspect":"Quintile Neptune","summary":"Discipline shapes the dreamfield. Encode boundaries into the mist before crossing the threshold.","metadata":[{"label":"Sign","value":"19° Pisces"},{"label":"Phase","value":"Retrograde"}]},{"timestamp":"2024-10-01T08:04:00Z","body":"Mars","aspect":"Sextile Mercury","summary":"Action aligns with analysis. Initiate the launch protocol once the comms board gives green lights.","metadata":[{"label":"Sign","value":"03° Cancer"},{"label":"Node","value":"North Node 24° Aries"}]}]'
+    ></div>
+
+    <section class="page-notes" aria-label="How to embed">
+      <p>
+        Drop the component into any page by including <code>scripts/day-zero-scroll.js</code> and adding
+        <code>&lt;DayZeroScroll ephemerisUrl="/api/ephemeris" /&gt;</code> inside your framework of choice. The script exposes a global
+        factory for vanilla usage, a <code>data-day-zero-scroll</code> hook for progressive enhancement, and a native web component via
+        <code>&lt;day-zero-scroll&gt;</code>. Fallback entries keep the briefing online when the remote feed is unreachable.
+      </p>
+    </section>
+  </main>
+
+  <noscript>
+    <p>JavaScript is required to decrypt and render the Day Zero ephemeris feed.</p>
+  </noscript>
+  <script src="scripts/day-zero-scroll.js"></script>
+</body>
+</html>

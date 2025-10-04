@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Accessibility improvements with ARIA labels
 - SEO and social media meta tags
 - Professional repository structure and organization
+- Day Zero Scroll ephemeris experience (`day-zero-scroll.html`) and reusable timeline component (`scripts/day-zero-scroll.js`)
 
 ### Changed
 - Enhanced README with detailed project information
