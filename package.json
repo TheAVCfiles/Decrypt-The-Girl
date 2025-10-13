@@ -1,17 +1,15 @@
 {
   "name": "decrypt-the-girl",
   "version": "1.0.0",
-  "description": "An interactive poetic codebook that blends myth, encryption, and feminine mystery into a unique digital narrative experience",
+  "description": "An interactive poetic codebook and literary AI engine blending myth, encryption, and feminine narrative systems.",
   "keywords": [
     "interactive-poetry",
+    "literary-engine",
+    "ai-education",
     "digital-art",
-    "web-app",
-    "codebook",
+    "firebase",
+    "myth-tech",
     "narrative",
-    "vanilla-javascript",
-    "responsive-design",
-    "accessibility",
-    "poetry",
     "encryption"
   ],
   "homepage": "https://theavcfiles.github.io/Decrypt-The-Girl/",
@@ -24,7 +22,18 @@
   "scripts": {
     "start": "python3 -m http.server 8080",
     "test": "python3 -m json.tool chatbot.json",
-    "deploy": "echo 'Deployment handled by GitHub Actions'"
+    "deploy": "firebase deploy --non-interactive",
+    "deploy:default": "firebase deploy --project default --non-interactive",
+    "deploy:app1": "firebase deploy --project app1 --non-interactive",
+    "deploy:app2": "firebase deploy --project app2 --non-interactive",
+    "deploy:app3": "firebase deploy --project app3 --non-interactive",
+    "deploy:app4": "firebase deploy --project app4 --non-interactive",
+    "deploy:app5": "firebase deploy --project app5 --non-interactive",
+    "deploy:app6": "firebase deploy --project app6 --non-interactive",
+    "deploy:app7": "firebase deploy --project app7 --non-interactive",
+    "deploy:app8": "firebase deploy --project app8 --non-interactive",
+    "deploy:app9": "firebase deploy --project app9 --non-interactive",
+    "deploy:app10": "firebase deploy --project app10 --non-interactive"
   },
   "devDependencies": {},
   "engines": {
