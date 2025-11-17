@@ -15,6 +15,7 @@
 The application features two distinct but complementary experiences:
 1. **Main Codebook** - An 8-page interactive poetic journey
 2. **Astro Finance Guide** - Weekly market insights through astrological lens
+3. **System Architecture Map** - Dual-arc diagram of Survivor Architecture and Machine Audit (see [Architecture](docs/architecture.md))
 
 ## 🎯 Features
 
