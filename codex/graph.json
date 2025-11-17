@@ -1,0 +1,97 @@
+{
+  "series": {
+    "C": {
+      "label": "Broadcast / Feedback / Analysis",
+      "nodes": [
+        "C26",
+        "C27",
+        "C28",
+        "C29",
+        "C30",
+        "C31",
+        "C32",
+        "C33",
+        "C34"
+      ]
+    }
+  },
+  "nodes": {
+    "C26": {
+      "file": "codex/nodes/C26_girls_survived_machine.md",
+      "title": "The Girls Who Survived the Machine",
+      "chapter": 26,
+      "rooms": [
+        "Room004_TransmissionCorrupt",
+        "Room008_Mothernet"
+      ],
+      "constellations": [
+        "Survivor_Architecture",
+        "Machine_Audit"
+      ]
+    },
+    "C27": {
+      "file": "codex/nodes/C27_math_of_silence.md",
+      "title": "The Math of How They Profited Off Her Silence",
+      "chapter": 27
+    },
+    "C28": {
+      "file": "codex/nodes/C28_price_of_silenced_girl.md",
+      "title": "The Price of a Silenced Girl",
+      "chapter": 28
+    },
+    "C29": {
+      "file": "codex/nodes/C29_girl_as_auditor.md",
+      "title": "The Girl Who Became the Auditor",
+      "chapter": 29
+    },
+    "C30": {
+      "file": "codex/nodes/C30_mother_outengineered_machine.md",
+      "title": "The Mother Who Out-Engineered the Machine",
+      "chapter": 30
+    },
+    "C31": {
+      "file": "codex/nodes/C31_engine_from_dead_pieces.md",
+      "title": "The Engine Built from the Dead Pieces",
+      "chapter": 31
+    },
+    "C32": {
+      "file": "codex/nodes/C32_girl_outgrew_frame.md",
+      "title": "The Girl Who Outgrew Her Frame",
+      "chapter": 32
+    },
+    "C33": {
+      "file": "codex/nodes/C33_girl_as_mirror.md",
+      "title": "The Girl Who Became a Mirror",
+      "chapter": 33
+    },
+    "C34": {
+      "file": "codex/nodes/C34_survivor_as_infrastructure.md",
+      "title": "When a Survivor Becomes Infrastructure",
+      "chapter": 34
+    }
+  },
+  "rooms": {
+    "Room001_GlitchAsEntry": {
+      "entry_nodes": ["B05", "C04", "C26"]
+    },
+    "Room004_TransmissionCorrupt": {
+      "entry_nodes": ["C26", "C27", "C32"]
+    },
+    "Room008_Mothernet": {
+      "entry_nodes": ["C30", "C34"]
+    }
+  },
+  "constellations": {
+    "Survivor_Architecture": {
+      "nodes": ["C26", "C29", "C30", "C34"]
+    },
+    "Machine_Audit": {
+      "nodes": ["C27", "C28", "C29", "C31", "C32", "C33"],
+      "description": "The full analytic arc of how the machine works, fails, and gets audited."
+    },
+    "Mothernet": {
+      "nodes": ["C30", "C34"],
+      "description": "Lineage firewall + Mothernet seed geometry."
+    }
+  }
+}
