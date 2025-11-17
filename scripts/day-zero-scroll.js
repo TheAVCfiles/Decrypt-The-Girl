@@ -13,6 +13,19 @@
     timeZone: 'UTC'
   });
 
+  const SIMULATION_CONSTELLATIONS = {
+    constellations: {
+      Survivor_Architecture: {
+        nodes: ['C26', 'C29', 'C30', 'C34'],
+        description: 'Core structural nodes defining identity reconstruction, safety logic, sovereignty mechanics, and the survivor’s internal operating system.'
+      },
+      Machine_Audit: {
+        nodes: ['C27', 'C28', 'C29', 'C31', 'C32', 'C33'],
+        description: 'The full analytic arc of how the machine works, fails, and gets audited.'
+      }
+    }
+  };
+
   const FALLBACK_ENTRIES = [
     {
       timestamp: '2024-09-21T03:44:00Z',
@@ -427,6 +440,8 @@
     };
     this.entries = [];
     this.usedFallback = false;
+    this.nexusScrollListener = null;
+    this.nexusListenerTarget = null;
     injectStyles();
     this.buildShell();
     this.load();
@@ -582,8 +597,10 @@
 
     if (this.usedFallback) {
       this.setStatus('Displaying cached ephemeris sample.', 'warning');
+      this.enableSimulationNexusSync();
     } else {
       this.setStatus('Ephemeris feed synchronised.', 'info');
+      this.teardownSimulationNexusSync();
     }
   };
 
@@ -734,6 +751,44 @@
       ? 'Live feed unreachable. Displaying curated sample alignments for briefing continuity.'
       : 'Live ephemeris feed active. Cross-check against mission analytics before deployment.';
     this.footer.appendChild(secondary);
+  };
+
+  DayZeroScrollCore.prototype.enableSimulationNexusSync = function enableSimulationNexusSync() {
+    if (this.nexusScrollListener) {
+      return;
+    }
+
+    const target = this.root.ownerDocument.defaultView;
+    if (!target || !target.addEventListener) {
+      return;
+    }
+
+    this.nexusListenerTarget = target;
+    this.nexusScrollListener = (function handleScrollEvent() {
+      const detail = {
+        mode: 'simulation',
+        constellations: SIMULATION_CONSTELLATIONS.constellations
+      };
+
+      const event = new CustomEvent('dayzero:nexus-constellations', {
+        detail,
+        bubbles: true
+      });
+
+      this.root.dispatchEvent(event);
+    }).bind(this);
+
+    target.addEventListener('scroll', this.nexusScrollListener, { passive: true });
+  };
+
+  DayZeroScrollCore.prototype.teardownSimulationNexusSync = function teardownSimulationNexusSync() {
+    if (!this.nexusScrollListener || !this.nexusListenerTarget) {
+      return;
+    }
+
+    this.nexusListenerTarget.removeEventListener('scroll', this.nexusScrollListener);
+    this.nexusScrollListener = null;
+    this.nexusListenerTarget = null;
   };
 
   function parseConfigFromElement(element) {
