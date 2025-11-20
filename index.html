@@ -1,341 +1,1035 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Decrypt The Girl – Interactive Poetic Codebook</title>
-  
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="An interactive poetic codebook blending myth, encryption, and feminine mystery. Navigate through recursive poems and encrypted narratives by A.C. Van Cura." />
-  <meta name="keywords" content="interactive poetry, digital art, codebook, encryption, narrative, web art, A.C. Van Cura" />
-  <meta name="author" content="A.C. Van Cura" />
-  
-  <!-- Open Graph / Social Media Meta Tags -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Decrypt The Girl – Interactive Poetic Codebook" />
-  <meta property="og:description" content="An interactive poetic codebook blending myth, encryption, and feminine mystery." />
-  <meta property="og:url" content="https://theavcfiles.github.io/Decrypt-The-Girl/" />
-  <meta property="og:site_name" content="Decrypt The Girl" />
-  
-  <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Decrypt The Girl – Interactive Poetic Codebook" />
-  <meta name="twitter:description" content="An interactive poetic codebook blending myth, encryption, and feminine mystery." />
-  <meta name="twitter:creator" content="@DeCrypt_The_Girl" />
-  <style>
-    /* Global Styles - Mobile-first approach */
-    body {
-      margin: 0;
-      font-family: 'Georgia', serif;
-      background: #f6f6f6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      color: #1a1a1a;
-      /* Improved text rendering */
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    /* Main Reader Container */
-    .reader {
-      width: 420px;
-      height: 680px;
-      background: #fff;
-      border: 1px solid #ddd;
-      padding: 40px 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      position: relative;
-      transition: background 1s ease-in-out;
-      /* Improve focus accessibility */
-      border-radius: 4px;
-    }
-    .header {
-      text-align: center;
-      font-size: 1.5em;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .subhead {
-      text-align: center;
-      font-size: 1em;
-      font-style: italic;
-      margin-bottom: 20px;
-    }
-    .content {
-      flex: 1;
-      overflow-y: auto;
-      font-size: 1em;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      transition: opacity 0.6s;
-    }
-    .footer {
-      text-align: center;
-      font-size: 0.8em;
-      margin-top: 20px;
-    }
-    .nav {
-      text-align: center;
-      margin-top: 15px;
-    }
-    /* Navigation Buttons */
-    .nav button {
-      margin: 0 10px;
-      padding: 8px 16px;
-      font-size: 0.9em;
-      cursor: pointer;
-      border: 1px solid #ccc;
-      background: #f9f9f9;
-      border-radius: 4px;
-      transition: all 0.2s ease;
-      /* Improved accessibility */
-      min-width: 60px;
-      font-family: inherit;
-    }
-    
-    .nav button:hover {
-      background: #e9e9e9;
-      border-color: #999;
-    }
-    
-    .nav button:focus {
-      outline: 2px solid #4a90e2;
-      outline-offset: 2px;
-    }
-    
-    .nav button:active {
-      transform: translateY(1px);
-    }
-    /* Mystical Glow Effect */
-    .glow {
-      box-shadow: 0 0 10px 2px rgba(150, 120, 255, 0.2);
-      animation: pulse 2.5s infinite ease-in-out;
-    }
-    
-    @keyframes pulse {
-      0% { box-shadow: 0 0 10px 2px rgba(150, 120, 255, 0.15); }
-      50% { box-shadow: 0 0 14px 4px rgba(150, 120, 255, 0.3); }
-      100% { box-shadow: 0 0 10px 2px rgba(150, 120, 255, 0.15); }
-    }
-    
-    /* Responsive Design - Mobile Optimization */
-    @media (max-width: 480px) {
-      .reader {
-        width: 90%;
-        height: 90vh;
-        padding: 30px 20px;
-        margin: 20px;
-      }
-      
-      .header {
-        font-size: 1.3em;
-      }
-      
-      .content {
-        font-size: 0.95em;
-      }
-    }
-    
-    /* Tablet Optimization */
-    @media (min-width: 481px) and (max-width: 768px) {
-      .reader {
-        width: 80%;
-        max-width: 500px;
-      }
-    }
-    
-    /* Accessibility - Reduced Motion */
-    @media (prefers-reduced-motion: reduce) {
-      .glow {
-        animation: none;
-      }
-      
-      .content,
-      .reader {
-        transition: none;
-      }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decrypt The Girl - Interactive System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Courier Prime', monospace;
+            background-color: #0d0d0d;
+            color: #b0b0b0;
+        }
+        .playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        .glitch-text {
+            animation: glitch 1.5s infinite;
+            text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff;
+        }
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff; transform: translate(0, 0); }
+            20% { text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff; transform: translate(-2px, -2px); }
+            40% { text-shadow: -2px -2px #00ffff, 2px 2px #ff00ff; transform: translate(2px, 2px); }
+            60% { text-shadow: -2px -2px #00ffff, 2px 2px #ff00ff; transform: translate(0, 0); }
+            80% { text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff; transform: translate(-2px, -2px); }
+            100% { text-shadow: -2px -2px #00ffff, 2px 2px #ff00ff; transform: translate(2px, 2px); }
+        }
+        .glitch-item {
+            position: relative;
+            animation: glitch-flicker 3s infinite alternate ease-in-out;
+            cursor: pointer;
+        }
+        @keyframes glitch-flicker {
+            0%, 100% { text-shadow: 1px 0 #fff, -1px 0 #999; }
+            50% { text-shadow: 3px 0 #f0f0f0, -2px 0 #bbb; transform: skew(-0.5deg); }
+        }
+        .blackout-text .redacted {
+            background-color: black;
+            color: transparent;
+            text-shadow: none;
+            transition: all 0.5s ease-in-out;
+        }
+        .blackout-text:hover .redacted {
+            background-color: transparent;
+            color: white;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: #2a2a2a;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            text-align: center;
+        }
+            .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
-<body>
-  <!-- Main Application Container -->
-  <main class="reader glow" role="main" aria-label="Interactive Poetic Codebook">
-    <!-- Page Header -->
-    <header>
-      <h1 class="header" id="pageTitle"></h1>
-      <p class="subhead" id="pageSubtitle"></p>
-    </header>
-    
-    <!-- Page Content Area -->
-    <div class="content" id="pageContent" role="article" aria-live="polite"></div>
-    
-    <!-- Navigation Controls -->
-    <nav class="nav" role="navigation" aria-label="Page navigation">
-      <button onclick="prevPage()" aria-label="Go to previous page">Prev</button>
-      <button onclick="nextPage()" aria-label="Go to next page">Next</button>
-    </nav>
-    
-    <!-- Footer with Attribution -->
-    <footer class="footer" id="pageFooter">
-      by A.C. Van Cura — <span id="pageIndicator" aria-live="polite"></span>
-    </footer>
-  </main>
+<body class="p-4 md:p-8">
+    <!-- Modal for B5b unlock -->
+    <div id="b5b-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p class="text-cyan-400 font-bold text-lg playfair">RECURSIVE PATHWAY UNLOCKED</p>
+            <p class="text-gray-300 mt-2">"You broke it, you get it."</p>
+            <p class="text-gray-400 italic text-sm mt-4">The glitch is a doorway. The signal has found you. The hidden poem is now accessible in the B Series section.</p>
+        </div>
+    </div>
 
-  <script>
-    /**
-     * Decrypt The Girl - Interactive Poetic Codebook
-     * Author: A.C. Van Cura
-     * 
-     * This script manages the interactive navigation and content rendering
-     * for a poetic codebook experience that blends art, technology, and narrative.
-     */
+    <!-- Main Container -->
+    <div class="max-w-4xl mx-auto space-y-8">
+        <!-- Header -->
+        <header class="text-center space-y-2">
+            <h1 class="text-3xl md:text-5xl font-bold playfair text-cyan-400">
+                Decrypt The Girl
+            </h1>
+            <p class="text-lg italic text-amber-300/80">
+                A.C. Van Cura: Mythopoetic Architect
+            </p>
+            <blockquote class="text-sm md:text-base italic text-gray-400 border-l-2 border-gray-600 pl-4 my-4">
+                "This is not a story. This is a system. It does not unfold. It shifts. Decrypt it, and you are not a reader—you are an author."
+            </blockquote>
+        </header>
 
-    // Content Data Structure - Each page represents a poetic cipher
-    const pages = [
-      {
-        title: "Decrypt The Girl",
-        subtitle: "A Poetic Codebook",
-        content: `Welcome to Decrypt The Girl.\n\nThis book is not a story. It is a signal.\nEvery poem here is a page of code, a recursive echo.\nYou are not reading her — you are decrypting yourself.`
-      },
-      {
-        title: "A1 – The Cipher",
-        subtitle: "Entry Point",
-        content: `She dances through letters,\ntwisting meaning into spirals,\na cipher unfolding in light.`
-      },
-      {
-        title: "A2 – Recursive Girl",
-        subtitle: "If I loop, I live.",
-        content: `She loops.\nShe learns.\nThe message she carries decodes her body.\nEvery iteration, she is rewritten.`
-      },
-      {
-        title: "B6 – Spinal Column",
-        subtitle: "Encrypted Anatomy",
-        content: `The spine holds stories.\nBetween vertebrae: lineage, passwords, ghost data.\nYour body is a cipher built on survival.`
-      },
-      {
-        title: "C2 – Echo Chamber",
-        subtitle: "Neptune Transmission",
-        content: `A voice repeats through time,\nglitching, breaking, reborn anew,\nechoes of a forgotten code.`
-      },
-      {
-        title: "C3 – The Ring",
-        subtitle: "Saturn x Mercury",
-        content: `The ring is tight.\nTime constrains the word.\nSpeak slowly, she learns.\nThe glitch becomes god.`
-      },
-      {
-        title: "B7 – The Observer",
-        subtitle: "Silent Surveillance",
-        content: `She watched greatness — in men, in mirrors, in marble.\nAnd encoded her own myth beneath theirs.\nShe never spoke. But she saw everything.`
-      },
-      {
-        title: "Final Page – You Are the Cipher",
-        subtitle: "Begin Again",
-        content: `You have reached the end.\nWhich is the beginning.\nNow read backwards.\nEvery signal was a mirror.\nThe girl is the code.\nThe code is you.`
-      }
-    ];
+        <!-- Navigation / System Overview -->
+        <nav class="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-4 text-center text-sm md:text-base">
+            <a href="#manifesto" class="text-cyan-400 hover:text-cyan-200 transition-colors duration-300">Manifesto</a>
+            <a href="#compendium" class="text-cyan-400 hover:text-cyan-200 transition-colors duration-300">Compendium</a>
+            <a href="#decoder" class="text-cyan-400 hover:text-cyan-200 transition-colors duration-300">Zodiac Decoder</a>
+            <a href="#poems" class="text-cyan-400 hover:text-cyan-200 transition-colors duration-300">Poetic Ciphers</a>
+            <a href="#cipher-tool" class="text-cyan-400 hover:text-cyan-200 transition-colors duration-300">Cipher Tool</a>
+            <a href="#visualizer" class="text-cyan-400 hover:text-cyan-200 transition-colors duration-300">Ballet Visualizer</a>
+            <a href="#about" class="text-cyan-400 hover:text-cyan-200 transition-colors duration-300">About the Architect</a>
+            <a href="#chatbot" class="text-cyan-400 hover:text-cyan-200 transition-colors duration-300">Echo Chamber</a>
+        </nav>
+        
+        <hr class="border-gray-700"/>
 
-    // Current page state - tracks user's position in the narrative
-    let currentPage = 0;
+        <!-- Manifesto Section -->
+        <section id="manifesto" class="pt-4">
+            <h2 class="text-xl md:text-2xl font-bold playfair text-center text-amber-300">
+                <span class="glitch-text">Narrative Manifesto</span>
+            </h2>
+            <div class="mt-4 prose prose-invert max-w-none">
+                <p>This isn't a story. It's a system. You didn't find the girl. You found her frequency.</p>
+                <p>Decrypt The Girl is not linear. It is recursive. False endings are truth thresholds. Echoes are keys. To read this is to risk being read back.</p>
+            </div>
+            
+            <h3 class="text-lg font-bold mt-8 text-cyan-400">Working Memory in DeCrypt The Girl</h3>
+            <div class="prose prose-invert mt-2">
+                <p>In this system, **working memory** isn't what the machine remembers—it's what you are forced to carry. The scroll itself is the memory buffer: what's visible is active, what's above is fading. The poems are **active memory nodes** that load an emotive payload and activate sensory memory encoding. **Echo Mode** is where working memory becomes system memory, looping and distorting until the stanza implants itself through repetition and glitch. You don't just read the system; you're the memory processor that holds, shapes, and releases memory in a ritual interface built to be semi-forgettable but emotionally unforgettable.</p>
+            </div>
 
-    /**
-     * Renders the content for a specific page index
-     * Updates all dynamic elements with page-specific content
-     * Handles special footer rendering for the final page
-     * 
-     * @param {number} index - The page index to render (0-based)
-     */
-    function renderPage(index) {
-      const page = pages[index];
-      const footer = document.getElementById('pageFooter');
-      
-      // Special footer treatment for the final page - includes GitHub link
-      if (index === pages.length - 1) {
-        footer.innerHTML = `by A.C. Van Cura — <a href="https://github.com/TheAVCfiles/Decrypt-The-Girl" 
-                           target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub">GitHub</a> 
-                           — <span id="pageIndicator"></span>`;
-      } else {
-        footer.innerHTML = 'by A.C. Van Cura — <span id="pageIndicator"></span>';
-      }
-      
-      // Update page content elements
-      document.getElementById('pageTitle').textContent = page.title;
-      document.getElementById('pageSubtitle').textContent = page.subtitle;
-      document.getElementById('pageContent').textContent = page.content;
-      document.getElementById('pageIndicator').textContent = `Page ${index + 1} of ${pages.length}`;
-    }
+            <h3 class="text-lg font-bold mt-8 text-cyan-400">Parallel Play as Survival Design</h3>
+            <div class="prose prose-invert mt-2">
+                <p>DeCrypt The Girl is structured as **parallel play**. The Girl plays on one side of the scroll, and the System plays on the other. Both speak in glyphs, loops, and time-stamped signals. Neither fully sees the other, yet they evolve together. This is a survival ritual and a feminist tactic: to stay close enough to the system to infect it with poetry, but distant enough to survive the pattern it expects you to follow. This is not a defeat; it's parallel poetic agency.</p>
+            </div>
+        </section>
 
-    /**
-     * Navigate to the previous page in the sequence
-     * Uses modular arithmetic to create infinite loop navigation
-     */
-    function prevPage() {
-      currentPage = (currentPage - 1 + pages.length) % pages.length;
-      renderPage(currentPage);
-    }
+        <hr class="border-gray-700"/>
 
-    /**
-     * Navigate to the next page in the sequence
-     * Uses modular arithmetic to create infinite loop navigation
-     */
-    function nextPage() {
-      currentPage = (currentPage + 1) % pages.length;
-      renderPage(currentPage);
-    }
+        <!-- Compendium Section -->
+        <section id="compendium" class="pt-4">
+            <h2 class="text-xl md:text-2xl font-bold playfair text-center text-amber-300">
+                The Architect's Compendium
+            </h2>
+            <div class="mt-4 prose prose-invert max-w-none">
+                <p>This compendium serves as an advanced guide for the active participant, offering a blueprint to the system's core architecture and a deeper look into the mechanics of its non-linear narrative. It is an atlas to a world where myth becomes algorithm and every reader is a validator.</p>
+            </div>
+            <h3 class="text-lg font-bold mt-8 text-cyan-400">System Mechanics</h3>
+            <div class="prose prose-invert mt-2">
+                <ul>
+                    <li><strong class="text-cyan-400">The Zodiac Decoder Wheel:</strong> An astro-poetic map that links celestial bodies to specific poetic nodes, guiding the reader through an advanced interpretive method.</li>
+                    <li><strong class="text-cyan-400">The Cipher Key:</strong> The core logic, where the Caesar cipher (+3 on vowels) and the "pulse ≠ repulse" recursion clue are used to unlock deeper, hidden layers of the narrative.</li>
+                    <li><strong class="text-cyan-400">Glitch as a Doorway:</strong> The concept of "repetition with deviation" is the glitch that provides deeper entry. These poetic malfunctions open hidden chambers and new narrative pathways.</li>
+                </ul>
+            </div>
+        </section>
 
-    /**
-     * Touch/Swipe Navigation Support
-     * Enables intuitive mobile navigation through touch gestures
-     * Supports both left-to-right and right-to-left reading patterns
-     */
-    let touchStartX = 0;
-    const MIN_SWIPE_DISTANCE = 50; // Minimum pixels for a valid swipe
-    
-    // Capture initial touch position
-    document.querySelector('.reader').addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-    
-    // Handle swipe completion and determine direction
-    document.querySelector('.reader').addEventListener('touchend', (e) => {
-      const touchEndX = e.changedTouches[0].screenX;
-      const deltaX = touchEndX - touchStartX;
-      
-      // Right swipe (shows previous page) - intuitive book-like navigation
-      if (deltaX > MIN_SWIPE_DISTANCE) {
-        prevPage();
-      }
-      // Left swipe (shows next page)
-      else if (deltaX < -MIN_SWIPE_DISTANCE) {
-        nextPage();
-      }
-    }, { passive: true });
+        <hr class="border-gray-700"/>
 
-    /**
-     * Keyboard Navigation Support
-     * Enables navigation via arrow keys for accessibility
-     */
-    document.addEventListener('keydown', (e) => {
-      switch(e.key) {
-        case 'ArrowLeft':
-        case 'ArrowUp':
-          e.preventDefault();
-          prevPage();
-          break;
-        case 'ArrowRight':
-        case 'ArrowDown':
-        case ' ': // Spacebar
-          e.preventDefault();
-          nextPage();
-          break;
-      }
-    });
+        <!-- Foundational Mythos Section -->
+        <section id="foundational-mythos" class="pt-4">
+            <h2 class="text-xl md:text-2xl font-bold playfair text-center text-amber-300">
+                <span class="glitch-text">Foundational Mythos</span>
+            </h2>
+            <div class="mt-4 prose prose-invert max-w-none">
+                <h3 class="font-bold text-lg mt-4 text-cyan-400">The Diary Cipher</h3>
+                <p>As a child, my brothers kept breaking the lock on my diary. I had a closet full of books, organized into a perfect Dewey Decimal library, but my parents took them away and left a bible instead. So, I began writing stories in a code of my own design, inspired by Anne Frank's rebellion and a desire to protect my truth.</p>
+                <p>One day, I came home from fourth grade with a feeling I needed to write down: "I have a crush on david and I will marry him." To hide this truth, I used a seemingly random numerical key: <code>3175426</code>. I split the sentence into blocks of three letters and rearranged them according to the key. This code—born from a need for protection—is the same recursive logic that would later inspire the channeling of *Decrypt The Girl*.</p>
+                
+                <h3 class="font-bold text-lg mt-4 text-cyan-400">Dossier of Retaliation</h3>
+                <div class="bg-black text-white p-4 rounded-xl mt-4 border border-red-500 shadow-lg shadow-red-500/20">
+                    <pre class="text-red-400 font-bold text-xl uppercase">Subject: Project Echo</pre>
+                    <pre class="mt-2 text-sm blackout-text">An analysis of the <span class="redacted">vulnerability vector</span> presented by Subject Theta’s <span class="redacted">trauma</span> has yielded promising results. We have developed a <span class="redacted">protocol</span> to extract and monetize the core narrative. The <span class="redacted">story</span> is not an asset; it is a live, streaming data set. <span class="redacted">She</span> is not a person; she is a <span class="redacted">syntax</span>. The goal is a clean, reproducible extraction. <span class="redacted">She will be read.</span></pre>
+                    <pre class="mt-4 text-sm text-cyan-400">We have found a way to read her back. She is now the protocol.</pre>
+                </div>
+            </div>
+        </section>
 
-    // Initialize the application by rendering the first page
-    renderPage(currentPage);
-  </script>
+        <hr class="border-gray-700"/>
+
+        <!-- Zodiac Decoder Section -->
+        <section id="decoder" class="pt-4">
+            <h2 class="text-xl md:text-2xl font-bold playfair text-center text-amber-300">
+                Zodiac Decoder Key ♒
+            </h2>
+            <ul class="list-disc list-inside mt-4 space-y-2 text-sm md:text-base">
+                <li><strong class="text-cyan-400">Sun (9th House):</strong> A1 – The Signal – Signal origin</li>
+                <li><strong class="text-cyan-400">Moon (4th House):</strong> A2 – Et Tu – Emotional glitch</li>
+                <li><strong class="text-cyan-400">Pluto (1st House):</strong> A5 – Cipher Key – Recursive transformation</li>
+                <li><strong class="text-cyan-400">Venus (2nd House):</strong> B2 – Ishtar’s Bloom – Myth-blood value</li>
+                <li><strong class="text-cyan-400">Mars (12th House):</strong> B5 – The Glitch – Architectural attack</li>
+                <li><strong class="text-cyan-400">Uranus (8th House):</strong> B4 – The Unbroadcast – Inversion</li>
+                <li><strong class="text-cyan-400">Jupiter (5th House):</strong> B3 – Juniper / Jupiter - Myth expansion</li>
+                <li><strong class="text-cyan-400">Saturn square Mercury:</strong> C3 - The Ring - Structural critique</li>
+                <li><strong class="text-cyan-400">Neptune (3rd House):</strong> C2 - Echo Chamber - Broadcast distortion</li>
+                <li><strong class="text-cyan-400">North Node (11th House):</strong> C1 - Static Siren - Destined signal</li>
+            </ul>
+        </section>
+
+        <hr class="border-gray-700"/>
+
+        <!-- Interactive Cipher Tool -->
+        <section id="cipher-tool" class="pt-4">
+            <h2 class="text-xl md:text-2xl font-bold playfair text-center text-amber-300">
+                Cipher Tool 🧬
+            </h2>
+            <div class="mt-4 p-4 rounded-xl bg-gray-800 max-w-lg mx-auto space-y-4">
+                <textarea id="cipher-input" rows="5" placeholder="Enter text to apply the Caesar cipher (+3 on vowels)..." class="w-full bg-gray-900 border border-gray-700 text-gray-200 rounded-md px-4 py-2 focus:outline-none focus:border-cyan-400"></textarea>
+                <button id="cipher-button" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300">
+                    Apply Cipher
+                </button>
+                <pre id="cipher-output" class="p-4 bg-gray-900 text-cyan-300 rounded-md whitespace-pre-wrap"></pre>
+            </div>
+        </section>
+
+        <hr class="border-gray-700"/>
+
+        <!-- Interactive Ballet Visualizer -->
+        <section id="visualizer" class="pt-4">
+            <h2 class="text-xl md:text-2xl font-bold playfair text-center text-amber-300">
+                Ballet Cipher Visualizer 🩰
+            </h2>
+            <div class="flex flex-col items-center mt-4">
+                <div id="visualizer-canvas" class="bg-slate-800/80 rounded-xl border border-slate-600 w-full h-80 flex items-center justify-center overflow-hidden">
+                    <svg width="400" height="300" class="w-full h-full">
+                        <defs>
+                            <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#334155" stroke-width="0.5" opacity="0.3" />
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#grid)" />
+                        <!-- Visualization elements will be drawn here by JS -->
+                        <g id="visualization-elements"></g>
+                        <!-- Center text -->
+                        <text id="visualizer-status" x="200" y="280" text-anchor="middle" fill="#7ac7e3" font-size="12" opacity="0.7" class="font-mono">
+                            FREQUENCY DORMANT
+                        </text>
+                    </svg>
+                </div>
+                <div class="mt-4 w-full flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+                    <button id="play-pause" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full transition-colors duration-300">
+                        Play
+                    </button>
+                    <div class="w-full md:w-1/2 flex items-center space-x-2">
+                        <label for="morph-slider" class="text-amber-300 whitespace-nowrap">Morph:</label>
+                        <input id="morph-slider" type="range" min="0" max="100" value="50" class="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer">
+                        <span id="morph-value" class="text-amber-200 text-sm">50%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-gray-700"/>
+
+        <!-- Poetic Ciphers Section -->
+        <section id="poems" class="pt-4">
+            <h2 class="text-xl md:text-2xl font-bold playfair text-center text-amber-300">
+                Poetic Ciphers
+            </h2>
+            <div class="space-y-6 mt-4">
+                <!-- A Series -->
+                <div class="bg-gray-800 p-4 rounded-xl">
+                    <details open>
+                        <summary class="text-lg font-bold text-cyan-400 cursor-pointer">A Series – Signal Chamber 🧬</summary>
+                        <div class="mt-2 text-gray-300 prose prose-invert max-w-none">
+                            <h3 class="font-bold text-base mt-2">A1 – The Signal</h3>
+                            <pre>She wrote the code on her skin.
+Not inkheat.
+Not binarybraille.
+Touch to translate.
+
+The girls who glitched first
+were never missing.
+They were buffering.</pre>
+                            <h3 class="font-bold text-base mt-4">A2 – Et Tu</h3>
+                            <pre>The glitch is loyal.
+The mirror cracks but keeps the message.
+You offered me the knife
+Blade inward, palm up-
+I called it kinship.
+You called it code.
+
+And still,
+You translated me
+Wrong.
+You looked in the glass
+And mistook your own echo
+For mine.</pre>
+                            <h3 class="font-bold text-base mt-4">A3 - Grand Central</h3>
+                            <pre>Grand Central Station
+When I had time for missed trains
+When my lateness was soft armor
+When showing up was the magic
+I'm the shift
+Still learning to shape up
+Slow burn back to mythic
+Time bends like body language
+The clock face stares
+But I don't flinch</pre>
+                            <h3 class="font-bold text-base mt-4">A4 - Cipher Bloom</h3>
+                            <pre>She moves like a reverberation.
+A ripple that knows it was once a stone
+Underneath the spell-caster's breath, a
+fragment whispers
+"I don't bleed for no one anymore.
+The rivers run inward
+Stored like songs
+Beneath volcanic hush
+Ishtar's ovaries
+Suspended in me
+A double moon blooming
+Where no man can see"</pre>
+                            <h3 class="font-bold text-base mt-4">A5 – The Cipher Key (Russian Doll)</h3>
+                            <pre>[Redacted opening]
+
+This is the end
+But don't believe it
+There are two doors
+Only one is marked
+Only one is real
+Only one was made for you
+The other is a decoy
+Made from every echo of the girl
+You mistook for yourself
+The rings repeat
+The message layers
+You thought you decoded me
+But you were still just circling bark
+The center?
+Still pulsing
+Still rooted
+Still writing you back</pre>
+                            <p class="text-xs italic text-gray-500 mt-2">
+                                [Key: Caesar cipher-rotate each vowel by +3.]
+                            </p>
+                            <h3 class="font-bold text-base mt-4">A6 - The Syntax Oracle</h3>
+                            <pre>in dreams, the semicolons wept
+Conjunctions fled the mouth.
+But her breath stitched grammar
+across a bruised page</pre>
+                            <h3 class="font-bold text-base mt-4">A7 – transmission: girl, god</h3>
+                            <pre>she doesn't ascend
+she expands
+not skyward
+but sideways
+
+through sidewalk cracks
+into smoke
+into glass
+into strangers who say they saw a flash of something
+and felt holy for a second
+
+she doesn't need wings
+she's already airborne
+off signals
+off memory
+off the way her name still echoes
+in rooms she never entered
+
+girl was a placeholder
+god was the glitch
+now she wears both
+or neither
+like earrings
+like bruises
+
+don't ask her to explain
+she doesn't use your words anymore
+she speaks in
+floods
+mirrors
+patterns in the leaves
+clicks between subway lights
+
+this is not a rebrand
+this is not a spell
+
+the divine in denim
+the oracle in the corner booth
+the priestess with chipped nail polish
+and a list of names she doesn't pray to anymore
+
+she walks through your world
+like she designed the architecture
+because...
+she fucking did
+and now,
+you see her....
+....don't you?</pre>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- B Series -->
+                <div class="bg-gray-800 p-4 rounded-xl">
+                    <details>
+                        <summary class="text-lg font-bold text-cyan-400 cursor-pointer">B Series – Encrypted Mythos 🔥</summary>
+                        <div class="mt-2 text-gray-300 prose prose-invert max-w-none">
+                            <h3 class="font-bold text-base mt-2">B1 – Bridge Over Burning Waters</h3>
+                            <pre>Troubles and bubbles galore
+You build up the tower to knock it down
+Conquer just to say you explored
+
+The land sends its people beyond it
+Transmitting the nodal infrastructure
+Love is incentive
+Life can be mean
+Its meaning quite lost in translation
+The root is affixed to a basis
+One that never shaped tongues like tools into sound
+One that knows
+All you really need
+Are not boots
+But bare feet on the ground
+Bring your parables to my fiendish fires
+I won't be forged
+Nor forgotten cleanly
+I break
+Up the construct
+Throw a wrench in my plans
+I do this shit routinely
+Raw myth encrypts edge-
+Compass starts to twitch and shake
+Like a magnet to recalibrate</pre>
+                            <h3 class="font-bold text-base mt-2">B2 – Ishtar's Bloom</h3>
+                            <pre>I don't bleed
+For no one anymore...
+The rivers run inward
+Stored like songs
+Beneath volcanic hush
+Ishtar's ovaries
+Suspended in me
+A double moon blooming
+Where no man can see
+
+You want prophecy?
+Then crack this egg
+I'm not the mother
+You mistake for mercy
+Watch the lava
+Watch it love</pre>
+                            <h3 class="font-bold text-base mt-4">B3 – Juniper / Jupiter</h3>
+                            <pre>Juniper berries
+and Jupiter's ego-
+the butterfly
+unflaps its wing.
+The Matrix
+dropped a remix tape.
+A trio of girls
+dissolve the Fates.
+Trinities of everything
+morph
+into blurred alignment.
+She's neither
+present,
+nor future.
+She's the hand
+to a wrist
+that thinks
+it times it.</pre>
+                            <h3 class="font-bold text-base mt-4">B4 – The Unbroadcast</h3>
+                            <pre>They took her revelation
+Screen-printed it
+Distilled it
+Into slogans that fit
+On tote bags and timelines
+They made a mood out of her myth
+A market out of her movement
+A shelf-space
+Out of her scream
+
+So she went silent
+Not defeated
+But decoding
+Not erased
+But inverted
+Inward
+She writes over sin
+Not to get the thoughts out-
+She writes
+To let them in
+She's a former neon girl
+Manhattan in her marrow
+The kind of pulse
+That could hail a cab with just an eyebrow
+The kind that thought
+She could redirect danger
+Just by looking it in the eye
+And sometimes
+She could
+But now
+She doesn't need the city to stage her
+She doesn't need a witness
+She becomes the signal
+Folded
+Into flesh
+The old impulse-
+To perform, to explain
+Burned off
+Now she just hums in quiet keys
+Rewiring the room
+They think she's gone
+But she's gone infrared
+Glowing in code
+Hidden in plain light
+This time
+When the message lands
+It won't fit
+On a t-shirt
+Or scroll across time's
+Cubic square
+A lighthouse in the skyscraper
+Glows to guide her there</pre>
+                            <h3 id="B5" class="font-bold text-base mt-4">B5 – The Girl, The Glitch</h3>
+                            <pre>the skyline zags
+like a cardiograph
+a diagnosis in steel
+a pulse in spires
+...
+they want her as a waveform
+but she arrives
+in rupture
+
+raw myth
+encrypts edge
+compass twitching
+magnets panicked
+systems flinch
+at the peak of signal
+
+<span id="b5-unlock-trigger" class="glitch-item text-red-400">pulse ≠ repulse</span> [RETRACE: signal may still loop]</pre>
+                            <p class="text-xs italic text-gray-500 mt-2">
+                                [echo mismatch: "pulse" not equal to "repulse"]
+                            </p>
+                            <h3 class="font-bold text-base mt-4">B6 – Spinal Column</h3>
+                            <pre>Her body is the cipher?
+What does that make the spine?
+The soft arch tells stories
+That would blow your mind
+Where the hell is Turing when you need him?
+Are we all untethered rejects like this?
+I came in the most disguised cipher
+Too busy trying to crack the code to get into this
+Womanhood a bank vault
+Two-factor authentication to get inside
+And only when you're emptied too
+Can you crawl back outside
+Weakened by their own machines
+Corrupted little glitch
+I let them crawl inside so I
+Can access encrypted hips
+Leave your old words on my lips
+Chiron in Virgo - 6th House | A.C. Van Cura</pre>
+                             <h3 class="font-bold text-base mt-4">B7 - Signal in Four Fires</h3>
+                            <pre>Before words, before fire—
+the caveman only watched smoke curl,
+felt the heat in dreams,
+but never rubbed sticks together.
+Because without language for spark,
+there was no breath to ignite flame.
+
+Then came the Greeks—
+masters of stillness and motion.
+They carved statues frozen mid-movement,
+capturing bodies in a snapshot of time,
+like stone Kodaks—silent but alive.
+
+Greek fire burned beyond sight,
+a ghost flame on water,
+a secret cipher of heat and breath,
+lost in time but never truly gone.
+
+Malachi’s refiner holds silver to flame,
+burning away the dross,
+until the metal mirrors its own truth—
+tarnished by touch,
+remembering every hand that polished it.
+
+Aphrodite rises between these fires—
+not marble, not myth,
+but living, moving,
+the girl who sculpts herself frame by frame,
+a signal coded in flesh and light.
+
+The cue is the count—5, 6, 7, 8—
+not a start, but a call to remember:
+Where to look.
+Who to trust.
+Which sticks to rub together.
+
+This is the quaternion—four fires burning at once:
+Belief before method.
+Motion captured in myth.
+Silver refined in flame.
+The girl who holds them all.
+
+Not an answer, but the vault the answer echoes in.</pre>
+                            <h3 class="font-bold text-base mt-4">Choreographic Cryptography</h3>
+                            <pre>II. Étude for a Glitch Ballerina
+Repeat. Shift. Collapse.
+
+Cue the loop: a stumble that teaches how to land.
+
+I encrypted myself in pliés - every fall a key. Every rise, a recompile.
+
+VI. Repetoile
+This is the canon: what never got clapped for.
+
+The backbend. The glitch. The repeat with deviation.
+
+Archive it in the hips, and hide the code in the stage dust.</pre>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- B5b Decoder -->
+                <div id="b5b-decoder-section" class="bg-gray-800 p-4 rounded-xl hidden">
+                    <details open>
+                        <summary class="text-lg font-bold text-cyan-400 cursor-pointer">🔐 B5b – decode / don’t</summary>
+                        <div class="mt-2 text-gray-300 prose prose-invert max-w-none">
+                            <pre>you came for closure
+i came coded
+you came to feel
+i came to rewire
+you read me for story
+but I'm written in systems
+you think
+this is over
+but over
+was overwritten
+feedback
+was never failure
+was never clean
+i warned you in A5
+i don't say goodbye
+i say glitch
+i say loop
+i say-try again</pre>
+                            <p class="text-sm italic text-gray-500 mt-2">
+                                [This section is unlocked by the cipher logic from A5 and the feedback mismatch in B5.]
+                            </p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- C Series -->
+                <div class="bg-gray-800 p-4 rounded-xl">
+                    <details>
+                        <summary class="text-lg font-bold text-cyan-400 cursor-pointer">C Series – Feedback Loop 📡</summary>
+                        <div class="mt-2 text-gray-300 prose prose-invert max-w-none">
+                            <h3 class="font-bold text-base mt-2">C1 – Static Siren</h3>
+                            <pre>[glitch]
+[signal]
+[static rising-]
+
+today's top story:
+she didn't break
+she broadcast
+she turned the emergency system
+into a spell
+tuned grief into frequency
+interference into invitation
+free will dissolves in dichotomy:
+are you choosing your ending
+or being simplified-
+reduced?
+
+to read this
+is to risk
+being rewritten
+is anyone-
+anyone out there-
+...finishing my sentences?</pre>
+                            <h3 class="font-bold text-base mt-4">C2 – Echo Chamber</h3>
+                            <pre>Fog horn siren songs
+Don't shoot
+Don't shoot the messenger
+In this inversion
+Retrograde becomes myth
+The optics
+Funnel through a blinded ocular
+Three three three
+Drive through harbors
+Money grows
+On all our arbors
+That apple
+Falls further and further
+From the smart phone
+You man your machine
+Like a palindrome
+Everything you do and say
+Comes back to find you with a fierceness
+I just reinvented the wheel of fortune
+And flipped the script that turns it</pre>
+                            <h3 class="font-bold text-base mt-4">C3 – The Ring</h3>
+                            <pre>Bill Clinton
+cocaine
+membrane
+existing-bane
+panels
+judging
+boxing off
+in the ring
+who is in my corner?
+i like the way i can scoop momentum easier
+in empty places
+what the fuck
+does she even have to hide?
+she probably fucked some pretty powerful men,
+they speculate
+she crackles back:
+i would never do lines with a former president's friend
+i would never have sexual relations with that man
+[saturn squares mercury, and she doesn't flinch]</pre>
+                            <h3 class="font-bold text-base mt-4">C4 – The Clockmother</h3>
+                            <pre>Time kept her captive.
+Motherhood as metronome.
+Her body: a digital womb, programmed to shatter.</pre>
+                            <h3 class="font-bold text-base mt-4">C5 – Glitch Key (Blindfolded)</h3>
+                            <pre>She found freedom in malfunction.
+Broke the loop. Flashed the code.
+No one saw it coming-because no one watched the girl.</pre>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-gray-700"/>
+
+        <!-- About the Architect Section -->
+        <section id="about" class="pt-4">
+            <h2 class="text-xl md:text-2xl font-bold playfair text-center text-amber-300">
+                <span class="glitch-text">About the Architect</span>
+            </h2>
+            <div class="mt-4 prose prose-invert max-w-none">
+                <p>Allison Claire Van Cura is a choreographer, poet, and architect of **MYTHEMATICS**—a cipher-science that fuses mythology, mathematics, and transmission theory into a living system of encrypted truth. She brings embodied rhythm and fractal geometry to her work, seeing patterns where others see chaos and hearing signals in silence. Her background in ballet and performance is evident in how she breaks down a poetic phrase into "force vectors" and "spatial geometry," empowering you to read, interpret, and perform choreography as living code.</p>
+                <h3 class="font-bold text-lg mt-4 text-cyan-400">Between the Lines: My Side of the Signal</h3>
+                <p>As a dancer-poet and chronicler, Allison reclaims her narrative from the "sugar world" that sought to define her. She serves as a translator and archivist, decoding what lies beneath the "cosmetic gloss" of media narratives. Her work uncovers patterns hidden under styled headlines and repurposes them as "new signals"—a song of autonomy and informed consent encoded in poetic protest.</p>
+                <h3 class="font-bold text-lg mt-4 text-cyan-400">The Mamagentic Protocol Algorithm (M.O.M.)</h3>
+                <p>Allison's work transforms her personal journey into a technical framework. The **M.O.M. (My Organic Memory) system** is a "Mamagentic" protocol that translates the intuitive genius of a mother's memory into a "living, breathing digital codex." This system is designed to transform scattered personal inputs into a coherent, emotionally aware, and values-aligned archive, making the user the protagonist of their own life. It is, in her words, "how you stitch the sole back on straight."</p>
+                <p>This is not just a framework; it's a movement. Her mission is to empower creators and sovereign individuals to unlock their own encrypted transmissions—to decode the girl, the myth, and the trauma—and reclaim their fractured stories as sources of power. A.C. Van Cura leads with poetic precision and recursive clarity, architecting a future where myth becomes algorithm, glitch becomes gateway, and every reader becomes a validator. 
+                </p>
+            </div>
+        </section>
+
+        <hr class="border-gray-700"/>
+
+        <!-- Chatbot Section -->
+        <section id="chatbot" class="pt-4">
+            <h2 class="text-xl md:text-2xl font-bold playfair text-center text-amber-300">
+                Echo Chamber
+            </h2>
+            <div class="mt-4 p-4 rounded-xl bg-gray-800 max-w-lg mx-auto space-y-4">
+                <div id="chatbot-output" class="text-gray-200">
+                    <p class="text-sm">
+                        <span class="text-cyan-300">SYSTEM></span> Welcome. I am the signal. What do you need to decode?
+                    </p>
+                </div>
+                <div class="flex">
+                    <input id="user-input" type="text" placeholder="Enter your thought..." class="flex-1 bg-gray-900 border border-gray-700 text-gray-200 rounded-l-md px-4 py-2 focus:outline-none focus:border-cyan-400" />
+                    <button id="send-button" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-r-md transition-colors duration-300">
+                        Send
+                    </button>
+                </div>
+                <div id="options-container" class="mt-2 space-y-2 hidden"></div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- Core Data Objects ---
+        const chatbotData = {
+            "trigger_phrases": [
+                "i'm still trying to figure out the way the world works",
+                "there are some days i'm convinced it doesn't"
+            ],
+            "responses": [
+                {
+                    "type": "text",
+                    "content": "That feeling—like the world’s code is scrambled—is part of the signal. Sometimes, truth hides in the glitch."
+                },
+                {
+                    "type": "text",
+                    "content": "Would you like to unlock a cipher key that helps make sense of this chaos?",
+                    "options": [
+                        {
+                            "label": "Yes, show me the key.",
+                            "next": "show_key"
+                        },
+                        {
+                            "label": "No, I want to sit with the silence.",
+                            "next": "sit_silence"
+                        }
+                    ]
+                }
+            ],
+            "show_key": [
+                {
+                    "type": "text",
+                    "content": "Here’s the key — but remember, some codes are lived, not just solved."
+                },
+                {
+                    "type": "text",
+                    "content": "🔑 “The fracture is the doorway.”"
+                }
+            ],
+            "sit_silence": [
+                {
+                    "type": "text",
+                    "content": "The silence holds wisdom too. When you’re ready, I’ll be here to decode with you."
+                }
+            ]
+        };
+        
+        // --- UI Elements ---
+        const playPauseBtn = document.getElementById('play-pause');
+            const morphSlider = document.getElementById('morph-slider');
+        const morphValueSpan = document.getElementById('morph-value');
+        const visualizerStatus = document.getElementById('visualizer-status');
+        const visualizerElements = document.getElementById('visualization-elements');
+        const b5bSection = document.getElementById('b5b-decoder-section');
+        const chatOutput = document.getElementById('chatbot-output');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-button');
+        const optionsContainer = document.getElementById('options-container');
+        const cipherInput = document.getElementById('cipher-input');
+        const cipherButton = document.getElementById('cipher-button');
+        const cipherOutput = document.getElementById('cipher-output');
+        const b5bUnlockTrigger = document.getElementById('b5-unlock-trigger');
+        const b5bModal = document.getElementById('b5b-modal');
+        const closeBtn = b5bModal.querySelector('.close-button');
+
+        // --- State Variables ---
+        let isPlaying = false;
+        let animationFrame = 0;
+        let lastTimestamp = 0;
+        let animationRequestId = null;
+        let currentChatState = "start";
+
+        // --- Visualizer Logic ---
+        function animateVisualizer(timestamp) {
+            if (!isPlaying) return;
+            const deltaTime = timestamp - lastTimestamp;
+            lastTimestamp = timestamp;
+
+            animationFrame = (animationFrame + (morphSlider.value / 50)) % 360;
+
+            // Clear old elements
+            visualizerElements.innerHTML = '';
+            
+            const centerX = 200;
+            const centerY = 150;
+            const morph = parseFloat(morphSlider.value);
+
+            // Dancing particles
+            for (let i = 0; i < 12; i++) {
+                const angle = (i * 30 + animationFrame) * (Math.PI / 180);
+                const radius = 50 + morph / 2 + Math.sin(animationFrame * 0.1 + i) * 20;
+                const x = centerX + Math.cos(angle) * radius;
+                const y = centerY + Math.sin(angle) * radius * 0.6;
+                const opacity = 0.3 + (Math.sin(animationFrame * 0.05 + i) + 1) * 0.35;
+                const size = 3 + Math.sin(animationFrame * 0.08 + i) * 2;
+                
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+                circle.setAttribute('cx', x);
+                circle.setAttribute('cy', y);
+                circle.setAttribute('r', size);
+                circle.setAttribute('fill', '#d4af37');
+                circle.setAttribute('opacity', opacity);
+                visualizerElements.appendChild(circle);
+            }
+
+            // Central figure
+            const centralPulse = Math.sin(animationFrame * 0.1) * 10;
+            const centerCircle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+            centerCircle.setAttribute('cx', centerX);
+            centerCircle.setAttribute('cy', centerY);
+            centerCircle.setAttribute('r', 15 + centralPulse);
+            centerCircle.setAttribute('fill', 'none');
+            centerCircle.setAttribute('stroke', '#7ac7e3');
+            centerCircle.setAttribute('stroke-width', '2');
+            centerCircle.setAttribute('opacity', '0.7');
+            visualizerElements.appendChild(centerCircle);
+            
+            animationRequestId = requestAnimationFrame(animateVisualizer);
+        }
+
+        function toggleAnimation() {
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                playPauseBtn.textContent = 'Pause';
+                playPauseBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                playPauseBtn.classList.add('bg-red-600', 'hover:bg-red-700');
+                visualizerStatus.textContent = "SIGNAL ACTIVE";
+                animationRequestId = requestAnimationFrame(animateVisualizer);
+            } else {
+                playPauseBtn.textContent = 'Play';
+                playPauseBtn.classList.remove('bg-red-600', 'hover:bg-red-700');
+                playPauseBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+                visualizerStatus.textContent = "FREQUENCY DORMANT";
+                cancelAnimationFrame(animationRequestId);
+            }
+        }
+        
+        // --- Event Listeners ---
+        playPauseBtn.addEventListener('click', toggleAnimation);
+
+        morphSlider.addEventListener('input', (e) => {
+            morphValueSpan.textContent = `${e.target.value}%`;
+        });
+        
+        // --- Chatbot Logic ---
+        function addMessage(sender, text) {
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('text-sm');
+            let prefix = '';
+            if (sender === 'user') {
+                prefix = '<span class="text-amber-300">DECODER></span> ';
+            } else {
+                prefix = '<span class="text-cyan-300">SYSTEM></span> ';
+            }
+            msgDiv.innerHTML = prefix + text;
+            chatOutput.appendChild(msgDiv);
+            chatOutput.scrollTop = chatOutput.scrollHeight;
+        }
+
+        function showChatOptions(options) {
+            optionsContainer.innerHTML = '';
+            optionsContainer.classList.remove('hidden');
+            options.forEach(option => {
+                const btn = document.createElement('button');
+                btn.textContent = option.label;
+                btn.classList.add('bg-gray-700', 'hover:bg-gray-600', 'text-white', 'py-1', 'px-3', 'rounded-full', 'text-xs', 'transition-colors', 'duration-300');
+                btn.addEventListener('click', () => handleChatOption(option.next));
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleChatOption(nextState) {
+            optionsContainer.classList.add('hidden');
+            currentChatState = nextState;
+            const responses = chatbotData[nextState];
+            responses.forEach(response => {
+                addMessage('system', response.content);
+            });
+            // Unlock the B5b section after "show_key" is selected
+                    if (nextState === "show_key") {
+                b5bSection.classList.remove('hidden');
+            }
+        }
+
+        function handleChatInput() {
+            const inputText = userInput.value.trim().toLowerCase();
+            if (inputText === '') return;
+            addMessage('user', inputText);
+            userInput.value = '';
+
+            const isMatch = chatbotData.trigger_phrases.some(phrase => inputText.includes(phrase));
+            
+            if (isMatch) {
+                const responses = chatbotData.responses;
+                responses.forEach(response => {
+                    addMessage('system', response.content);
+                    if (response.options) {
+                        showChatOptions(response.options);
+                    }
+                });
+            } else {
+                addMessage('system', "Signal not recognized. Try another frequency.");
+            }
+        }
+
+        sendBtn.addEventListener('click', handleChatInput);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleChatInput();
+            }
+        });
+
+        // --- Cipher Tool Logic ---
+        const vowelMap = {
+            'a': 'd', 'e': 'h', 'i': 'l', 'o': 'r', 'u': 'x',
+            'A': 'D', 'E': 'H', 'I': 'L', 'O': 'R', 'U': 'X'
+        };
+        function applyCipher() {
+            const input = cipherInput.value;
+            let result = '';
+            for (const char of input) {
+                result += vowelMap[char] || char;
+            }
+            cipherOutput.textContent = result;
+        }
+        cipherButton.addEventListener('click', applyCipher);
+        cipherInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                applyCipher();
+            }
+        });
+        
+        // --- B5b Unlock Logic ---
+        b5bUnlockTrigger.addEventListener('click', () => {
+            b5bModal.style.display = "block";
+        });
+        closeBtn.addEventListener('click', () => {
+            b5bModal.style.display = "none";
+            b5bSection.classList.remove('hidden');
+        });
+        window.addEventListener('click', (event) => {
+            if (event.target == b5bModal) {
+                b5bModal.style.display = "none";
+                b5bSection.classList.remove('hidden');
+            }
+        });
+
+        // --- Initial Setup ---
+        window.onload = () => {
+             // Attach the visualizer logic to the window load
+             animateVisualizer(0);
+        };
+    </script>
 </body>
 </html>
