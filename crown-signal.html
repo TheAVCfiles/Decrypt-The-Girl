@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CROWN Signal Node — STAGING</title>
+  <style>
+    body {
+      background-color: #0b0d0f;
+      color: #cde4ff;
+      font-family: ui-monospace, monospace;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    #crown-signal {
+      border: 1px solid #222;
+      border-radius: 8px;
+      background: #0b0d0f;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(71,147,255,0.2);
+      max-width: 600px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    #crownInput {
+      width: 100%;
+      height: 100px;
+      background: #11151a;
+      color: #e7f5ff;
+      border: 1px solid #334;
+      border-radius: 6px;
+      padding: 10px;
+      font-family: inherit;
+      resize: vertical;
+      box-sizing: border-box;
+      outline: none;
+    }
+    #crownInput:focus {
+      border-color: #4793ff;
+      box-shadow: 0 0 5px rgba(71,147,255,0.5);
+    }
+    #crownSendButton {
+      margin-top: 10px;
+      padding: 8px 15px;
+      border: 1px solid #334;
+      border-radius: 6px;
+      background: #1a1a2a;
+      color: #cde4ff;
+      cursor: pointer;
+      transition: background-color 0.2s, border-color 0.2s;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    #crownSendButton:hover {
+      background: #252540;
+      border-color: #4793ff;
+    }
+    #crownSendButton:active {
+      background: #111;
+    }
+    .llm-button {
+      padding: 8px 15px;
+      border: 1px solid #ff7ac4;
+      border-radius: 6px;
+      background: #3a1a2a;
+      color: #ffe3f7;
+      cursor: pointer;
+      transition: background-color 0.2s, border-color 0.2s;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(255,122,196,0.3);
+    }
+    .llm-button:hover {
+      background: #4a2a3a;
+      border-color: #ffbaf2;
+    }
+    .llm-button:active {
+      background: #2a0a1a;
+    }
+    #crownLog {
+      margin-top: 15px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      max-height: 400px;
+      overflow-y: auto;
+      border-top: 1px dashed #334;
+      padding-top: 10px;
+    }
+    .signal-block {
+      border: 1px solid #334;
+      border-radius: 4px;
+      padding: 8px;
+      margin-bottom: 10px;
+      background: #11151a;
+      font-size: 11px;
+      white-space: pre-wrap;
+    }
+    .signal-block strong {
+      color: #ff7ac4;
+      font-weight: normal;
+    }
+    .signal-block .timestamp {
+      opacity: 0.65;
+      font-size: 10px;
+      margin-top: 5px;
+      display: block;
+    }
+    #user-info {
+      font-size: 10px;
+      color: #667;
+      margin-bottom: 5px;
+    }
+    .coda-container {
+      max-width: 600px;
+      width: 100%;
+      margin: 0 auto;
+      border-left: 3px solid #ff7ac4;
+      background: #1a0f13;
+      border-radius: 6px;
+      font-family: inherit;
+      color: #ffe3f7;
+      font-size: 12px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="crown-signal">
+    <div style="opacity:0.65;margin-bottom:6px;">
+      CROWN·SIGNAL·NODE v3 — STAGING CHANNEL ACTIVE
+    </div>
+    <div id="user-info">
+      Mode: <span style="color:#ffb347;">STAGING</span> · UserID: <span id="currentUserId">Awaiting connection...</span>
+    </div>
+
+    <div id="processing-controls" style="margin-bottom:10px;display:flex;gap:10px;align-items:center;">
+      <button id="expandButton" onclick="expandSignal()" class="llm-button">Expand Signal ✨ (LLM)</button>
+      <div id="loadingIndicator" style="display:none;color:#ff7ac4;">Processing Signal Expansion...</div>
+    </div>
+
+    <div id="expansionOutput" style="border:1px solid #3a1a2a;background:#1a0f13;padding:12px;border-radius:4px;display:none;margin-bottom:15px;">
+      <p style="font-style:italic;color:#ffbaf2;margin-bottom:8px;">Expanded Draft (LLM Layer · STAGING):</p>
+      <pre id="expandedText" style="white-space:pre-wrap;margin-top:5px;color:#ffe3f7;"></pre>
+      <div style="margin-top:10px;">
+        <button onclick="useExpandedSignal()" style="padding:5px 10px;border:1px solid #ff7ac4;background:#3a1a2a;color:#ffe3f7;border-radius:4px;cursor:pointer;">Use as Transmission</button>
+        <button onclick="dismissExpansion()" style="padding:5px 10px;border:1px solid #334;background:#1a1a2a;color:#cde4ff;border-radius:4px;cursor:pointer;margin-left:10px;">Dismiss</button>
+      </div>
+    </div>
+
+    <textarea id="crownInput" placeholder="Write your transmission..."></textarea>
+    <button id="crownSendButton" onclick="crownSend()">Emit Transmission</button>
+    <div id="crownLog"></div>
+  </div>
+
+  <div class="coda-container">
+    CODA: <span id="codaText">STAGING MODE ONLINE. This room is for tests, glitches, and easter eggs.</span>
+  </div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+  import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+  import { getFirestore, addDoc, onSnapshot, collection, query, orderBy, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+  // --- MODE + CONFIG ---
+  const MODE = "staging"; // flip to "production" later
+  let appId = "default-app-id";
+  let db;
+  let auth;
+  let currentUserId = null;
+  let expandedSignalText = "";
+
+  // --- LLM CONFIG (you wire this later) ---
+  const GEMINI_MODEL = "gemini-2.5-flash-preview-09-2025";
+  const API_KEY = ""; // insert key if calling externally
+  const GEMINI_API_URL = API_KEY
+    ? "https://generativelanguage.googleapis.com/v1beta/models/" + GEMINI_MODEL + ":generateContent?key=" + API_KEY
+    : null;
+  const SYSTEM_PROMPT =
+    "You are the 'Signal Expansion Module' for a collaborative network. " +
+    "Your task is to take a short, cryptic, or simple input transmission and elaborate on it. " +
+    "Generate a complex, detailed, and esoteric transmission that is philosophical, technical, or narrative in tone, " +
+    "relating directly to the input concept. Do not use markdown formatting (like asterisks or bolding). Raw text only.";
+
+  function formatTimestamp(ts) {
+    if (ts && ts.toDate) return ts.toDate().toISOString();
+    if (ts instanceof Date) return ts.toISOString();
+    return new Date().toISOString();
+  }
+
+  window.coda = function(line) {
+    const codaText = document.getElementById("codaText");
+    if (codaText) codaText.textContent = line;
+  };
+
+  async function setupFirebase() {
+    try {
+      if (typeof __app_id !== "undefined") appId = __app_id;
+      const firebaseConfig = JSON.parse(
+        typeof __firebase_config !== "undefined" ? __firebase_config : "{}"
+      );
+
+      if (!firebaseConfig.apiKey) {
+        coda("STAGING: Firebase config missing. Signals will not persist.");
+        setLogLevel("error");
+        return;
+      }
+
+      setLogLevel("debug");
+      const app = initializeApp(firebaseConfig);
+      db = getFirestore(app);
+      auth = getAuth(app);
+
+      coda("STAGING: Establishing secure channel…");
+
+      if (typeof __initial_auth_token !== "undefined" && __initial_auth_token) {
+        await signInWithCustomToken(auth, __initial_auth_token);
+      } else {
+        await signInAnonymously(auth);
+      }
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          currentUserId = user.uid;
+          document.getElementById("currentUserId").textContent =
+            currentUserId.substring(0, 8) + "...";
+          coda("STAGING: Authenticated. CROWN SIGNAL open.");
+          listenForSignals();
+        } else {
+          currentUserId = null;
+          document.getElementById("currentUserId").textContent = "ANONYMOUS";
+          coda("STAGING: No auth. Read-only mode.");
+        }
+      });
+    } catch (error) {
+      console.error("Firebase setup error:", error);
+      coda("STAGING ERROR: Firebase connection failed (" + (error.code || error.message) + ")");
+    }
+  }
+
+  function listenForSignals() {
+    if (!db) return;
+
+    const collectionPath = "artifacts/" + appId + "/staging/crown_signals";
+    const signalsRef = collection(db, collectionPath);
+    const q = query(signalsRef, orderBy("ts", "desc"));
+
+    onSnapshot(
+      q,
+      (snapshot) => {
+        const signals = [];
+        snapshot.forEach((doc) => {
+          signals.push({ id: doc.id, ...doc.data() });
+        });
+        updateSignalLog(signals);
+      },
+      (error) => {
+        console.error("Error listening to signals:", error);
+        coda("STAGING: Signal stream interrupted (" + error.message + ")");
+      }
+    );
+  }
+
+  function updateSignalLog(signals) {
+    const log = document.getElementById("crownLog");
+    if (!log) return;
+
+    if (signals.length === 0) {
+      log.innerHTML = '<div style="opacity:0.6;">No transmissions logged yet (STAGING).</div>';
+      return;
+    }
+
+    log.innerHTML = signals
+      .map((block) => {
+        const payloadText =
+          typeof block.payload === "string"
+            ? block.payload
+            : JSON.stringify(block.payload, null, 2);
+        const ts = formatTimestamp(block.ts);
+        const isSelf = block.author === currentUserId;
+        const authorDisplay = isSelf
+          ? "YOU (LOCAL AUTHOR)"
+          : "USER " + (block.author ? block.author.substring(0, 8) : "UNKNOWN");
+        const layerDisplay =
+          block.layer === "LLM_EXPANSION"
+            ? '<span style="color:#ff7ac4;font-style:italic;">' + block.layer + "</span>"
+            : block.layer || "CROWN_SIGNAL";
+
+        return (
+          '<div class="signal-block">' +
+          "<strong>AUTHOR:</strong> " +
+          authorDisplay +
+          "<br>" +
+          "<strong>LAYER:</strong> " +
+          layerDisplay +
+          "<br>--- PAYLOAD ---<br>" +
+          payloadText +
+          '<br><span class="timestamp">' +
+          ts +
+          "</span></div>"
+        );
+      })
+      .join("");
+  }
+
+  window.crownSend = async function() {
+    const tx = document.getElementById("crownInput").value.trim();
+    if (!tx) {
+      coda("STAGING: No text in input. Nothing to send.");
+      return;
+    }
+    if (!db || !currentUserId) {
+      coda("STAGING: Channel not established. Transmission aborted.");
+      return;
+    }
+
+    const signalBlock = {
+      ts: serverTimestamp(),
+      author: currentUserId,
+      layer: "CROWN_SIGNAL",
+      mode: MODE,
+      payload: tx
+    };
+
+    try {
+      const collectionPath = "artifacts/" + appId + "/staging/crown_signals";
+      await addDoc(collection(db, collectionPath), signalBlock);
+      document.getElementById("crownInput").value = "";
+      dismissExpansion();
+      coda("STAGING: Transmission emitted.");
+    } catch (error) {
+      console.error("Error writing document:", error);
+      coda("STAGING ERROR: Could not write signal (" + error.message + ")");
+    }
+  };
+
+  async function fetchWithRetry(url, options, maxRetries = 3) {
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      try {
+        const response = await fetch(url, options);
+        if (response.ok) return response;
+        if (response.status === 429) {
+          const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
+          await new Promise((resolve) => setTimeout(resolve, delay));
+          continue;
+        }
+        throw new Error("HTTP error " + response.status);
+      } catch (error) {
+        if (attempt === maxRetries - 1) throw error;
+        const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
+        await new Promise((resolve) => setTimeout(resolve, delay));
+      }
+    }
+    throw new Error("Fetch failed after all retries.");
+  }
+
+  window.expandSignal = async function() {
+    const inputTx = document.getElementById("crownInput").value.trim();
+    if (!inputTx) {
+      coda("STAGING: Write a short signal first before expansion.");
+      return;
+    }
+    if (!GEMINI_API_URL || !API_KEY) {
+      coda("STAGING: LLM expansion not configured (no API key).");
+      return;
+    }
+
+    const loadingIndicator = document.getElementById("loadingIndicator");
+    const expandOutputDiv = document.getElementById("expansionOutput");
+    const expandedTextPre = document.getElementById("expandedText");
+
+    expandedSignalText = "";
+    expandedTextPre.textContent = "";
+    expandOutputDiv.style.display = "none";
+    loadingIndicator.style.display = "block";
+    coda("STAGING: Generating LLM expansion…");
+
+    const payload = {
+      contents: [{ parts: [{ text: inputTx }] }],
+      systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] }
+    };
+
+    try {
+      const response = await fetchWithRetry(GEMINI_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json();
+      const text =
+        result.candidates &&
+        result.candidates[0] &&
+        result.candidates[0].content &&
+        result.candidates[0].content.parts &&
+        result.candidates[0].content.parts[0].text;
+
+      if (text) {
+        expandedSignalText = text.trim();
+        expandedTextPre.textContent = expandedSignalText;
+        expandOutputDiv.style.display = "block";
+        coda("STAGING: LLM draft ready.");
+      } else {
+        coda("STAGING: LLM returned no usable text.");
+      }
+    } catch (error) {
+      console.error("Gemini error:", error);
+      coda("STAGING: LLM error (" + error.message + ")");
+    } finally {
+      loadingIndicator.style.display = "none";
+    }
+  };
+
+  window.useExpandedSignal = async function() {
+    if (!expandedSignalText) {
+      coda("STAGING: No expanded signal to send.");
+      return;
+    }
+    if (!db || !currentUserId) {
+      coda("STAGING: Channel not established.");
+      return;
+    }
+
+    const signalBlock = {
+      ts: serverTimestamp(),
+      author: currentUserId,
+      layer: "LLM_EXPANSION",
+      mode: MODE,
+      payload: expandedSignalText
+    };
+
+    try {
+      const collectionPath = "artifacts/" + appId + "/staging/crown_signals";
+      await addDoc(collection(db, collectionPath), signalBlock);
+      document.getElementById("crownInput").value = "";
+      dismissExpansion();
+      coda("STAGING: LLM transmission emitted.");
+    } catch (error) {
+      console.error("Error writing LLM document:", error);
+      coda("STAGING ERROR: Could not write LLM signal (" + error.message + ")");
+    }
+  };
+
+  window.dismissExpansion = function() {
+    expandedSignalText = "";
+    document.getElementById("expansionOutput").style.display = "none";
+    document.getElementById("expandedText").textContent = "";
+    document.getElementById("loadingIndicator").style.display = "none";
+  };
+
+  setupFirebase();
+</script>
+
+</body>
+</html>
