@@ -1,0 +1,48 @@
+{
+  "nodes": {
+    "C26": {
+      "file": "codex/nodes/C26_girls_survived_machine.md",
+      "title": "The Girls Who Survived the Machine",
+      "chapter": 26,
+      "mode": "C",
+      "status": "canon",
+      "links_forward": ["C27", "C28"],
+      "rooms": ["Room004_TransmissionCorrupt", "Room008_Mothernet"],
+      "constellations": ["Survivor_Architecture", "Machine_Audit"]
+    },
+    "C35": {
+      "file": "codex/nodes/C35_girl_rewrites_ledger.md",
+      "title": "The Girl Who Rewrote the Ledger",
+      "chapter": 35,
+      "mode": "C",
+      "status": "draft",
+      "links_forward": ["C36"],
+      "rooms": ["Room008_Mothernet"],
+      "constellations": ["Survivor_Architecture"]
+    }
+  },
+  "rooms": {
+    "Room001_GlitchAsEntry": {
+      "entry_nodes": ["B05", "C04", "C26"],
+      "description": "Portal opened by glitchwork; common entry for early C-series nodes."
+    },
+    "Room004_TransmissionCorrupt": {
+      "entry_nodes": ["C26", "C27", "C32"],
+      "description": "Static-filled chamber for corrupted transmissions and machine failure analysis."
+    },
+    "Room008_Mothernet": {
+      "entry_nodes": ["C30", "C34"],
+      "description": "Networked matriarchal space where ledgers and survivors reconvene."
+    }
+  },
+  "constellations": {
+    "Survivor_Architecture": {
+      "nodes": ["C26", "C29", "C30", "C34"],
+      "description": "A pathway tracing how the survivors rebuild after the audit."
+    },
+    "Machine_Audit": {
+      "nodes": ["C27", "C28", "C29", "C31", "C32", "C33"],
+      "description": "The full analytic arc of how the machine works, fails, and gets audited."
+    }
+  }
+}
