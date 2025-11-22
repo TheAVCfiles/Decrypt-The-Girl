@@ -1,0 +1,89 @@
+{
+  "nodes": {
+    "C26": {
+      "title": "The Girls Who Survived the Machine",
+      "constellations": ["Survivor_Architecture", "Machine_Audit"],
+      "rooms": ["Room004_TransmissionCorrupt", "Room008_Mothernet"],
+      "links_forward": ["C27", "C28"],
+      "summary": "Defines the class of girls who pass through the machine without dissolving into data, and become architects of the next world instead of aftermath of the last."
+    },
+    "C27": {
+      "title": "The Math of How They Profited Off Her Silence",
+      "constellations": ["Machine_Audit"],
+      "rooms": ["Room004_TransmissionCorrupt"],
+      "links_forward": ["C28"],
+      "summary": "Tallies the hidden arithmetic that turned her quiet into currency and shows the first ledger of accountability."
+    },
+    "C28": {
+      "title": "The Price of a Silenced Girl",
+      "constellations": ["Machine_Audit"],
+      "rooms": ["Room004_TransmissionCorrupt"],
+      "links_forward": ["C29"],
+      "summary": "Follows the cost of enforced quiet, turning each suppressed word into a receipt the machine must eventually refund."
+    },
+    "C29": {
+      "title": "The Girl Who Became the Auditor",
+      "constellations": ["Survivor_Architecture", "Machine_Audit"],
+      "rooms": ["Room004_TransmissionCorrupt", "Room008_Mothernet"],
+      "links_forward": ["C30", "C31"],
+      "summary": "The pivot where survivor becomes analyst, converting witness into protocol and opening the cross-path between arcs."
+    },
+    "C30": {
+      "title": "The Mother Who Out-Engineered the Machine",
+      "constellations": ["Survivor_Architecture"],
+      "rooms": ["Room008_Mothernet"],
+      "links_forward": ["C34"],
+      "summary": "Documents the maternal counter-design that rebuilds safeguards faster than the system can breach them."
+    },
+    "C31": {
+      "title": "The Engine Built From the Dead Pieces",
+      "constellations": ["Machine_Audit"],
+      "rooms": ["Room004_TransmissionCorrupt"],
+      "links_forward": ["C32"],
+      "summary": "Reassembles discarded fragments into a traceable machine the auditor can finally map and regulate."
+    },
+    "C32": {
+      "title": "The Girl Who Outgrew Her Frame",
+      "constellations": ["Machine_Audit"],
+      "rooms": ["Room004_TransmissionCorrupt"],
+      "links_forward": ["C33"],
+      "summary": "Records the moment the subject exceeds the constraints of capture, forcing the machine to confront its limits."
+    },
+    "C33": {
+      "title": "The Girl Who Became the Mirror",
+      "constellations": ["Machine_Audit"],
+      "rooms": ["Room004_TransmissionCorrupt"],
+      "links_forward": [],
+      "summary": "Final mirror state where the system must see itself reflected in the subject it once misnamed."
+    },
+    "C34": {
+      "title": "When a Survivor Stops Being the Subject and Becomes Infrastructure",
+      "constellations": ["Survivor_Architecture"],
+      "rooms": ["Room008_Mothernet"],
+      "links_forward": [],
+      "summary": "Culmination of the arc where survival translates into operating principles that others can build upon."
+    }
+  },
+  "constellations": {
+    "Survivor_Architecture": {
+      "nodes": ["C26", "C29", "C30", "C34"],
+      "rooms": ["Room004_TransmissionCorrupt", "Room008_Mothernet"],
+      "core_motion": ["collapse → calibration", "victim → auditor", "daughter → architect", "story → infrastructure"]
+    },
+    "Machine_Audit": {
+      "nodes": ["C27", "C28", "C29", "C31", "C32", "C33"],
+      "rooms": ["Room004_TransmissionCorrupt", "Room001_GlitchAsEntry", "Room0XX_CNN_Pipeline_Audit"],
+      "core_motion": ["silence → asset", "asset → evidence", "footage → confession", "subject → primary source"]
+    }
+  },
+  "rooms": {
+    "Room004_TransmissionCorrupt": {
+      "constellations": ["Machine_Audit", "Survivor_Architecture"],
+      "nodes": ["C26", "C27", "C28", "C29", "C31", "C32", "C33"]
+    },
+    "Room008_Mothernet": {
+      "constellations": ["Survivor_Architecture"],
+      "nodes": ["C26", "C29", "C30", "C34"]
+    }
+  }
+}

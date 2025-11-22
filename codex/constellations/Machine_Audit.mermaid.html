@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Machine_Audit Constellation</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+</head>
+<body>
+  <h1>Machine_Audit — Constellation Map</h1>
+  <div class="mermaid">
+    graph TD
+      MA[(Machine_Audit)]
+      C27["C27 — Math of Silence"]
+      C28["C28 — Price of a Silenced Girl"]
+      C29["C29 — Girl Who Became the Auditor"]
+      C31["C31 — Engine Built From the Dead Pieces"]
+      C32["C32 — Girl Who Outgrew Her Frame"]
+      C33["C33 — Girl Who Became the Mirror"]
+
+      MA --- C27
+      MA --- C28
+      MA --- C29
+      MA --- C31
+      MA --- C32
+      MA --- C33
+
+      C27 --> C28 --> C29 --> C31 --> C32 --> C33
+  </div>
+</body>
+</html>
