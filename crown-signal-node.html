@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CROWN·SIGNAL·NODE v3</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #0f0f0f;
+      --veil: #f8f7ff;
+      --accent: #8a7cff;
+      --muted: #4b5563;
+      --border: #e5e7eb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "SF Pro Display", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(138, 124, 255, 0.08), transparent 35%),
+        radial-gradient(circle at 80% 0%, rgba(99, 102, 241, 0.08), transparent 30%),
+        var(--veil);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 32px;
+    }
+
+    .shell {
+      width: min(960px, 100%);
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.08);
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    header {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.25rem;
+      letter-spacing: 0.04em;
+    }
+
+    header .status {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .panel {
+      background: linear-gradient(145deg, #ffffff, #fafafa);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 320px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    textarea, input, select {
+      width: 100%;
+      font: inherit;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: white;
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    textarea:focus, input:focus, select:focus {
+      outline: 2px solid var(--accent);
+      border-color: var(--accent);
+    }
+
+    select {
+      min-height: auto;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+
+    button.secondary {
+      background: white;
+      color: var(--ink);
+      border-color: var(--border);
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(138, 124, 255, 0.18);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .log {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 420px;
+      overflow: auto;
+    }
+
+    .log-entry {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      display: grid;
+      gap: 6px;
+      background: white;
+    }
+
+    .meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .payload {
+      white-space: pre-wrap;
+      line-height: 1.5;
+    }
+
+    .coda {
+      background: #0f172a;
+      color: #e5e7eb;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 120px;
+    }
+
+    .coda h3 {
+      margin: 0;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      color: #cbd5f5;
+    }
+
+    .coda small {
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+
+    .chip-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f8fafc;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 860px) {
+      body { padding: 16px; }
+      .shell { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell" aria-live="polite">
+    <header>
+      <div>
+        <h1>CROWN·SIGNAL·NODE v3</h1>
+        <div class="chip-row" aria-label="routes">
+          <span class="chip">firestore: artifacts/{appId}/public/data/crown_signals</span>
+          <span class="chip">ledger: http://localhost:8020/v1/log_event</span>
+          <span class="chip">export: http://localhost:8020/v1/export</span>
+        </div>
+      </div>
+      <div class="status" id="status">Channel booting. Awaiting first signal.</div>
+    </header>
+
+    <section class="panel" aria-label="compose">
+      <div>
+        <label for="mode">Mode</label>
+        <select id="mode" aria-label="mode selector">
+          <option value="SURFACE">Surface</option>
+          <option value="CIPHER">Cipher</option>
+          <option value="ECHO">Echo</option>
+        </select>
+      </div>
+      <div>
+        <label for="payload">Payload</label>
+        <textarea id="payload" placeholder="Write a short transmission and emit."></textarea>
+      </div>
+      <div>
+        <label for="layer">Layer</label>
+        <select id="layer" aria-label="layer selector">
+          <option value="CROWN_SIGNAL">CROWN_SIGNAL</option>
+          <option value="LLM_EXPANSION">LLM_EXPANSION</option>
+        </select>
+      </div>
+      <div>
+        <label for="author">Author</label>
+        <input id="author" placeholder="anonymous | firebase_user_id" />
+      </div>
+      <div class="actions">
+        <button id="emit">Emit</button>
+        <button class="secondary" id="clear">Clear local log</button>
+        <span id="emit-status" class="status" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <section class="panel" aria-label="coda">
+      <div class="coda" id="coda">
+        <h3>CODA</h3>
+        <div id="coda-text">Channel clear. No signals yet.</div>
+        <small>Triadic compression: Surface → Cipher → Echo</small>
+      </div>
+    </section>
+
+    <section class="panel" aria-label="log">
+      <label>Signal log</label>
+      <div class="log" id="log" aria-live="polite"></div>
+    </section>
+
+    <section class="panel" aria-label="ledger">
+      <label>Telemetry</label>
+      <div class="payload" id="telemetry"></div>
+    </section>
+  </main>
+
+  <script type="module">
+    const STORAGE_KEY = "crown_signal_local_cache_v3";
+    const statusEl = document.getElementById("status");
+    const logEl = document.getElementById("log");
+    const codaTextEl = document.getElementById("coda-text");
+    const emitStatusEl = document.getElementById("emit-status");
+    const telemetryEl = document.getElementById("telemetry");
+
+    const config = {
+      appId: "local-dev",
+      ledgerEndpoint: "http://localhost:8020/v1/log_event",
+      exportEndpoint: "http://localhost:8020/v1/export",
+      ...window.CROWN_SIGNAL_CONFIG,
+    };
+
+    const CROWN_MEMORY_NODE = {
+      last_coda: "Channel booting. Awaiting first signal.",
+      reducer(signalText) {
+        const text = (signalText || "").trim();
+        if (!text) return this.last_coda;
+
+        const sentenceEnd = text.search(/[.!?]/);
+        let candidate;
+        if (sentenceEnd !== -1 && sentenceEnd < 180) {
+          candidate = text.slice(0, sentenceEnd + 1);
+        } else {
+          const words = text.split(/\s+/).slice(0, 18);
+          candidate = words.join(" ");
+          if (!candidate.endsWith(".")) candidate += ".";
+        }
+        return candidate;
+      },
+    };
+
+    function hydrate() {
+      try {
+        const cached = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        return Array.isArray(cached) ? cached : [];
+      } catch (error) {
+        console.error("Failed to parse cached signals", error);
+        return [];
+      }
+    }
+
+    function persist(signals) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(signals));
+    }
+
+    let signals = hydrate();
+
+    function formatTs(ts) {
+      if (!ts) return "pending";
+      const date = new Date(ts);
+      return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+    }
+
+    function updateCodaFromSignals(currentSignals) {
+      if (!currentSignals || currentSignals.length === 0) {
+        CROWN_MEMORY_NODE.last_coda = "Channel clear. No signals yet.";
+        codaTextEl.textContent = CROWN_MEMORY_NODE.last_coda;
+        return;
+      }
+
+      const newest = currentSignals[0];
+      const rawPayload = typeof newest.payload === "string" ? newest.payload : JSON.stringify(newest.payload);
+      const compressed = CROWN_MEMORY_NODE.reducer(rawPayload);
+      CROWN_MEMORY_NODE.last_coda = compressed;
+      codaTextEl.textContent = compressed;
+    }
+
+    function renderLog() {
+      logEl.innerHTML = "";
+
+      if (signals.length === 0) {
+        logEl.innerHTML = '<div style="opacity:0.7;">No transmissions logged yet.</div>';
+        updateCodaFromSignals([]);
+        statusEl.textContent = "Channel clear. No signals yet.";
+        return;
+      }
+
+      for (const entry of signals) {
+        const item = document.createElement("article");
+        item.className = "log-entry";
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        meta.innerHTML = `
+          <span>${entry.mode || "SURFACE"} → ${entry.layer || "CROWN_SIGNAL"}</span>
+          <span>${formatTs(entry.ts)}</span>
+          <span>${entry.author || "anon"}</span>
+        `;
+
+        const payload = document.createElement("div");
+        payload.className = "payload";
+        payload.textContent = entry.payload || "(empty transmission)";
+
+        item.append(meta, payload);
+        logEl.appendChild(item);
+      }
+
+      updateCodaFromSignals(signals);
+      statusEl.textContent = `${signals.length} transmissions witnessed.`;
+    }
+
+    function logTelemetry(message) {
+      const now = new Date().toISOString();
+      telemetryEl.textContent = `[${now}] ${message}\n${telemetryEl.textContent}`;
+    }
+
+    async function sendToLedger(entry) {
+      try {
+        const response = await fetch(config.ledgerEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            appId: config.appId,
+            event: "crown_signal_emitted",
+            payload: entry,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Ledger responded with ${response.status}`);
+        }
+        logTelemetry(`Ledgered transmission at ${config.ledgerEndpoint}`);
+      } catch (error) {
+        logTelemetry(`Ledger unavailable: ${error.message}`);
+      }
+    }
+
+    function appendLocally(entry) {
+      signals = [entry, ...signals].slice(0, 200);
+      persist(signals);
+      renderLog();
+    }
+
+    function asFirestorePath(appId) {
+      return `artifacts/${appId}/public/data/crown_signals`;
+    }
+
+    async function appendToFirestore(entry) {
+      if (!window.firebase || !window.firebase.firestore) {
+        return false;
+      }
+
+      const { firestore } = window.firebase;
+      const db = firestore();
+      const path = asFirestorePath(config.appId);
+      const docRef = await db.collection(path).add({
+        ...entry,
+        ts: firestore.FieldValue.serverTimestamp(),
+      });
+
+      logTelemetry(`Firestore appended to ${path} (${docRef.id})`);
+      return true;
+    }
+
+    function subscribeToFirestore() {
+      if (!window.firebase || !window.firebase.firestore) {
+        logTelemetry("Firestore SDK not present; staying local.");
+        renderLog();
+        return;
+      }
+
+      const { firestore } = window.firebase;
+      const db = firestore();
+      const path = asFirestorePath(config.appId);
+
+      db.collection(path)
+        .orderBy("ts", "desc")
+        .limit(50)
+        .onSnapshot((snapshot) => {
+          signals = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+          renderLog();
+          logTelemetry(`Realtime sync from ${path}`);
+        }, (error) => {
+          logTelemetry(`Realtime sync failed: ${error.message}`);
+        });
+    }
+
+    async function emit() {
+      const mode = document.getElementById("mode").value;
+      const payload = document.getElementById("payload").value;
+      const layer = document.getElementById("layer").value;
+      const author = document.getElementById("author").value || "anon";
+
+      if (!payload.trim()) {
+        emitStatusEl.textContent = "Payload required.";
+        return;
+      }
+
+      const entry = {
+        ts: Date.now(),
+        author,
+        layer,
+        mode,
+        payload,
+      };
+
+      appendLocally(entry);
+      emitStatusEl.textContent = "Emitted locally.";
+
+      appendToFirestore(entry).catch((error) => logTelemetry(`Firestore append failed: ${error.message}`));
+      sendToLedger(entry);
+    }
+
+    document.getElementById("emit").addEventListener("click", emit);
+    document.getElementById("clear").addEventListener("click", () => {
+      signals = [];
+      persist(signals);
+      renderLog();
+      emitStatusEl.textContent = "Local log cleared.";
+    });
+
+    renderLog();
+    subscribeToFirestore();
+  </script>
+</body>
+</html>
