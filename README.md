@@ -111,6 +111,7 @@ Decrypt-The-Girl/
 ├── LICENSE                # MIT license
 ├── CONTRIBUTING.md        # Contribution guidelines
 ├── CHANGELOG.md           # Version history
+├── docs/choreocode.md     # Draft language notes for ChoreoCode v0.1
 └── .github/
     └── workflows/         # CI/CD automation
         ├── deploy-pages.yml
