@@ -1,0 +1,11 @@
+{
+  "version": "0.1",
+  "paths": {
+    "nodes": "../nodes",
+    "constellations": "../constellations/constellations.json",
+    "rooms": "../rooms"
+  },
+  "nodes": ["C26", "C27", "C28", "C29", "C30", "C31", "C32", "C33", "C34"],
+  "constellations": ["Survivor_Architecture", "Machine_Audit"],
+  "rooms": ["Room004_TransmissionCorrupt", "Room008_Mothernet"]
+}

@@ -1,0 +1,6 @@
+{
+  "project": "Decrypt The Girl",
+  "series": "C",
+  "themes": ["survivor", "audit", "architecture", "mirror"],
+  "notes": "Seed constants for the Constellation Engine; expand as mythos grows."
+}
