@@ -108,17 +108,34 @@ function getActiveRetrogrades(date: Date): string {
   return uniquePlanets.join(", ");
 }
 
-export async function GET(): Promise<Response> {
-  const now = new Date();
-  const age = getMoonAge(now);
-  const sign = getSunSign(now);
+function parseDateParam(param: string | null): Date | null {
+  if (!param) return null;
+
+  const parsed = new Date(param);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+export async function GET(request: Request): Promise<Response> {
+  const url = new URL(request.url);
+  const requestedDate = parseDateParam(url.searchParams.get("date"));
+  const targetDate = requestedDate ?? new Date();
+
+  if (url.searchParams.has("date") && !requestedDate) {
+    return Response.json(
+      { error: "Invalid date. Use an ISO-8601 date string (e.g., 2024-08-01)." },
+      { status: 400 }
+    );
+  }
+
+  const age = getMoonAge(targetDate);
+  const sign = getSunSign(targetDate);
   const moonPhase = getMoonPhase(age);
   const phase = getPhaseStatus(age);
-  const retrograde = getActiveRetrogrades(now);
+  const retrograde = getActiveRetrogrades(targetDate);
 
   return Response.json(
     {
-      timestamp: now.toISOString(),
+      timestamp: targetDate.toISOString(),
       sign,
       moonPhase,
       phase,
