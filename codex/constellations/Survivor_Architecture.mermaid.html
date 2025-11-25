@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Survivor_Architecture Constellation</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+</head>
+<body>
+  <h1>Survivor_Architecture — Constellation Map</h1>
+  <div class="mermaid">
+    graph TD
+      SA[(Survivor_Architecture)]
+      C26["C26 — Girls Who Survived the Machine"]
+      C29["C29 — Girl Who Became the Auditor"]
+      C30["C30 — Mother Who Out-Engineered the Machine"]
+      C34["C34 — Survivor as Infrastructure"]
+
+      SA --- C26
+      SA --- C29
+      SA --- C30
+      SA --- C34
+
+      C26 --> C29
+      C29 --> C30
+      C30 --> C34
+  </div>
+</body>
+</html>
