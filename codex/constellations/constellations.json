@@ -1,0 +1,24 @@
+{
+  "constellations": {
+    "Survivor_Architecture": {
+      "label": "Survivor Architecture",
+      "nodes": ["C26", "C29", "C30", "C34"],
+      "rooms": ["Room004_TransmissionCorrupt", "Room008_Mothernet"],
+      "description": "The arc where a girl stops being aftermath and becomes blueprint, architect, and infrastructure."
+    },
+    "Machine_Audit": {
+      "label": "Machine Audit",
+      "nodes": ["C27", "C28", "C29", "C31", "C32", "C33"],
+      "rooms": ["Room004_TransmissionCorrupt", "Room001_GlitchAsEntry", "Room0XX_CNN_Pipeline_Audit"],
+      "description": "The full analytic arc of how the machine works, fails, and is audited by the girl it misclassified."
+    }
+  },
+  "hinge_nodes": {
+    "C29": {
+      "label": "The Girl Who Became the Auditor",
+      "constellations": ["Survivor_Architecture", "Machine_Audit"],
+      "role": "hinge",
+      "notes": "Bridge between survivor OS and machine accountability; used as a portal node in interactive rooms."
+    }
+  }
+}

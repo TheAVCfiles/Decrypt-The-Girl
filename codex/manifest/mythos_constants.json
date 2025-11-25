@@ -1,0 +1,16 @@
+{
+  "series": "C",
+  "hinge_node": "C29",
+  "primary_rooms": ["Room004_TransmissionCorrupt", "Room008_Mothernet"],
+  "constellation_pairs": [
+    {
+      "name": "Survivor_Architecture",
+      "motion": "collapse → calibration"
+    },
+    {
+      "name": "Machine_Audit",
+      "motion": "silence → asset"
+    }
+  ],
+  "notes": "Constants used by tooling to keep mythic framing consistent across room manifests and future interactive engines."
+}
