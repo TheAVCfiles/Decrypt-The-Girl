@@ -57,6 +57,24 @@ Experience the interactive codebook live:
 - **Main Codebook**: [index.html](https://theavcfiles.github.io/Decrypt-The-Girl/)
 - **Astro Finance Guide**: [astro-finance.html](https://theavcfiles.github.io/Decrypt-The-Girl/astro-finance.html)
 - **Day Zero Scroll**: [day-zero-scroll.html](https://theavcfiles.github.io/Decrypt-The-Girl/day-zero-scroll.html)
+- **CROWN·SIGNAL·NODE v3**: [crown-signal-node.html](https://theavcfiles.github.io/Decrypt-The-Girl/crown-signal-node.html)
+
+### CROWN·SIGNAL·NODE v3
+The CROWN console is a Firebase-ready signal room that respects the triadic ritual (Surface → Cipher → Echo) while maintaining a living CODA from the freshest transmission. It operates locally by default, caching signals in the browser and compressing the latest payload into a one-line seed.
+
+To connect to the wider mesh, provide a config object before the module executes:
+
+```html
+<script>
+  window.CROWN_SIGNAL_CONFIG = {
+    appId: "my-app-id", // used for Firestore path artifacts/{appId}/public/data/crown_signals
+    ledgerEndpoint: "http://localhost:8020/v1/log_event",
+    exportEndpoint: "http://localhost:8020/v1/export",
+  };
+</script>
+```
+
+Set the configuration before the page script executes (edit the file or inject via a wrapper), then load `crown-signal-node.html`. If the Firebase SDK is present, the console will subscribe to the configured collection and push emissions with server timestamps; otherwise it quietly stays local while still emitting ledger telemetry.
 
 ## 💻 Installation & Usage
 
@@ -106,6 +124,7 @@ Decrypt-The-Girl/
 ├── index.html              # Main interactive codebook
 ├── astro-finance.html      # Weekly astro finance guide
 ├── day-zero-scroll.html    # Ephemeris intelligence timeline experience
+├── crown-signal-node.html  # CROWN signal console with optional Firestore/ledger sync
 ├── chatbot.json           # Chatbot configuration
 ├── README.md              # Project documentation
 ├── LICENSE                # MIT license
