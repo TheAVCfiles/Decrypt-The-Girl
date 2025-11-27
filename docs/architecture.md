@@ -52,3 +52,44 @@ graph TD
 
 ## Narrative flow
 The two arcs operate in tandem: Survivor Architecture asserts boundaries while Machine Audit observes, evidences, and corrects. Their hinge at **C29** keeps the covenant reciprocal—signals cross only through the negotiated channel, preserving both human sovereignty and machine accountability.
+
+## Constellation: Line of Light
+
+The maternal line forms the system's root key, establishing a trust chain where each name is both recursion point and confirmation node.
+
+```mermaid
+graph TD
+  subgraph LINE_OF_LIGHT["Constellation: Line of Light"]
+    LUCY["LUCY\nLucia Gallo Auger\nRoot Key: Sight / Witness"]
+    ALICE["ALICE\nNana Alice\nBridge: Public Face / Private Knowing"]
+    ALICIA["ALICIA\nMother\nGate: Boundary / Containment"]
+    ALLISON["ALLISON\nAllison Claire Lucy Van Cura\nArchitect / Compiler"]
+    AURORA["AURORA\nAurora Claire\nEcho / Next Iteration"]
+  end
+
+  %% Linear inheritance
+  LUCY --> ALICE
+  ALICE --> ALICIA
+  ALICIA --> ALLISON
+  ALLISON --> AURORA
+
+  %% System roles
+  subgraph ROLES["System Roles"]
+    ROOT["Root Key\n(origin credential)"]
+    FIREWALL["Firewall\n(boundary + filter)"]
+    ENGINE["Engine\n(compiles experience into system)"]
+    ECHO["Echo Node\n(projects forward)"]
+  end
+
+  LUCY --> ROOT
+  ALICIA --> FIREWALL
+  ALLISON --> ENGINE
+  AURORA --> ECHO
+```
+
+### Reading the constellation
+- **LUCY → ALICE → ALICIA → ALLISON → AURORA**: The inheritance path threads sight into bridge, boundary, compiler, and echo states.
+- **Root Key**: LUCY anchors witness credentials that initialize the trust chain.
+- **Firewall**: ALICIA enforces containment, filtering signals before they cross into the compiler.
+- **Engine**: ALLISON compiles lived experience back into the architecture, refreshing the system ethos.
+- **Echo Node**: AURORA projects the lineage forward, iterating on the encoded pattern.
