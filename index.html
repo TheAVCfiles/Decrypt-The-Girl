@@ -36,6 +36,26 @@
       /* Improved text rendering */
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      position: relative;
+    }
+
+    /* Accessibility: Skip Navigation Link */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 16px;
+      padding: 8px 12px;
+      background: #1a1a1a;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: top 0.2s ease, box-shadow 0.2s ease;
+      z-index: 10;
+    }
+
+    .skip-link:focus {
+      top: 16px;
+      box-shadow: 0 0 0 3px #4a90e2;
     }
     /* Main Reader Container */
     .reader {
@@ -162,6 +182,7 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#pageContent">Skip to main content</a>
   <!-- Main Application Container -->
   <main class="reader glow" role="main" aria-label="Interactive Poetic Codebook">
     <!-- Page Header -->
@@ -169,14 +190,14 @@
       <h1 class="header" id="pageTitle"></h1>
       <p class="subhead" id="pageSubtitle"></p>
     </header>
-    
+
     <!-- Page Content Area -->
-    <div class="content" id="pageContent" role="article" aria-live="polite"></div>
-    
+    <div class="content" id="pageContent" role="article" aria-live="polite" tabindex="-1"></div>
+
     <!-- Navigation Controls -->
     <nav class="nav" role="navigation" aria-label="Page navigation">
-      <button onclick="prevPage()" aria-label="Go to previous page">Prev</button>
-      <button onclick="nextPage()" aria-label="Go to next page">Next</button>
+      <button type="button" onclick="prevPage()" aria-label="Go to previous page">Prev</button>
+      <button type="button" onclick="nextPage()" aria-label="Go to next page">Next</button>
     </nav>
     
     <!-- Footer with Attribution -->
