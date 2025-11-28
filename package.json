@@ -38,6 +38,10 @@
     "deploy:app10": "node scripts/deploy.js app10"
   },
   "devDependencies": {},
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
   "engines": {
     "node": ">=14.0.0"
   },
