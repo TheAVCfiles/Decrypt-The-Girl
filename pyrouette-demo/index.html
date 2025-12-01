@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>PyRouette Studio Composer - Amped Prototype</title>
 
   <!-- SEO Meta Tags -->
@@ -807,6 +807,11 @@
         // Touch tracking
         this.touches = [];
 
+        // Timing constants
+        this.LOADING_DELAY = 1000;
+        this.TOOLTIP_DURATION = 2000;
+        this.TOUCH_FEEDBACK_DURATION = 300;
+
         this.initElements();
         this.initEventListeners();
         this.startAnimationLoop();
@@ -1079,7 +1084,7 @@
 
         setTimeout(() => {
           this.touchFeedback.classList.remove('active');
-        }, 300);
+        }, this.TOUCH_FEEDBACK_DURATION);
       }
 
       // Transform updates
@@ -1174,7 +1179,7 @@
         setTimeout(() => {
           this.hideLoading();
           this.showTooltip('Pattern loaded: ' + pattern);
-        }, 1000);
+        }, this.LOADING_DELAY);
       }
 
       showLoading() {
@@ -1190,11 +1195,11 @@
         this.tooltip.classList.add('visible');
         setTimeout(() => {
           this.tooltip.classList.remove('visible');
-        }, 2000);
+        }, this.TOOLTIP_DURATION);
       }
 
       showExportDialog() {
-        alert('Export functionality - Coming soon!\n\nThis will export your composition as JSON, video, or other formats.');
+        this.showTooltip('Export functionality coming soon! Will support JSON, video, and other formats.');
       }
 
       startDragDancer(e, marker) {
