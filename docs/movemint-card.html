@@ -588,17 +588,20 @@
 
         // Handle button click
         ctaButton.addEventListener('click', function() {
+          // Capture button reference for use in setTimeout
+          const button = this;
+          
           // Show accessible notification
           notification.textContent = '🎉 Welcome to MoveMint! Your fitness journey begins now.';
           notification.style.opacity = '1';
           
           // Add visual feedback to button
-          this.textContent = '✓ Journey Started!';
+          button.textContent = '✓ Journey Started!';
           
           // Hide notification and reset button after 3 seconds
           setTimeout(() => {
             notification.style.opacity = '0';
-            this.textContent = 'Start Your Journey';
+            button.textContent = 'Start Your Journey';
           }, 3000);
         });
 
