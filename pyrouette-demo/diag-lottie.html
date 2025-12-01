@@ -306,6 +306,12 @@
     const themeToggle = document.getElementById('themeToggle');
     const body = document.body;
     
+    // Function to update theme icon
+    function updateThemeIcon(theme) {
+      const icon = themeToggle.querySelector('[aria-hidden="true"]');
+      icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+    }
+    
     // Load saved theme preference or default to dark
     const savedTheme = localStorage.getItem('theme') || 'dark';
     body.setAttribute('data-theme', savedTheme);
@@ -318,11 +324,6 @@
       localStorage.setItem('theme', newTheme);
       updateThemeIcon(newTheme);
     });
-
-    function updateThemeIcon(theme) {
-      const icon = themeToggle.querySelector('[aria-hidden="true"]');
-      icon.textContent = theme === 'dark' ? '🌙' : '☀️';
-    }
 
     // Lazy load animation function
     function loadAnimation() {
@@ -394,7 +395,7 @@
         animationInstance.destroy();
         animationInstance = null;
       }
-      lottieContainer.style.display = 'flex';
+      lottieContainer.style.display = '';
       fallbackMessage.classList.remove('active');
       animationStatus.textContent = 'Status: Reloading...';
       animationFrame.textContent = 'Frame: 0';

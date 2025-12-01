@@ -97,7 +97,7 @@ To test the reduced-motion fallback:
 
 **On Windows 10/11**:
 1. Settings → Ease of Access → Display
-2. Turn on "Show animations in Windows"
+2. Turn off "Show animations in Windows" to enable reduced motion
 
 **On Linux (GNOME)**:
 ```bash
