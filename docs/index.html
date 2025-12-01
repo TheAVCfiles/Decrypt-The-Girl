@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bloom — Animation Preview</title>
+  <script src="https://unpkg.com/lottie-web@5.9.6/build/player/lottie.min.js"></script>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      height: 100vh;
+      background: #0a1016;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    #animation-container {
+      width: 80vw;
+      max-width: 800px;
+      height: 45vw;
+      max-height: 450px;
+      background: black;
+    }
+  </style>
+</head>
+<body>
+  <div id="animation-container"></div>
+  <script>
+    const animationDataUrl = "https://raw.githubusercontent.com/TheAVCfiles/Decrypt-The-Girl/main/assets/lottie/bloom-cinematic.json";
+    const container = document.getElementById("animation-container");
+
+    lottie.loadAnimation({
+      container: container,
+      renderer: "svg",
+      loop: true,
+      autoplay: true,
+      path: animationDataUrl,
+    });
+  </script>
+</body>
+</html>
