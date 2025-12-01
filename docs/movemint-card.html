@@ -566,18 +566,49 @@
       // CTA Button functionality
       function setupCTAButton() {
         const ctaButton = document.querySelector('.cta-button');
-        if (ctaButton) {
-          ctaButton.addEventListener('click', function() {
-            // Show alert for demo purposes
-            alert('🎉 Welcome to MoveMint! Your fitness journey begins now.\n\nThis is a prototype. In production, this would navigate to the signup page.');
-            
-            // Add visual feedback
-            this.textContent = '✓ Journey Started!';
-            setTimeout(() => {
-              this.textContent = 'Start Your Journey';
-            }, 2000);
-          });
-        }
+        if (!ctaButton) return;
+
+        // Create accessible notification element
+        const notification = document.createElement('div');
+        notification.setAttribute('role', 'status');
+        notification.setAttribute('aria-live', 'polite');
+        notification.style.position = 'fixed';
+        notification.style.top = '20px';
+        notification.style.left = '50%';
+        notification.style.transform = 'translateX(-50%)';
+        notification.style.backgroundColor = 'var(--luxe-success)';
+        notification.style.color = 'white';
+        notification.style.padding = '16px 24px';
+        notification.style.borderRadius = '12px';
+        notification.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.2)';
+        notification.style.zIndex = '1000';
+        notification.style.opacity = '0';
+        notification.style.transition = 'opacity 0.3s ease';
+        document.body.appendChild(notification);
+
+        // Handle button click
+        ctaButton.addEventListener('click', function() {
+          // Show accessible notification
+          notification.textContent = '🎉 Welcome to MoveMint! Your fitness journey begins now.';
+          notification.style.opacity = '1';
+          
+          // Add visual feedback to button
+          this.textContent = '✓ Journey Started!';
+          
+          // Hide notification and reset button after 3 seconds
+          setTimeout(() => {
+            notification.style.opacity = '0';
+            this.textContent = 'Start Your Journey';
+          }, 3000);
+        });
+
+        // Add keyboard accessibility
+        ctaButton.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.click();
+          }
+        });
       }
 
       // Initialize the application
@@ -587,7 +618,7 @@
         // Set initial metric values
         initializeMetrics();
         
-        // Setup CTA button
+        // Setup CTA button (includes keyboard accessibility)
         setupCTAButton();
         
         // Start periodic updates
@@ -597,17 +628,6 @@
         window.addEventListener('beforeunload', function() {
           clearInterval(updateTimer);
         });
-
-        // Add keyboard accessibility for CTA button
-        const ctaButton = document.querySelector('.cta-button');
-        if (ctaButton) {
-          ctaButton.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              this.click();
-            }
-          });
-        }
       }
 
       // Start when DOM is ready
