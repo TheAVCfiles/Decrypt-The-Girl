@@ -1,3 +1,625 @@
-// DEBUG: force immediate manifest load + animation load (remove after)
-tryFetchManifest();
-loadAnimation(relativePath(select.value));
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Lottie Diagnostic Panel - Pyrouette Demo</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Production-ready Lottie animation diagnostic panel with manifest-driven loading, reduced-motion support, and SVG fallback." />
+  <meta name="author" content="A.C. Van Cura" />
+  
+  <style>
+    /* CSS Variables for theming */
+    :root {
+      --bg: #050816;
+      --card-bg: #0b1020;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --accent: #7dd3fc;
+      --accent-soft: rgba(125, 211, 252, 0.2);
+      --error: #f97373;
+      --success: #4ade80;
+      --warning: #fbbf24;
+      --radius-lg: 1rem;
+      --radius-md: 0.75rem;
+      --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #1f2937 0%, #020617 55%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro", "Inter", sans-serif;
+      color: var(--text-main);
+      padding: 1rem;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .shell {
+      max-width: 480px;
+      width: 100%;
+      padding: 1rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--accent) 0%, #60a5fa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    select {
+      width: 100%;
+      padding: 0.75rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-size: 0.9375rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    select:hover {
+      border-color: var(--accent-soft);
+    }
+
+    select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    option {
+      background: var(--card-bg);
+      color: var(--text-main);
+    }
+
+    .animation-container {
+      width: 100%;
+      height: 300px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #lottiePlayer {
+      width: 100%;
+      height: 100%;
+    }
+
+    .status {
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .status.loading {
+      display: flex;
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid var(--warning);
+      color: var(--warning);
+    }
+
+    .status.success {
+      display: flex;
+      background: rgba(74, 222, 128, 0.1);
+      border: 1px solid var(--success);
+      color: var(--success);
+    }
+
+    .status.error {
+      display: flex;
+      background: rgba(249, 115, 115, 0.1);
+      border: 1px solid var(--error);
+      color: var(--error);
+    }
+
+    .status-icon {
+      font-size: 1rem;
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid transparent;
+      border-top-color: var(--warning);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      flex: 1;
+      padding: 0.75rem;
+      background: rgba(125, 211, 252, 0.1);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-md);
+      color: var(--accent);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    button:hover:not(:disabled) {
+      background: var(--accent-soft);
+      transform: translateY(-1px);
+    }
+
+    button:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    button:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .info-grid {
+      display: grid;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .info-label {
+      color: var(--text-muted);
+    }
+
+    .info-value {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .fallback-message {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+    }
+
+    .fallback-message svg {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      
+      .animation-container::after {
+        content: "⚠️ Reduced Motion Active";
+        position: absolute;
+        bottom: 0.5rem;
+        right: 0.5rem;
+        font-size: 0.75rem;
+        background: rgba(251, 191, 36, 0.9);
+        color: #000;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      .shell {
+        padding: 0.5rem;
+      }
+
+      .card {
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .animation-container {
+        height: 250px;
+      }
+
+      .controls {
+        flex-direction: column;
+      }
+    }
+
+    /* Accessibility: High contrast mode */
+    @media (prefers-contrast: high) {
+      :root {
+        --bg: #000;
+        --card-bg: #000;
+        --border-subtle: rgba(255, 255, 255, 0.3);
+        --text-main: #fff;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="card">
+      <h1>Lottie Diagnostic Panel</h1>
+      <p class="subtitle">Production-ready animation testing with manifest-driven loading</p>
+
+      <!-- Animation Selection -->
+      <div class="form-group">
+        <label for="animationSelect">Select Animation</label>
+        <select id="animationSelect" aria-label="Choose animation to load">
+          <option value="">-- Loading manifest... --</option>
+        </select>
+      </div>
+
+      <!-- Status Messages -->
+      <div id="statusLoading" class="status loading">
+        <div class="spinner"></div>
+        <span>Loading animation...</span>
+      </div>
+      
+      <div id="statusSuccess" class="status success">
+        <span class="status-icon">✓</span>
+        <span>Animation loaded successfully</span>
+      </div>
+      
+      <div id="statusError" class="status error">
+        <span class="status-icon">✗</span>
+        <span id="errorMessage">Failed to load animation</span>
+      </div>
+
+      <!-- Animation Display -->
+      <div class="animation-container">
+        <div id="lottiePlayer"></div>
+        <div id="fallbackMessage" class="fallback-message" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          <p>Animation unavailable</p>
+        </div>
+      </div>
+
+      <!-- Playback Controls -->
+      <div class="controls">
+        <button id="playBtn" disabled aria-label="Play animation">▶ Play</button>
+        <button id="pauseBtn" disabled aria-label="Pause animation">⏸ Pause</button>
+        <button id="stopBtn" disabled aria-label="Stop animation">⏹ Stop</button>
+      </div>
+
+      <!-- Animation Info -->
+      <div class="info-grid">
+        <div class="info-row">
+          <span class="info-label">Duration:</span>
+          <span class="info-value" id="infoDuration">--</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Frame Rate:</span>
+          <span class="info-value" id="infoFrameRate">--</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Dimensions:</span>
+          <span class="info-value" id="infoDimensions">--</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Renderer:</span>
+          <span class="info-value" id="infoRenderer">SVG</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lottie Web Player - Multiple CDN fallbacks -->
+  <script src="https://unpkg.com/lottie-web@5.12.2/build/player/lottie.min.js"></script>
+
+  <script>
+    // Check if lottie loaded, if not try alternative CDN
+    if (typeof lottie === 'undefined') {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js';
+      script.crossOrigin = 'anonymous';
+      document.head.appendChild(script);
+    }
+  </script>
+
+  <script>
+    // Constants
+    const MANIFEST_URL = './assets/lottie/manifest.json';
+    const FETCH_TIMEOUT = 5000; // 5 seconds
+    const SUPPORTS_REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // State
+    let currentAnimation = null;
+    let manifestData = [];
+
+    // DOM Elements
+    const select = document.getElementById('animationSelect');
+    const lottiePlayer = document.getElementById('lottiePlayer');
+    const statusLoading = document.getElementById('statusLoading');
+    const statusSuccess = document.getElementById('statusSuccess');
+    const statusError = document.getElementById('statusError');
+    const errorMessage = document.getElementById('errorMessage');
+    const fallbackMessage = document.getElementById('fallbackMessage');
+    const playBtn = document.getElementById('playBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const infoDuration = document.getElementById('infoDuration');
+    const infoFrameRate = document.getElementById('infoFrameRate');
+    const infoDimensions = document.getElementById('infoDimensions');
+    const infoRenderer = document.getElementById('infoRenderer');
+
+    // Utility: Fetch with timeout
+    async function fetchWithTimeout(url, timeout = FETCH_TIMEOUT) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeout);
+      
+      try {
+        const response = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        return response;
+      } catch (error) {
+        clearTimeout(timeoutId);
+        if (error.name === 'AbortError') {
+          throw new Error('Request timed out');
+        }
+        throw error;
+      }
+    }
+
+    // Utility: Compute relative path
+    function relativePath(path) {
+      if (!path) return '';
+      // If path is already relative to current location, return as-is
+      if (path.startsWith('./') || path.startsWith('../')) {
+        return path;
+      }
+      // Otherwise assume it's relative to the manifest location
+      return `./assets/lottie/${path}`;
+    }
+
+    // Show status
+    function showStatus(type, message = '') {
+      statusLoading.style.display = 'none';
+      statusSuccess.style.display = 'none';
+      statusError.style.display = 'none';
+      
+      if (type === 'loading') {
+        statusLoading.style.display = 'flex';
+      } else if (type === 'success') {
+        statusSuccess.style.display = 'flex';
+      } else if (type === 'error') {
+        statusError.style.display = 'flex';
+        if (message) errorMessage.textContent = message;
+      }
+    }
+
+    // Update animation info
+    function updateAnimationInfo(animData) {
+      if (!animData) {
+        infoDuration.textContent = '--';
+        infoFrameRate.textContent = '--';
+        infoDimensions.textContent = '--';
+        return;
+      }
+
+      const duration = ((animData.op - animData.ip) / animData.fr).toFixed(2);
+      infoDuration.textContent = `${duration}s`;
+      infoFrameRate.textContent = `${animData.fr} fps`;
+      infoDimensions.textContent = `${animData.w} × ${animData.h}`;
+    }
+
+    // Show fallback message
+    function showFallback(show = true) {
+      lottiePlayer.style.display = show ? 'none' : 'block';
+      fallbackMessage.style.display = show ? 'flex' : 'none';
+    }
+
+    // Enable/disable controls
+    function enableControls(enabled) {
+      playBtn.disabled = !enabled;
+      pauseBtn.disabled = !enabled;
+      stopBtn.disabled = !enabled;
+    }
+
+    // Load manifest
+    async function loadManifest() {
+      try {
+        showStatus('loading');
+        const response = await fetchWithTimeout(MANIFEST_URL);
+        manifestData = await response.json();
+        
+        // Populate select dropdown
+        select.innerHTML = '<option value="">-- Select an animation --</option>';
+        manifestData.forEach(item => {
+          const option = document.createElement('option');
+          option.value = item.path;
+          option.textContent = item.name;
+          option.dataset.description = item.description || '';
+          select.appendChild(option);
+        });
+        
+        showStatus('success');
+        setTimeout(() => showStatus(null), 2000);
+        
+      } catch (error) {
+        console.error('Failed to load manifest:', error);
+        showStatus('error', `Failed to load manifest: ${error.message}`);
+        select.innerHTML = '<option value="">-- Manifest unavailable --</option>';
+      }
+    }
+
+    // Load animation
+    async function loadAnimation(path) {
+      if (!path) return;
+      
+      // Check if lottie library is available
+      if (typeof lottie === 'undefined') {
+        showStatus('error', 'Lottie library not loaded. Please check your connection.');
+        showFallback(true);
+        return;
+      }
+      
+      // Clean up existing animation
+      if (currentAnimation) {
+        currentAnimation.destroy();
+        currentAnimation = null;
+      }
+      
+      showStatus('loading');
+      showFallback(false);
+      enableControls(false);
+      updateAnimationInfo(null);
+      
+      try {
+        const fullPath = relativePath(path);
+        const response = await fetchWithTimeout(fullPath);
+        const animationData = await response.json();
+        
+        // Respect reduced motion preference
+        const shouldLoop = !SUPPORTS_REDUCED_MOTION;
+        const shouldAutoplay = !SUPPORTS_REDUCED_MOTION;
+        
+        // Load animation with Lottie
+        currentAnimation = lottie.loadAnimation({
+          container: lottiePlayer,
+          renderer: 'svg',
+          loop: shouldLoop,
+          autoplay: shouldAutoplay,
+          animationData: animationData
+        });
+        
+        // Wait for animation to be ready
+        currentAnimation.addEventListener('DOMLoaded', () => {
+          showStatus('success');
+          setTimeout(() => showStatus(null), 2000);
+          enableControls(true);
+          updateAnimationInfo(animationData);
+        });
+        
+        currentAnimation.addEventListener('error', () => {
+          showStatus('error', 'Animation rendering failed');
+          showFallback(true);
+        });
+        
+      } catch (error) {
+        console.error('Failed to load animation:', error);
+        showStatus('error', `Failed to load: ${error.message}`);
+        showFallback(true);
+      }
+    }
+
+    // Control handlers
+    playBtn.addEventListener('click', () => {
+      if (currentAnimation) {
+        currentAnimation.play();
+      }
+    });
+
+    pauseBtn.addEventListener('click', () => {
+      if (currentAnimation) {
+        currentAnimation.pause();
+      }
+    });
+
+    stopBtn.addEventListener('click', () => {
+      if (currentAnimation) {
+        currentAnimation.stop();
+      }
+    });
+
+    // Animation selection handler
+    select.addEventListener('change', (e) => {
+      const path = e.target.value;
+      if (path) {
+        loadAnimation(path);
+      }
+    });
+
+    // Initialize
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadManifest);
+    } else {
+      // DOM already loaded
+      loadManifest();
+    }
+  </script>
+</body>
+</html>
