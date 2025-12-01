@@ -6,37 +6,26 @@
   <title>Bloom — Animation Preview</title>
   <script src="https://unpkg.com/lottie-web@5.9.6/build/player/lottie.min.js"></script>
   <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0;
-      height: 100vh;
-      background: #0a1016;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
-    #animation-container {
-      width: 80vw;
-      max-width: 800px;
-      height: 45vw;
-      max-height: 450px;
-      background: black;
-    }
+    body{display:flex;justify-content:center;align-items:center;margin:0;height:100vh;background:#0a1016;color:#fff;font-family:Arial,sans-serif}
+    #player{width:90vw;max-width:900px;height:50vh;max-height:540px;background:#000;border-radius:12px;overflow:hidden}
+    .meta{margin-top:12px;color:#cbd5e1;text-align:center;font-size:14px}
   </style>
 </head>
 <body>
-  <div id="animation-container"></div>
-  <script>
-    const animationDataUrl = "https://raw.githubusercontent.com/TheAVCfiles/Decrypt-The-Girl/main/assets/lottie/bloom-cinematic.json";
-    const container = document.getElementById("animation-container");
+  <div>
+    <div id="player">Loading…</div>
+    <div class="meta">Bloom — frames 0–120 reveal, 120–239 idle loop</div>
+  </div>
 
-    lottie.loadAnimation({
-      container: container,
-      renderer: "svg",
+  <script>
+    const jsonUrl = "https://raw.githack.com/TheAVCfiles/Decrypt-The-Girl/main/assets/lottie/bloom-cinematic.json";
+    const el = document.getElementById('player');
+    const anim = lottie.loadAnimation({
+      container: el,
+      renderer: 'svg',
       loop: true,
       autoplay: true,
-      path: animationDataUrl,
+      path: jsonUrl
     });
   </script>
 </body>
