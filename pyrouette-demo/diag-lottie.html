@@ -281,8 +281,6 @@
         statusEl.className = 'status ' + type;
       }
 
-
-
       // Load and parse manifest
       async function tryFetchManifest() {
         try {
@@ -376,14 +374,24 @@
       function updateInfo() {
         if (!currentAnimation) return;
 
-        const totalFrames = currentAnimation.totalFrames;
-        const frameRate = currentAnimation.frameRate;
-        const duration = (frameRate > 0) ? totalFrames / frameRate : 0;
+        const totalFrames = currentAnimation.totalFrames || 0;
+        const frameRate = currentAnimation.frameRate || 0;
+        
+        // Guard against division by zero
+        if (frameRate <= 0) {
+          animStatusEl.textContent = 'Playing';
+          animDurationEl.textContent = '0.00s';
+          animFpsEl.textContent = '0 fps';
+          animFramesEl.textContent = '0';
+          return;
+        }
+        
+        const duration = totalFrames / frameRate;
 
         animStatusEl.textContent = 'Playing';
         animDurationEl.textContent = duration.toFixed(2) + 's';
-        animFpsEl.textContent = (frameRate || 0) + ' fps';
-        animFramesEl.textContent = Math.floor(totalFrames || 0);
+        animFpsEl.textContent = frameRate + ' fps';
+        animFramesEl.textContent = Math.floor(totalFrames);
       }
 
       // Reset animation info
