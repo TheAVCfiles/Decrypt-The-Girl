@@ -389,7 +389,7 @@
     // Check if lottie loaded, if not try alternative CDN
     if (typeof lottie === 'undefined') {
       const script = document.createElement('script');
-      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js';
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js';
       script.crossOrigin = 'anonymous';
       document.head.appendChild(script);
     }
@@ -614,9 +614,12 @@
     });
 
     // Initialize
-    window.addEventListener('DOMContentLoaded', () => {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadManifest);
+    } else {
+      // DOM already loaded
       loadManifest();
-    });
+    }
   </script>
 </body>
 </html>
