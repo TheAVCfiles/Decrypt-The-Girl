@@ -159,17 +159,26 @@
           <strong>Select JSON Source:</strong>
         </label>
         <select id="url-select" style="width: 100%;">
-          <option value="https://raw.githack.com/TheAVCfiles/Decrypt-The-Girl/main/assets/bloom-cinematic.json">
-            RawGitHack CDN (Default)
+          <option value="https://raw.githack.com/TheAVCfiles/Decrypt-The-Girl/main/assets/lottie/bloom-cinematic.json">
+            RawGitHack CDN - Lottie Path (Default)
+          </option>
+          <option value="https://raw.githubusercontent.com/TheAVCfiles/Decrypt-The-Girl/main/assets/lottie/bloom-cinematic.json">
+            GitHub Raw - Lottie Path
+          </option>
+          <option value="https://theavcfiles.github.io/Decrypt-The-Girl/assets/lottie/bloom-cinematic.json">
+            GitHub Pages - Lottie Path
           </option>
           <option value="https://raw.githubusercontent.com/TheAVCfiles/Decrypt-The-Girl/main/assets/bloom-cinematic.json">
-            GitHub Raw
+            GitHub Raw - Assets Root
           </option>
           <option value="https://theavcfiles.github.io/Decrypt-The-Girl/assets/bloom-cinematic.json">
-            GitHub Pages
+            GitHub Pages - Assets Root
+          </option>
+          <option value="../assets/lottie/bloom-cinematic.json">
+            Relative Path - Lottie
           </option>
           <option value="../assets/bloom-cinematic.json">
-            Relative Path
+            Relative Path - Assets Root
           </option>
         </select>
       </div>
@@ -198,6 +207,7 @@
 
   <script>
     let animation = null;
+    let frameUpdateInterval = null;
     const eventLog = [];
 
     function log(message, type = 'info') {
@@ -287,6 +297,10 @@
       if (animation) {
         animation.destroy();
         animation = null;
+        if (frameUpdateInterval) {
+          clearInterval(frameUpdateInterval);
+          frameUpdateInterval = null;
+        }
         log('Previous animation destroyed', 'info');
       }
 
@@ -338,7 +352,10 @@
         });
 
         // Update info periodically while playing
-        setInterval(() => {
+        if (frameUpdateInterval) {
+          clearInterval(frameUpdateInterval);
+        }
+        frameUpdateInterval = setInterval(() => {
           if (animation && !animation.isPaused) {
             updateAnimationInfo();
           }
@@ -395,7 +412,7 @@
             <span class="info-value">lottie-web</span>
             
             <span class="info-label">Version:</span>
-            <span class="info-value">${lottie.version || '5.9.6 (assumed)'}</span>
+            <span class="info-value">${lottie.version || 'Unknown'}</span>
             
             <span class="info-label">Source:</span>
             <span class="info-value">unpkg.com CDN</span>
@@ -424,6 +441,18 @@
     // Log any global errors
     window.addEventListener('error', (event) => {
       log(`✗ Global error: ${event.message}`, 'error');
+    });
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+      if (frameUpdateInterval) {
+        clearInterval(frameUpdateInterval);
+        frameUpdateInterval = null;
+      }
+      if (animation) {
+        animation.destroy();
+        animation = null;
+      }
     });
   </script>
 </body>
