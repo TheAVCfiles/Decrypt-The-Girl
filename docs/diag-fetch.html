@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloom JSON Fetch Diagnostic</title>
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      background: #0a1016;
+      color: #cbd5e1;
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: #60a5fa;
+      border-bottom: 2px solid #1e40af;
+      padding-bottom: 10px;
+    }
+    .test-section {
+      background: #1e293b;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 4px solid #3b82f6;
+    }
+    .status {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .success {
+      background: #065f46;
+      color: #d1fae5;
+    }
+    .error {
+      background: #7f1d1d;
+      color: #fecaca;
+    }
+    .info {
+      background: #1e3a8a;
+      color: #bfdbfe;
+    }
+    pre {
+      background: #0f172a;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .test-url {
+      color: #60a5fa;
+      word-break: break-all;
+    }
+    button {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px 5px 10px 0;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(96, 165, 250, 0.3);
+      border-radius: 50%;
+      border-top-color: #60a5fa;
+      animation: spin 1s ease-in-out infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <h1>🔍 Bloom JSON Fetch Diagnostic</h1>
+  
+  <div class="test-section">
+    <h2>Test URLs</h2>
+    <div id="url-list"></div>
+    <button onclick="runAllTests()">Run All Tests</button>
+    <button onclick="clearResults()">Clear Results</button>
+  </div>
+
+  <div id="results"></div>
+
+  <script>
+    const urls = [
+      {
+        name: 'GitHub Raw - Lottie Path (Main)',
+        url: 'https://raw.githubusercontent.com/TheAVCfiles/Decrypt-The-Girl/main/assets/lottie/bloom-cinematic.json'
+      },
+      {
+        name: 'RawGitHack CDN - Lottie Path',
+        url: 'https://raw.githack.com/TheAVCfiles/Decrypt-The-Girl/main/assets/lottie/bloom-cinematic.json'
+      },
+      {
+        name: 'GitHub Pages - Lottie Path',
+        url: 'https://theavcfiles.github.io/Decrypt-The-Girl/assets/lottie/bloom-cinematic.json'
+      },
+      {
+        name: 'GitHub Raw - Assets Root',
+        url: 'https://raw.githubusercontent.com/TheAVCfiles/Decrypt-The-Girl/main/assets/bloom-cinematic.json'
+      },
+      {
+        name: 'GitHub Pages - Assets Root',
+        url: 'https://theavcfiles.github.io/Decrypt-The-Girl/assets/bloom-cinematic.json'
+      },
+      {
+        name: 'Relative Path - Lottie (local)',
+        url: '../assets/lottie/bloom-cinematic.json'
+      },
+      {
+        name: 'Relative Path - Assets Root (local)',
+        url: '../assets/bloom-cinematic.json'
+      }
+    ];
+
+    function displayUrls() {
+      const urlList = document.getElementById('url-list');
+      urlList.innerHTML = urls.map((item, index) => 
+        `<div style="margin: 10px 0;">
+          <strong>${index + 1}. ${item.name}:</strong><br>
+          <span class="test-url">${item.url}</span>
+          <button onclick="testUrl(${index})">Test This URL</button>
+        </div>`
+      ).join('');
+    }
+
+    async function testUrl(index) {
+      const item = urls[index];
+      const resultsDiv = document.getElementById('results');
+      
+      const resultId = `result-${index}-${Date.now()}`;
+      const resultHTML = `
+        <div class="test-section" id="${resultId}">
+          <h3>Testing: ${item.name}</h3>
+          <div class="status info">
+            <span class="loading"></span> Fetching from: <span class="test-url">${item.url}</span>
+          </div>
+          <div id="${resultId}-content"></div>
+        </div>
+      `;
+      resultsDiv.innerHTML = resultHTML + resultsDiv.innerHTML;
+
+      const startTime = performance.now();
+      
+      try {
+        const response = await fetch(item.url);
+        const endTime = performance.now();
+        const duration = (endTime - startTime).toFixed(2);
+        
+        const contentDiv = document.getElementById(`${resultId}-content`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const contentType = response.headers.get('content-type');
+        const data = await response.json();
+        
+        // Validate it's a Lottie JSON
+        const isValidLottie = data && typeof data === 'object' && 
+                             (data.v || data.nm || data.layers);
+        
+        contentDiv.innerHTML = `
+          <div class="status success">
+            ✓ Success! Fetched in ${duration}ms
+          </div>
+          <div style="margin: 10px 0;">
+            <strong>Response Details:</strong><br>
+            Status: ${response.status} ${response.statusText}<br>
+            Content-Type: ${contentType || 'Not specified'}<br>
+            Valid Lottie JSON: ${isValidLottie ? '✓ Yes' : '✗ No'}
+          </div>
+          <details>
+            <summary style="cursor: pointer; color: #60a5fa; margin: 10px 0;">
+              View JSON Preview (first 500 chars)
+            </summary>
+            <pre>${JSON.stringify(data, null, 2).substring(0, 500)}...</pre>
+          </details>
+          ${isValidLottie ? `
+          <div style="margin: 10px 0;">
+            <strong>Lottie Info:</strong><br>
+            Name: ${data.nm || 'N/A'}<br>
+            Version: ${data.v || 'N/A'}<br>
+            Frame Rate: ${data.fr || 'N/A'}<br>
+            In Point: ${data.ip || 0} | Out Point: ${data.op || 'N/A'}<br>
+            Width: ${data.w || 'N/A'} | Height: ${data.h || 'N/A'}<br>
+            Layers: ${data.layers ? data.layers.length : 'N/A'}
+          </div>
+          ` : ''}
+        `;
+      } catch (error) {
+        const endTime = performance.now();
+        const duration = (endTime - startTime).toFixed(2);
+        
+        document.getElementById(`${resultId}-content`).innerHTML = `
+          <div class="status error">
+            ✗ Failed after ${duration}ms
+          </div>
+          <div style="margin: 10px 0;">
+            <strong>Error:</strong><br>
+            ${error.message}
+          </div>
+          <div style="margin: 10px 0; color: #94a3b8;">
+            <strong>Possible Causes:</strong><br>
+            • CORS policy blocking the request<br>
+            • File not found at specified path<br>
+            • Network connectivity issues<br>
+            • Invalid JSON format
+          </div>
+        `;
+      }
+    }
+
+    async function runAllTests() {
+      document.getElementById('results').innerHTML = '';
+      for (let i = 0; i < urls.length; i++) {
+        await testUrl(i);
+        // Small delay between tests
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+    }
+
+    function clearResults() {
+      document.getElementById('results').innerHTML = '';
+    }
+
+    // Display URLs on load
+    displayUrls();
+
+    // Show page load info
+    window.addEventListener('load', () => {
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = `
+        <div class="test-section">
+          <div class="status info">
+            ℹ️ Diagnostic page loaded successfully at ${new Date().toLocaleTimeString()}
+          </div>
+          <p>This page tests various URLs to fetch the bloom-cinematic.json file.</p>
+          <p><strong>Usage:</strong> Click "Run All Tests" to test all URLs, or test individual URLs above.</p>
+        </div>
+      ` + resultsDiv.innerHTML;
+    });
+  </script>
+</body>
+</html>
