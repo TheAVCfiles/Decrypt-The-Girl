@@ -138,6 +138,8 @@ npm run test:bloom
 
 Generated assets are saved to `dist/bloom-fallbacks/` and include a manifest file with metadata. These assets are automatically packaged and released through GitHub Actions workflow.
 
+📖 **[Read the complete Bloom Fallbacks User Guide](docs/bloom-fallbacks-guide.md)** for detailed documentation on generation, configuration, and integration.
+
 ### File Structure
 ```
 Decrypt-The-Girl/
