@@ -1,3 +1,462 @@
-// DEBUG: force immediate manifest load + animation load (remove after)
-tryFetchManifest();
-loadAnimation(relativePath(select.value));
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pyrouette Lottie Diagnostic Panel</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+
+    <!-- Lottie Player -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js" 
+            integrity="sha512-rd3k1RRKXmEDT9ZGvFRLcjalL8DAEAhaE/eKUOfjYvJq0M3DvP7Z5cYdEQxLU4xr64qShP6jEqpqLcPLqYqvdQ==" 
+            crossorigin="anonymous"></script>
+
+    <!-- Styles for Diagnostic Panel -->
+    <style>
+      :root {
+        --bg: #050816;
+        --card-bg: #0b1020;
+        --border-subtle: rgba(255, 255, 255, 0.08);
+        --text-main: #e5e7eb;
+        --text-muted: #9ca3af;
+        --accent: #7dd3fc;
+        --accent-soft: rgba(125, 211, 252, 0.2);
+        --error: #f97373;
+        --success: #4ade80;
+        --radius-lg: 1rem;
+        --radius-md: 0.75rem;
+        --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at top, #1f2937 0%, #020617 55%);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro", "Inter", sans-serif;
+        color: var(--text-main);
+      }
+
+      .shell {
+        max-width: 900px;
+        width: 100%;
+        padding: 1.5rem;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        box-shadow: var(--shadow-soft);
+      }
+
+      h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .subtitle {
+        margin: 0 0 2rem;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+
+      .control-group {
+        margin-bottom: 1.5rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      select {
+        width: 100%;
+        padding: 0.75rem;
+        background: var(--bg);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        color: var(--text-main);
+        font-size: 1rem;
+        cursor: pointer;
+        transition: border-color 0.2s;
+      }
+
+      select:hover {
+        border-color: var(--accent-soft);
+      }
+
+      select:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+
+      .player-container {
+        background: var(--bg);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #lottie-player {
+        width: 100%;
+        max-width: 600px;
+        height: 400px;
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .info-item {
+        background: var(--bg);
+        padding: 1rem;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-subtle);
+      }
+
+      .info-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-bottom: 0.25rem;
+      }
+
+      .info-value {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--accent);
+      }
+
+      .status {
+        padding: 0.75rem 1rem;
+        border-radius: var(--radius-md);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .status.loading {
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+
+      .status.success {
+        background: rgba(74, 222, 128, 0.2);
+        color: var(--success);
+      }
+
+      .status.error {
+        background: rgba(249, 115, 115, 0.2);
+        color: var(--error);
+      }
+
+      .controls {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      button {
+        padding: 0.5rem 1rem;
+        background: var(--accent);
+        color: var(--bg);
+        border: none;
+        border-radius: var(--radius-md);
+        font-weight: 500;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+
+      button:hover {
+        opacity: 0.9;
+      }
+
+      button:active {
+        opacity: 0.8;
+      }
+
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <div class="card">
+        <h1>Pyrouette Lottie Diagnostic</h1>
+        <p class="subtitle">Manifest-driven animation testing and diagnostics</p>
+
+        <div id="status" class="status loading">Loading manifest...</div>
+
+        <div class="control-group">
+          <label for="animation-select">Select Animation</label>
+          <select id="animation-select" disabled>
+            <option value="">Loading animations...</option>
+          </select>
+        </div>
+
+        <div class="player-container">
+          <div id="lottie-player"></div>
+        </div>
+
+        <div class="info-grid" id="info-grid">
+          <div class="info-item">
+            <div class="info-label">Status</div>
+            <div class="info-value" id="anim-status">No animation loaded</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Duration</div>
+            <div class="info-value" id="anim-duration">-</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Frame Rate</div>
+            <div class="info-value" id="anim-fps">-</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Total Frames</div>
+            <div class="info-value" id="anim-frames">-</div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="play-btn" disabled>Play</button>
+          <button id="pause-btn" disabled>Pause</button>
+          <button id="stop-btn" disabled>Stop</button>
+          <button id="reload-btn" disabled>Reload</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Global state
+      let currentAnimation = null;
+      let animationData = null;
+      let manifestData = [];
+
+      // DOM elements
+      const statusEl = document.getElementById('status');
+      const selectEl = document.getElementById('animation-select');
+      const playerEl = document.getElementById('lottie-player');
+      const playBtn = document.getElementById('play-btn');
+      const pauseBtn = document.getElementById('pause-btn');
+      const stopBtn = document.getElementById('stop-btn');
+      const reloadBtn = document.getElementById('reload-btn');
+
+      // Info elements
+      const animStatusEl = document.getElementById('anim-status');
+      const animDurationEl = document.getElementById('anim-duration');
+      const animFpsEl = document.getElementById('anim-fps');
+      const animFramesEl = document.getElementById('anim-frames');
+
+      // Utility: Update status message
+      function setStatus(message, type = 'loading') {
+        statusEl.textContent = message;
+        statusEl.className = 'status ' + type;
+      }
+
+      // Load and parse manifest
+      async function tryFetchManifest() {
+        try {
+          setStatus('Loading manifest...', 'loading');
+          const response = await fetch('assets/lottie/manifest.json');
+          
+          if (!response.ok) {
+            throw new Error(`Failed to fetch manifest: ${response.status}`);
+          }
+
+          manifestData = await response.json();
+          
+          if (!Array.isArray(manifestData) || manifestData.length === 0) {
+            throw new Error('Manifest is empty or invalid');
+          }
+
+          populateSelector(manifestData);
+          setStatus('Manifest loaded successfully', 'success');
+          selectEl.disabled = false;
+
+        } catch (error) {
+          console.error('Manifest load error:', error);
+          setStatus(`Error: ${error.message}`, 'error');
+          selectEl.innerHTML = '<option value="">Failed to load manifest</option>';
+        }
+      }
+
+      // Populate animation selector
+      function populateSelector(animations) {
+        selectEl.innerHTML = '<option value="">-- Select an animation --</option>';
+        
+        animations.forEach(anim => {
+          const option = document.createElement('option');
+          option.value = anim.path;
+          option.textContent = anim.name || anim.id;
+          if (anim.description) {
+            option.title = anim.description;
+          }
+          selectEl.appendChild(option);
+        });
+      }
+
+      // Load animation
+      function loadAnimation(path) {
+        if (!path) {
+          if (currentAnimation) {
+            currentAnimation.destroy();
+            currentAnimation = null;
+          }
+          resetInfo();
+          return;
+        }
+
+        try {
+          // Clear previous animation
+          if (currentAnimation) {
+            currentAnimation.destroy();
+          }
+
+          setStatus('Loading animation...', 'loading');
+          
+          // Load new animation
+          currentAnimation = lottie.loadAnimation({
+            container: playerEl,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: path
+          });
+
+          // Set up event listeners
+          currentAnimation.addEventListener('DOMLoaded', function() {
+            setStatus('Animation loaded successfully', 'success');
+            updateInfo();
+            enableControls();
+          });
+
+          currentAnimation.addEventListener('data_failed', function() {
+            setStatus('Failed to load animation data', 'error');
+            disableControls();
+          });
+
+        } catch (error) {
+          console.error('Animation load error:', error);
+          setStatus(`Error: ${error.message}`, 'error');
+          disableControls();
+        }
+      }
+
+      // Update animation info
+      function updateInfo() {
+        if (!currentAnimation) return;
+
+        const totalFrames = currentAnimation.totalFrames || 0;
+        const frameRate = currentAnimation.frameRate || 0;
+        
+        // Guard against division by zero
+        if (frameRate <= 0) {
+          animStatusEl.textContent = 'Playing';
+          animDurationEl.textContent = '0.00s';
+          animFpsEl.textContent = '0 fps';
+          animFramesEl.textContent = '0';
+          return;
+        }
+        
+        const duration = totalFrames / frameRate;
+
+        animStatusEl.textContent = 'Playing';
+        animDurationEl.textContent = duration.toFixed(2) + 's';
+        animFpsEl.textContent = frameRate + ' fps';
+        animFramesEl.textContent = Math.floor(totalFrames);
+      }
+
+      // Reset animation info
+      function resetInfo() {
+        animStatusEl.textContent = 'No animation';
+        animDurationEl.textContent = '-';
+        animFpsEl.textContent = '-';
+        animFramesEl.textContent = '-';
+        disableControls();
+      }
+
+      // Enable controls
+      function enableControls() {
+        playBtn.disabled = false;
+        pauseBtn.disabled = false;
+        stopBtn.disabled = false;
+        reloadBtn.disabled = false;
+      }
+
+      // Disable controls
+      function disableControls() {
+        playBtn.disabled = true;
+        pauseBtn.disabled = true;
+        stopBtn.disabled = true;
+        reloadBtn.disabled = true;
+      }
+
+      // Control handlers
+      playBtn.addEventListener('click', () => {
+        if (currentAnimation) {
+          currentAnimation.play();
+          animStatusEl.textContent = 'Playing';
+        }
+      });
+
+      pauseBtn.addEventListener('click', () => {
+        if (currentAnimation) {
+          currentAnimation.pause();
+          animStatusEl.textContent = 'Paused';
+        }
+      });
+
+      stopBtn.addEventListener('click', () => {
+        if (currentAnimation) {
+          currentAnimation.stop();
+          animStatusEl.textContent = 'Stopped';
+        }
+      });
+
+      reloadBtn.addEventListener('click', () => {
+        const path = selectEl.value;
+        if (path) {
+          loadAnimation(path);
+        }
+      });
+
+      // Animation selector change handler
+      selectEl.addEventListener('change', (e) => {
+        loadAnimation(e.target.value);
+      });
+
+      // Initialize on load
+      window.addEventListener('DOMContentLoaded', () => {
+        tryFetchManifest();
+      });
+    </script>
+  </body>
+</html>

@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "id": "bloom-cinematic",
+    "name": "Bloom Cinematic",
+    "path": "assets/lottie/bloom-cinematic.json",
+    "description": "Cinematic bloom animation with petal effects"
+  }
+]
