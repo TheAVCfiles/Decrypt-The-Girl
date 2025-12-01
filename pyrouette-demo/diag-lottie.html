@@ -9,7 +9,9 @@
     />
 
     <!-- Lottie Player -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js" 
+            integrity="sha512-rd3k1RRKXmEDT9ZGvFRLcjalL8DAEAhaE/eKUOfjYvJq0M3DvP7Z5cYdEQxLU4xr64qShP6jEqpqLcPLqYqvdQ==" 
+            crossorigin="anonymous"></script>
 
     <!-- Styles for Diagnostic Panel -->
     <style>
@@ -279,12 +281,7 @@
         statusEl.className = 'status ' + type;
       }
 
-      // Utility: Convert relative path
-      function relativePath(path) {
-        if (!path) return '';
-        if (path.startsWith('http')) return path;
-        return path;
-      }
+
 
       // Load and parse manifest
       async function tryFetchManifest() {
@@ -353,7 +350,7 @@
             renderer: 'svg',
             loop: true,
             autoplay: true,
-            path: relativePath(path)
+            path: path
           });
 
           // Set up event listeners
@@ -381,12 +378,12 @@
 
         const totalFrames = currentAnimation.totalFrames;
         const frameRate = currentAnimation.frameRate;
-        const duration = totalFrames / frameRate;
+        const duration = (frameRate > 0) ? totalFrames / frameRate : 0;
 
         animStatusEl.textContent = 'Playing';
         animDurationEl.textContent = duration.toFixed(2) + 's';
-        animFpsEl.textContent = frameRate + ' fps';
-        animFramesEl.textContent = Math.floor(totalFrames);
+        animFpsEl.textContent = (frameRate || 0) + ' fps';
+        animFramesEl.textContent = Math.floor(totalFrames || 0);
       }
 
       // Reset animation info
