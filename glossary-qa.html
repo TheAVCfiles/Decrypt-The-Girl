@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glossary Q&amp;A - Decrypt The Girl</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Ask questions about the Decrypt The Girl codebook with AI-powered contextual answers.">
+  <meta name="keywords" content="Q&amp;A, glossary, decrypt the girl, interactive, AI assistant">
+  <meta name="author" content="A.C. Van Cura">
+
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #0f0f0f;
+      --veil: #f8f7ff;
+      --accent: #8a7cff;
+      --muted: #4b5563;
+      --border: #e5e7eb;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "SF Pro Display", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(138, 124, 255, 0.08), transparent 35%),
+        radial-gradient(circle at 80% 0%, rgba(99, 102, 241, 0.08), transparent 30%),
+        var(--veil);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 32px;
+    }
+
+    .container {
+      width: min(800px, 100%);
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.08);
+      padding: 32px;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+
+    header h1 {
+      margin: 0 0 8px 0;
+      font-size: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+
+    textarea, input {
+      width: 100%;
+      font: inherit;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: white;
+      resize: vertical;
+    }
+
+    textarea {
+      min-height: 100px;
+    }
+
+    textarea:focus, input:focus {
+      outline: 2px solid var(--accent);
+      border-color: var(--accent);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font: inherit;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: white;
+      flex: 1;
+    }
+
+    button.primary:hover {
+      background: #7568e6;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(138, 124, 255, 0.3);
+    }
+
+    button.secondary {
+      background: #f3f4f6;
+      color: var(--ink);
+      padding: 12px 20px;
+    }
+
+    button.secondary:hover {
+      background: #e5e7eb;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .status-box {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      display: none;
+    }
+
+    .status-box.visible {
+      display: block;
+    }
+
+    .status-box.info {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+    }
+
+    .status-box.warning {
+      background: #fef3c7;
+      border: 1px solid #fde68a;
+      color: #92400e;
+    }
+
+    .status-box.success {
+      background: #d1fae5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+    }
+
+    .answer-box {
+      margin-top: 24px;
+      padding: 20px;
+      background: linear-gradient(145deg, #ffffff, #fafafa);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: none;
+      min-height: 100px;
+    }
+
+    .answer-box.visible {
+      display: block;
+    }
+
+    .answer-box h3 {
+      margin: 0 0 12px 0;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    .answer-box .answer-content {
+      line-height: 1.7;
+      white-space: pre-wrap;
+      color: var(--ink);
+    }
+
+    .footer {
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      header h1 {
+        font-size: 1.25rem;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      button.secondary {
+        order: 2;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Glossary Q&amp;A Assistant</h1>
+      <p>Ask questions about the Decrypt The Girl codebook with contextual AI assistance.</p>
+    </header>
+
+    <form id="qa-form">
+      <div class="form-group">
+        <label for="question">Your Question *</label>
+        <textarea
+          id="question"
+          name="question"
+          placeholder="What would you like to know about the codebook?"
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="glossary">Glossary Context (Optional)</label>
+        <textarea
+          id="glossary"
+          name="glossary"
+          placeholder="Paste relevant glossary terms or definitions here..."
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="extra-context">Extra Context (Optional)</label>
+        <textarea
+          id="extra-context"
+          name="extra-context"
+          placeholder="Add any additional context that might help answer your question..."
+        ></textarea>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="primary">Ask Question</button>
+        <button type="button" class="secondary" id="clear-btn">Clear</button>
+      </div>
+    </form>
+
+    <div id="status" class="status-box"></div>
+
+    <div id="answer" class="answer-box">
+      <h3>Answer</h3>
+      <div id="answer-content" class="answer-content"></div>
+    </div>
+
+    <footer class="footer">
+      <p>Part of <a href="index.html">Decrypt The Girl</a> by A.C. Van Cura</p>
+    </footer>
+  </div>
+
+  <script>
+    /**
+     * Glossary Q&A Assistant - JavaScript
+     *
+     * This script manages the Q&A form submission with support for:
+     * - Static demo mode when serverless function URL is not available
+     * - Live serverless function calls when properly configured
+     */
+
+    // ============================================================================
+    // CONFIGURATION
+    // ============================================================================
+
+    /**
+     * Serverless function URL for AI-powered Q&A
+     * Set this to a valid HTTPS URL to enable live backend functionality
+     * Leave as empty string, placeholder, or relative path for demo mode
+     */
+    const FUNCTION_URL = "";  // e.g., "https://your-function-url.com/api/qa"
+
+    // ============================================================================
+    // HELPER FUNCTIONS
+    // ============================================================================
+
+    /**
+     * Validates if a given value is a proper URL
+     * @param {string} value - The string to validate
+     * @returns {boolean} - True if the value is a valid URL, false otherwise
+     */
+    function isValidUrl(value) {
+      if (!value || typeof value !== 'string' || value.trim() === '') {
+        return false;
+      }
+
+      try {
+        const url = new URL(value);
+        // Ensure it's an HTTP or HTTPS URL
+        return url.protocol === 'http:' || url.protocol === 'https:';
+      } catch (error) {
+        return false;
+      }
+    }
+
+    /**
+     * Shows a status message to the user
+     * @param {string} message - The message to display
+     * @param {string} type - The type of message: 'info', 'warning', 'success'
+     */
+    function showStatus(message, type = 'info') {
+      const statusEl = document.getElementById('status');
+      statusEl.textContent = message;
+      statusEl.className = `status-box visible ${type}`;
+    }
+
+    /**
+     * Hides the status message
+     */
+    function hideStatus() {
+      const statusEl = document.getElementById('status');
+      statusEl.className = 'status-box';
+    }
+
+    /**
+     * Shows the answer box with content
+     * @param {string} content - The answer content to display
+     */
+    function showAnswer(content) {
+      const answerEl = document.getElementById('answer');
+      const answerContentEl = document.getElementById('answer-content');
+      answerContentEl.textContent = content;
+      answerEl.className = 'answer-box visible';
+    }
+
+    /**
+     * Hides the answer box
+     */
+    function hideAnswer() {
+      const answerEl = document.getElementById('answer');
+      answerEl.className = 'answer-box';
+    }
+
+    // ============================================================================
+    // MAIN FUNCTION
+    // ============================================================================
+
+    /**
+     * Calls the serverless function with the provided payload
+     * Handles both demo mode (invalid URL) and live mode (valid URL)
+     * @param {Object} payload - The data to send to the serverless function
+     */
+    async function callFunction(payload) {
+      const statusEl = document.getElementById("status");   // adjust IDs to your page
+      const answerEl = document.getElementById("answer-content");   // adjust if needed
+
+      // 1. If there is no valid serverless URL, go into static demo mode.
+      if (!isValidUrl(FUNCTION_URL)) {
+        statusEl.textContent =
+          "Static demo mode: serverless endpoint not wired yet. Showing sample response.";
+        statusEl.className = 'status-box visible warning';
+
+        // Optional: show a believable fake AI answer
+        if (answerEl) {
+          answerEl.textContent =
+            "This is a sample explanation. In the full stack, this area will show the AI's response based on your question, glossary, and extra context.";
+        }
+
+        // Show answer box
+        const answerBox = document.getElementById('answer');
+        answerBox.className = 'answer-box visible';
+
+        // Log the payload so you (or a dev) can see what would have been sent.
+        console.log("[DTG] Demo payload that would be sent:", payload);
+        return;
+      }
+
+      // 2. Real backend path – only runs when FUNCTION_URL is a valid URL.
+      try {
+        const response = await fetch(FUNCTION_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+          statusEl.textContent = `Server error: ${response.status} ${response.statusText}`;
+          statusEl.className = 'status-box visible warning';
+          return;
+        }
+
+        const data = await response.json();
+        statusEl.textContent = "Answer received.";
+        statusEl.className = 'status-box visible success';
+        if (answerEl) {
+          answerEl.textContent = data.answer || JSON.stringify(data, null, 2);
+        }
+
+        // Show answer box
+        const answerBox = document.getElementById('answer');
+        answerBox.className = 'answer-box visible';
+      } catch (error) {
+        statusEl.textContent = `Network error: ${error.message}`;
+        statusEl.className = 'status-box visible warning';
+      }
+    }
+
+    // ============================================================================
+    // EVENT HANDLERS
+    // ============================================================================
+
+    /**
+     * Handle form submission
+     */
+    document.getElementById('qa-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      // Get form values
+      const question = document.getElementById('question').value.trim();
+      const glossary = document.getElementById('glossary').value.trim();
+      const extraContext = document.getElementById('extra-context').value.trim();
+
+      // Validate question
+      if (!question) {
+        showStatus('Please enter a question.', 'warning');
+        return;
+      }
+
+      // Prepare payload
+      const payload = {
+        question: question,
+        glossary: glossary || null,
+        extraContext: extraContext || null,
+        timestamp: new Date().toISOString()
+      };
+
+      // Show loading state
+      showStatus('Processing your question...', 'info');
+      hideAnswer();
+
+      // Disable submit button
+      const submitBtn = document.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+
+      try {
+        // Call the function
+        await callFunction(payload);
+      } finally {
+        // Re-enable submit button
+        submitBtn.disabled = false;
+      }
+    });
+
+    /**
+     * Handle clear button
+     */
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      // Clear form
+      document.getElementById('qa-form').reset();
+
+      // Hide status and answer
+      hideStatus();
+      hideAnswer();
+
+      // Focus on question field
+      document.getElementById('question').focus();
+    });
+
+    // ============================================================================
+    // INITIALIZATION
+    // ============================================================================
+
+    // Log initialization info
+    console.log('[DTG] Glossary Q&A Assistant initialized');
+    console.log('[DTG] Demo mode:', !isValidUrl(FUNCTION_URL));
+    if (!isValidUrl(FUNCTION_URL)) {
+      console.log('[DTG] To enable live backend, set FUNCTION_URL to a valid HTTPS URL');
+    }
+  </script>
+</body>
+</html>
