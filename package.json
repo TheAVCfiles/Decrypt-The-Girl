@@ -24,6 +24,7 @@
   "scripts": {
     "start": "python3 -m http.server 8080",
     "test": "python3 -m json.tool chatbot.json",
+    "test:bloom": "node scripts/test-bloom-compatibility.js",
     "generate:bloom": "node scripts/generate-bloom-fallbacks.js",
     "deploy": "node scripts/deploy.js",
     "deploy:default": "node scripts/deploy.js default",

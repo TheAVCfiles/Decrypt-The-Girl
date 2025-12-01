@@ -125,6 +125,9 @@ The project includes an automated system for generating optimized fallback image
 ```bash
 # Generate Bloom fallback assets with autosize encoding
 npm run generate:bloom
+
+# Verify mobile compatibility of generated assets
+npm run test:bloom
 ```
 
 **Features:**
