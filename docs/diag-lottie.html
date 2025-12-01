@@ -354,7 +354,10 @@
     </script>
 
     <!-- Lottie Library with fallback -->
+    <!-- Note: SRI hash ensures script integrity. For production, consider hosting locally. -->
     <script src="https://unpkg.com/lottie-web@5.9.6/build/player/lottie.min.js" 
+            integrity="sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb"
+            crossorigin="anonymous"
             onerror="handleScriptError()"></script>
     
     <script>
@@ -362,7 +365,7 @@
         const CONFIG = {
             animationPaths: [
                 '../assets/lottie/bloom-cinematic.json',
-                'https://raw.githack.com/TheAVCfiles/Decrypt-The-Girl/main/assets/lottie/bloom-cinematic.json'
+                'https://cdn.jsdelivr.net/gh/TheAVCfiles/Decrypt-The-Girl@main/assets/lottie/bloom-cinematic.json'
             ],
             fallbackImage: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%230a1016" width="400" height="300"/%3E%3Ctext x="200" y="150" font-family="Arial" font-size="20" fill="%2360a5fa" text-anchor="middle"%3EAnimation Preview%3C/text%3E%3C/svg%3E'
         };

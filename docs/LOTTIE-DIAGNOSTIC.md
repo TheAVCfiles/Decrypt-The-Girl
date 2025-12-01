@@ -39,12 +39,13 @@ https://theavcfiles.github.io/Decrypt-The-Girl/docs/diag-lottie.html
 
 The page uses the Bloom Cinematic animation located at:
 - Primary: `../assets/lottie/bloom-cinematic.json` (relative path)
-- Fallback: `https://raw.githack.com/TheAVCfiles/Decrypt-The-Girl/main/assets/lottie/bloom-cinematic.json`
+- Fallback: `https://cdn.jsdelivr.net/gh/TheAVCfiles/Decrypt-The-Girl@main/assets/lottie/bloom-cinematic.json`
 
 ### Animation Details
 
 - **Name**: bloom-cinematic
-- **Version**: Lottie 5.7.6
+- **Format**: Lottie JSON (v5.7.6 format)
+- **Library**: lottie-web v5.9.6
 - **Frame Rate**: 30 fps
 - **Dimensions**: 1600x900
 - **Duration**: 240 frames (8 seconds)
@@ -127,6 +128,13 @@ Tested and working on:
 - Ensure viewport meta tag is present
 - Check screen size in diagnostic panel
 - Try landscape/portrait orientation
+
+## Security Considerations
+
+- **CDN Integrity**: The Lottie library is loaded with SRI (Subresource Integrity) hash to ensure the script hasn't been tampered with
+- **HTTPS**: All external resources are loaded over HTTPS
+- **Production Deployment**: For production use, consider hosting the Lottie library locally to reduce dependency on third-party CDNs
+- **Content Security Policy**: Ensure your CSP allows loading scripts from unpkg.com if using the default configuration
 
 ## Integration
 
