@@ -30,9 +30,32 @@ jobs:
       # Step 1: Build your artifacts.
       #
       # ========================================================
+      - name: Setup Node.js for mobile-compatible builds
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install build dependencies
+        run: |
+          npm ci || echo "No npm dependencies to install"
+          # Install system dependencies for mobile-optimized image generation
+          sudo apt-get update
+          sudo apt-get install -y libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      
       - name: Build artifacts
         run: |
-            # These are some amazing artifacts.
+            # Mobile-optimized artifact generation with autosize encoding
+            # Default max file size: 50KB for mobile compatibility
+            if [ -f "scripts/generate-bloom-fallbacks.js" ]; then
+              npm run generate:bloom || echo "Bloom generation not available"
+              # Package generated assets if they exist
+              if [ -d "dist/bloom-fallbacks" ]; then
+                tar -czf bloom-fallbacks-mobile.tar.gz -C dist bloom-fallbacks
+              fi
+            fi
+            
+            # Fallback to simple artifacts for testing
             echo "artifact1" > artifact1
             echo "artifact2" > artifact2
 
@@ -49,8 +72,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          # List the artifacts the provenance will refer to.
-          files=$(ls artifact*)
+          # List the artifacts the provenance will refer to (mobile-optimized)
+          files=$(ls artifact* bloom-fallbacks-mobile.tar.gz 2>/dev/null || ls artifact*)
           # Generate the subjects (base64 encoded).
           echo "hashes=$(sha256sum $files | base64 -w0)" >> "${GITHUB_OUTPUT}"
 

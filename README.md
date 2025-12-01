@@ -118,23 +118,46 @@ npm run deploy:app2
 
 The full list of playbooks is also stored in [`playbooks.yml`](playbooks.yml) for quick reference by tooling or documentation.
 
+### Bloom Fallback Asset Generation
+
+The project includes an automated system for generating optimized fallback image assets for the Day Zero Scroll component:
+
+```bash
+# Generate Bloom fallback assets with autosize encoding
+npm run generate:bloom
+```
+
+**Features:**
+- **Autosize Encoding**: Automatically adjusts JPEG quality to stay within 50KB file size limit
+- **Mobile-Optimized**: Designed for fast loading on mobile networks  
+- **Multiple Sizes**: Generates mobile (800x600), tablet (1200x900), and desktop (1600x1200) versions
+- **IP Protected**: Assets are licensed under proprietary terms (see [BLOOM_ASSETS_LICENSE.md](BLOOM_ASSETS_LICENSE.md))
+
+Generated assets are saved to `dist/bloom-fallbacks/` and include a manifest file with metadata. These assets are automatically packaged and released through GitHub Actions workflow.
+
 ### File Structure
 ```
 Decrypt-The-Girl/
-├── index.html              # Main interactive codebook
-├── astro-finance.html      # Weekly astro finance guide
-├── day-zero-scroll.html    # Ephemeris intelligence timeline experience
-├── crown-signal-node.html  # CROWN signal console with optional Firestore/ledger sync
-├── chatbot.json           # Chatbot configuration
-├── README.md              # Project documentation
-├── LICENSE                # MIT license
-├── CONTRIBUTING.md        # Contribution guidelines
-├── CHANGELOG.md           # Version history
-├── docs/choreocode.md     # Draft language notes for ChoreoCode v0.1
+├── index.html                    # Main interactive codebook
+├── astro-finance.html            # Weekly astro finance guide
+├── day-zero-scroll.html          # Ephemeris intelligence timeline experience
+├── crown-signal-node.html        # CROWN signal console with optional Firestore/ledger sync
+├── chatbot.json                  # Chatbot configuration
+├── README.md                     # Project documentation
+├── LICENSE                       # MIT license (software)
+├── BLOOM_ASSETS_LICENSE.md       # Proprietary license for generated assets
+├── CONTRIBUTING.md               # Contribution guidelines
+├── CHANGELOG.md                  # Version history
+├── docs/choreocode.md            # Draft language notes for ChoreoCode v0.1
+├── scripts/
+│   ├── generate-bloom-fallbacks.js  # Bloom asset generator with autosize encoding
+│   └── deploy.js                    # Deployment helper script
 └── .github/
-    └── workflows/         # CI/CD automation
+    └── workflows/                # CI/CD automation
         ├── deploy-pages.yml
-        └── quality-check.yml
+        ├── quality-check.yml
+        ├── build-bloom-fallbacks.yml         # Bloom asset build & release
+        └── generator-generic-ossf-slsa3-publish.yml
 ```
 
 ## 🎨 Design Philosophy
