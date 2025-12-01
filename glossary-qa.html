@@ -386,24 +386,20 @@
      * @param {Object} payload - The data to send to the serverless function
      */
     async function callFunction(payload) {
-      const statusEl = document.getElementById("status");   // adjust IDs to your page
-      const answerEl = document.getElementById("answer-content");   // adjust if needed
+      const statusEl = document.getElementById("status");
+      const answerEl = document.getElementById("answer-content");
 
       // 1. If there is no valid serverless URL, go into static demo mode.
       if (!isValidUrl(FUNCTION_URL)) {
-        statusEl.textContent =
-          "Static demo mode: serverless endpoint not wired yet. Showing sample response.";
-        statusEl.className = 'status-box visible warning';
+        showStatus(
+          "Static demo mode: serverless endpoint not wired yet. Showing sample response.",
+          'warning'
+        );
 
-        // Optional: show a believable fake AI answer
-        if (answerEl) {
-          answerEl.textContent =
-            "This is a sample explanation. In the full stack, this area will show the AI's response based on your question, glossary, and extra context.";
-        }
-
-        // Show answer box
-        const answerBox = document.getElementById('answer');
-        answerBox.className = 'answer-box visible';
+        // Show a believable fake AI answer
+        showAnswer(
+          "This is a sample explanation. In the full stack, this area will show the AI's response based on your question, glossary, and extra context."
+        );
 
         // Log the payload so you (or a dev) can see what would have been sent.
         console.log("[DTG] Demo payload that would be sent:", payload);
@@ -419,24 +415,15 @@
         });
 
         if (!response.ok) {
-          statusEl.textContent = `Server error: ${response.status} ${response.statusText}`;
-          statusEl.className = 'status-box visible warning';
+          showStatus(`Server error: ${response.status} ${response.statusText}`, 'warning');
           return;
         }
 
         const data = await response.json();
-        statusEl.textContent = "Answer received.";
-        statusEl.className = 'status-box visible success';
-        if (answerEl) {
-          answerEl.textContent = data.answer || JSON.stringify(data, null, 2);
-        }
-
-        // Show answer box
-        const answerBox = document.getElementById('answer');
-        answerBox.className = 'answer-box visible';
+        showStatus("Answer received.", 'success');
+        showAnswer(data.answer || JSON.stringify(data, null, 2));
       } catch (error) {
-        statusEl.textContent = `Network error: ${error.message}`;
-        statusEl.className = 'status-box visible warning';
+        showStatus(`Network error: ${error.message}`, 'warning');
       }
     }
 
