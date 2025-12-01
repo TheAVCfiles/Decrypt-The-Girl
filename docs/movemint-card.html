@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MoveMint Card - Fitness Tracking Reimagined</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="MoveMint Card - A beautiful, minimalist fitness tracking component showcasing real-time metrics and achievements." />
+  <meta name="keywords" content="fitness tracking, MoveMint, health metrics, activity tracking, wellness dashboard" />
+  <meta name="author" content="A.C. Van Cura" />
+  
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="MoveMint Card - Fitness Tracking Reimagined" />
+  <meta property="og:description" content="A beautiful, minimalist fitness tracking component with real-time metrics." />
+  <meta property="og:url" content="https://theavcfiles.github.io/Decrypt-The-Girl/docs/movemint-card.html" />
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MoveMint Card - Fitness Tracking Reimagined" />
+  <meta name="twitter:description" content="A beautiful, minimalist fitness tracking component with real-time metrics." />
+  
+  <style>
+    /* StudioOS Luxe Theme - Global Styles */
+    :root {
+      /* Luxe Color Palette */
+      --luxe-deep: #0a0a0f;
+      --luxe-ink: #1a1a2e;
+      --luxe-charcoal: #2a2a3e;
+      --luxe-mist: #f5f5f7;
+      --luxe-pearl: #fafafa;
+      --luxe-accent: #6366f1;
+      --luxe-accent-light: #818cf8;
+      --luxe-accent-dark: #4f46e5;
+      --luxe-success: #10b981;
+      --luxe-warning: #f59e0b;
+      --luxe-border: #e5e7eb;
+      --luxe-shadow: rgba(0, 0, 0, 0.08);
+      --luxe-shadow-lg: rgba(0, 0, 0, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Display', 'Inter', system-ui, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: var(--luxe-ink);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* MoveMint Card Container */
+    .movemint-card {
+      background: var(--luxe-pearl);
+      border-radius: 24px;
+      box-shadow: 0 20px 60px var(--luxe-shadow-lg);
+      max-width: 480px;
+      width: 100%;
+      overflow: hidden;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Card Header */
+    .card-header {
+      background: linear-gradient(135deg, var(--luxe-accent) 0%, var(--luxe-accent-dark) 100%);
+      color: white;
+      padding: 32px 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      animation: shimmer 8s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .brand-logo {
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand-subtitle {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Card Content */
+    .card-content {
+      padding: 32px 28px;
+    }
+
+    .section-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--luxe-charcoal);
+      margin-bottom: 20px;
+      opacity: 0.7;
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .metric-card {
+      background: white;
+      border: 1px solid var(--luxe-border);
+      border-radius: 16px;
+      padding: 20px 18px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card:hover {
+      border-color: var(--luxe-accent-light);
+      box-shadow: 0 8px 24px var(--luxe-shadow);
+      transform: translateY(-2px);
+    }
+
+    .metric-icon {
+      font-size: 1.75rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--luxe-ink);
+      line-height: 1;
+      margin-bottom: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .metric-label {
+      font-size: 0.875rem;
+      color: var(--luxe-charcoal);
+      opacity: 0.7;
+      font-weight: 500;
+    }
+
+    .metric-trend {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 0.75rem;
+      color: var(--luxe-success);
+      font-weight: 600;
+    }
+
+    /* Features List */
+    .features-list {
+      margin-bottom: 32px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--luxe-border);
+      transition: all 0.2s ease;
+    }
+
+    .feature-item:last-child {
+      border-bottom: none;
+    }
+
+    .feature-item:hover {
+      padding-left: 8px;
+    }
+
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-right: 16px;
+      flex-shrink: 0;
+    }
+
+    .feature-content {
+      flex: 1;
+    }
+
+    .feature-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--luxe-ink);
+      margin-bottom: 4px;
+    }
+
+    .feature-description {
+      font-size: 0.875rem;
+      color: var(--luxe-charcoal);
+      opacity: 0.8;
+      line-height: 1.5;
+    }
+
+    /* CTA Button */
+    .cta-button {
+      width: 100%;
+      padding: 18px 32px;
+      background: linear-gradient(135deg, var(--luxe-accent) 0%, var(--luxe-accent-dark) 100%);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+    }
+
+    .cta-button:hover::before {
+      left: 100%;
+    }
+
+    .cta-button:active {
+      transform: translateY(0);
+    }
+
+    /* Footer */
+    .card-footer {
+      padding: 24px 28px;
+      background: var(--luxe-mist);
+      text-align: center;
+      font-size: 0.8125rem;
+      color: var(--luxe-charcoal);
+      opacity: 0.7;
+    }
+
+    .card-footer a {
+      color: var(--luxe-accent);
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity 0.2s ease;
+    }
+
+    .card-footer a:hover {
+      opacity: 0.8;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 540px) {
+      body {
+        padding: 12px;
+      }
+
+      .movemint-card {
+        border-radius: 20px;
+      }
+
+      .card-header {
+        padding: 28px 24px;
+      }
+
+      .brand-title {
+        font-size: 1.5rem;
+      }
+
+      .card-content {
+        padding: 28px 24px;
+      }
+
+      .metrics-grid {
+        gap: 12px;
+      }
+
+      .metric-card {
+        padding: 16px 14px;
+      }
+
+      .metric-value {
+        font-size: 1.75rem;
+      }
+
+      .cta-button {
+        padding: 16px 28px;
+        font-size: 1rem;
+      }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Status Badge */
+    .status-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--luxe-success);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .status-badge::before {
+      content: '●';
+      margin-right: 6px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- MoveMint Card Section -->
+  <section class="movemint-card" role="main" aria-label="MoveMint fitness tracking card">
+    <!-- Card Header -->
+    <header class="card-header">
+      <div class="brand-logo" aria-hidden="true">🏃‍♀️</div>
+      <h1 class="brand-title">MoveMint</h1>
+      <p class="brand-subtitle">Your Fitness Journey, Reimagined</p>
+      <span class="status-badge">Live Tracking</span>
+    </header>
+
+    <!-- Card Content -->
+    <div class="card-content">
+      <!-- Metrics Section -->
+      <h2 class="section-title">Today's Activity</h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <span class="metric-icon" aria-hidden="true">👟</span>
+          <div class="metric-value" data-metric="steps">8,542</div>
+          <div class="metric-label">Steps</div>
+          <span class="metric-trend" aria-label="12% increase">↑ 12%</span>
+        </div>
+        
+        <div class="metric-card">
+          <span class="metric-icon" aria-hidden="true">🔥</span>
+          <div class="metric-value" data-metric="calories">542</div>
+          <div class="metric-label">Calories</div>
+          <span class="metric-trend" aria-label="8% increase">↑ 8%</span>
+        </div>
+        
+        <div class="metric-card">
+          <span class="metric-icon" aria-hidden="true">⏱️</span>
+          <div class="metric-value" data-metric="duration">45</div>
+          <div class="metric-label">Minutes</div>
+          <span class="metric-trend" aria-label="15% increase">↑ 15%</span>
+        </div>
+        
+        <div class="metric-card">
+          <span class="metric-icon" aria-hidden="true">💪</span>
+          <div class="metric-value" data-metric="streak">12</div>
+          <div class="metric-label">Day Streak</div>
+          <span class="metric-trend" aria-label="On fire">🔥</span>
+        </div>
+      </div>
+
+      <!-- Features Section -->
+      <h2 class="section-title">Key Features</h2>
+      <div class="features-list">
+        <div class="feature-item">
+          <span class="feature-icon" aria-hidden="true">📊</span>
+          <div class="feature-content">
+            <div class="feature-title">Real-Time Analytics</div>
+            <div class="feature-description">Track your progress with live updates and detailed insights</div>
+          </div>
+        </div>
+        
+        <div class="feature-item">
+          <span class="feature-icon" aria-hidden="true">🎯</span>
+          <div class="feature-content">
+            <div class="feature-title">Smart Goals</div>
+            <div class="feature-description">AI-powered goal setting that adapts to your lifestyle</div>
+          </div>
+        </div>
+        
+        <div class="feature-item">
+          <span class="feature-icon" aria-hidden="true">🏆</span>
+          <div class="feature-content">
+            <div class="feature-title">Achievement System</div>
+            <div class="feature-description">Unlock badges and rewards as you reach milestones</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Button -->
+      <button class="cta-button" aria-label="Start your fitness journey with MoveMint">
+        Start Your Journey
+      </button>
+    </div>
+
+    <!-- Card Footer -->
+    <footer class="card-footer">
+      <p>Powered by <a href="https://theavcfiles.github.io/Decrypt-The-Girl/" target="_blank" rel="noopener noreferrer">StudioOS Luxe</a></p>
+    </footer>
+  </section>
+
+  <!-- Vanilla JavaScript for Dynamic Updates -->
+  <script>
+    (function() {
+      'use strict';
+
+      // Configuration
+      const CONFIG = {
+        updateInterval: 3000, // Update metrics every 3 seconds
+        animationDuration: 1000, // Animation duration in ms
+        metricsConfig: {
+          steps: { min: 8000, max: 12000, increment: 50 },
+          calories: { min: 500, max: 800, increment: 10 },
+          duration: { min: 30, max: 90, increment: 5 },
+          streak: { min: 1, max: 30, increment: 1 }
+        }
+      };
+
+      // Get all metric elements
+      const metricElements = {
+        steps: document.querySelector('[data-metric="steps"]'),
+        calories: document.querySelector('[data-metric="calories"]'),
+        duration: document.querySelector('[data-metric="duration"]'),
+        streak: document.querySelector('[data-metric="streak"]')
+      };
+
+      // Utility function to generate random value within range
+      function getRandomValue(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      // Animate number counting up
+      function animateValue(element, start, end, duration) {
+        const startTimestamp = performance.now();
+        const difference = end - start;
+
+        function step(currentTime) {
+          const elapsed = currentTime - startTimestamp;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          // Easing function (ease-out cubic)
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          const currentValue = Math.floor(start + (difference * easeOut));
+          
+          element.textContent = currentValue.toLocaleString();
+
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          }
+        }
+
+        requestAnimationFrame(step);
+      }
+
+      // Update a single metric
+      function updateMetric(metricName) {
+        const element = metricElements[metricName];
+        if (!element) return;
+
+        const config = CONFIG.metricsConfig[metricName];
+        const currentValue = parseInt(element.textContent.replace(/,/g, ''));
+        const newValue = Math.min(
+          currentValue + getRandomValue(1, 3) * config.increment,
+          config.max
+        );
+
+        animateValue(element, currentValue, newValue, CONFIG.animationDuration);
+      }
+
+      // Update all metrics
+      function updateAllMetrics() {
+        Object.keys(metricElements).forEach(metricName => {
+          updateMetric(metricName);
+        });
+      }
+
+      // Initialize metrics with random starting values
+      function initializeMetrics() {
+        Object.entries(CONFIG.metricsConfig).forEach(([metricName, config]) => {
+          const element = metricElements[metricName];
+          if (element) {
+            const initialValue = getRandomValue(config.min, Math.floor((config.min + config.max) / 2));
+            element.textContent = initialValue.toLocaleString();
+          }
+        });
+      }
+
+      // CTA Button functionality
+      function setupCTAButton() {
+        const ctaButton = document.querySelector('.cta-button');
+        if (ctaButton) {
+          ctaButton.addEventListener('click', function() {
+            // Show alert for demo purposes
+            alert('🎉 Welcome to MoveMint! Your fitness journey begins now.\n\nThis is a prototype. In production, this would navigate to the signup page.');
+            
+            // Add visual feedback
+            this.textContent = '✓ Journey Started!';
+            setTimeout(() => {
+              this.textContent = 'Start Your Journey';
+            }, 2000);
+          });
+        }
+      }
+
+      // Initialize the application
+      function init() {
+        console.log('MoveMint Card initialized');
+        
+        // Set initial metric values
+        initializeMetrics();
+        
+        // Setup CTA button
+        setupCTAButton();
+        
+        // Start periodic updates
+        const updateTimer = setInterval(updateAllMetrics, CONFIG.updateInterval);
+        
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', function() {
+          clearInterval(updateTimer);
+        });
+
+        // Add keyboard accessibility for CTA button
+        const ctaButton = document.querySelector('.cta-button');
+        if (ctaButton) {
+          ctaButton.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              this.click();
+            }
+          });
+        }
+      }
+
+      // Start when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</body>
+</html>
