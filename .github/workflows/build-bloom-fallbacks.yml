@@ -67,12 +67,15 @@ jobs:
           cp BLOOM_ASSETS_LICENSE.md release-package/LICENSE.md
           cp LICENSE release-package/SOFTWARE_LICENSE.txt
           
+          # Set generated date
+          GENERATED_DATE=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          
           # Create README for the release
-          cat > release-package/README.md << 'EOF'
+          cat > release-package/README.md << EOF
           # Bloom Fallback Assets
           
           **Version:** ${{ steps.version.outputs.version }}  
-          **Generated:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")  
+          **Generated:** ${GENERATED_DATE}  
           **Project:** Decrypt The Girl  
           **Copyright:** © 2024 A.C. Van Cura
           
@@ -198,12 +201,13 @@ jobs:
       - name: Create Release Notes
         run: |
           VERSION="${{ needs.build-bloom-assets.outputs.version }}"
+          RELEASE_DATE=$(date -u +"%Y-%m-%d")
           
-          cat > release-notes.md << 'EOF'
+          cat > release-notes.md << EOF
           # Bloom Fallback Assets Release
           
           **Version:** ${VERSION}
-          **Release Date:** $(date -u +"%Y-%m-%d")
+          **Release Date:** ${RELEASE_DATE}
           
           ## 📦 What's Included
           

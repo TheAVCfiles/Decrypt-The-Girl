@@ -73,7 +73,7 @@ jobs:
           set -euo pipefail
 
           # List the artifacts the provenance will refer to (mobile-optimized)
-          files=$(ls artifact* bloom-fallbacks-mobile.tar.gz 2>/dev/null || ls artifact*)
+          files=$(find . -maxdepth 1 \( -name 'artifact*' -o -name 'bloom-fallbacks-mobile.tar.gz' \) -type f 2>/dev/null || find . -maxdepth 1 -name 'artifact*' -type f)
           # Generate the subjects (base64 encoded).
           echo "hashes=$(sha256sum $files | base64 -w0)" >> "${GITHUB_OUTPUT}"
 
