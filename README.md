@@ -58,6 +58,7 @@ Experience the interactive codebook live:
 - **Astro Finance Guide**: [astro-finance.html](https://theavcfiles.github.io/Decrypt-The-Girl/astro-finance.html)
 - **Day Zero Scroll**: [day-zero-scroll.html](https://theavcfiles.github.io/Decrypt-The-Girl/day-zero-scroll.html)
 - **CROWN·SIGNAL·NODE v3**: [crown-signal-node.html](https://theavcfiles.github.io/Decrypt-The-Girl/crown-signal-node.html)
+- **Lottie Diagnostic**: [docs/diag-lottie.html](https://theavcfiles.github.io/Decrypt-The-Girl/docs/diag-lottie.html) - Animation testing tool
 
 ### CROWN·SIGNAL·NODE v3
 The CROWN console is a Firebase-ready signal room that respects the triadic ritual (Surface → Cipher → Echo) while maintaining a living CODA from the freshest transmission. It operates locally by default, caching signals in the browser and compressing the latest payload into a one-line seed.
