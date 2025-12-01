@@ -24,8 +24,8 @@ jobs:
         run: |
           echo "🔍 Searching for Lottie JSON files..."
           
-          # Find all JSON files in lottie directories
-          LOTTIE_FILES=$(find . -path "*/lottie/*.json" -type f 2>/dev/null || true)
+          # Find all JSON files in lottie directories (excluding manifest.json)
+          LOTTIE_FILES=$(find . -path "*/lottie/*.json" -type f ! -name "manifest.json" 2>/dev/null || true)
           
           if [ -z "$LOTTIE_FILES" ]; then
             echo "⚠️  No Lottie JSON files found in lottie directories"
@@ -53,7 +53,7 @@ jobs:
             fi
             
             # Check for required Lottie keys using Python
-            VALIDATION_RESULT=$(python3 << 'EOF'
+            python3 - "$file" << 'EOF'
           import json
           import sys
           
@@ -107,8 +107,6 @@ jobs:
               print(f"Validation error: {e}")
               sys.exit(1)
           EOF
-          python3 -c "$VALIDATION_RESULT" "$file"
-          )
             
             if [ $? -eq 0 ]; then
               echo "  ✅ Valid Lottie JSON"
