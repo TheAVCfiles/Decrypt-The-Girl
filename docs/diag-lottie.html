@@ -1,0 +1,22 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lottie Diagnostic</title>
+</head>
+<body>
+    <h1>Welcome to Lottie Diagnostic Page</h1>
+    <p>This page helps you test your Lottie animations.</p>
+    <div id="lottie"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>
+    <script>
+        var animation = lottie.loadAnimation({
+            container: document.getElementById('lottie'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'path/to/your/animation.json' // Specify the path to your animation file
+        });
+    </script>
+</body>
+</html>
