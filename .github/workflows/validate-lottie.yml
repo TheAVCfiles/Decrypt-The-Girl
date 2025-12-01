@@ -1,0 +1,158 @@
+name: Validate Lottie JSON
+
+on:
+  pull_request:
+    paths:
+      - 'pyrouette-demo/assets/lottie/**/*.json'
+      - '**/assets/lottie/**/*.json'
+      - '**/*lottie*.json'
+
+jobs:
+  validate-lottie:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          
+      - name: Find and validate Lottie JSON files
+        run: |
+          echo "🔍 Searching for Lottie JSON files..."
+          
+          # Find all JSON files in lottie directories
+          LOTTIE_FILES=$(find . -path "*/lottie/*.json" -type f 2>/dev/null || true)
+          
+          if [ -z "$LOTTIE_FILES" ]; then
+            echo "⚠️  No Lottie JSON files found in lottie directories"
+            exit 0
+          fi
+          
+          echo "Found files:"
+          echo "$LOTTIE_FILES"
+          echo ""
+          
+          VALIDATION_FAILED=0
+          TOTAL_FILES=0
+          VALID_FILES=0
+          
+          # Validate each file
+          for file in $LOTTIE_FILES; do
+            TOTAL_FILES=$((TOTAL_FILES + 1))
+            echo "📄 Validating: $file"
+            
+            # Check if file is valid JSON
+            if ! python3 -m json.tool "$file" > /dev/null 2>&1; then
+              echo "  ❌ Invalid JSON syntax"
+              VALIDATION_FAILED=1
+              continue
+            fi
+            
+            # Check for required Lottie keys using Python
+            VALIDATION_RESULT=$(python3 << 'EOF'
+          import json
+          import sys
+          
+          required_keys = ['v', 'fr', 'ip', 'op', 'layers']
+          
+          try:
+              with open(sys.argv[1], 'r') as f:
+                  data = json.load(f)
+              
+              missing_keys = [key for key in required_keys if key not in data]
+              
+              if missing_keys:
+                  print(f"Missing required keys: {', '.join(missing_keys)}")
+                  sys.exit(1)
+              
+              # Additional validation
+              if not isinstance(data.get('layers'), list):
+                  print("'layers' must be an array")
+                  sys.exit(1)
+              
+              if len(data['layers']) == 0:
+                  print("Warning: 'layers' array is empty")
+              
+              # Check frame values
+              if not isinstance(data.get('fr'), (int, float)) or data['fr'] <= 0:
+                  print("'fr' (frame rate) must be a positive number")
+                  sys.exit(1)
+              
+              if not isinstance(data.get('ip'), (int, float)):
+                  print("'ip' (in-point) must be a number")
+                  sys.exit(1)
+              
+              if not isinstance(data.get('op'), (int, float)):
+                  print("'op' (out-point) must be a number")
+                  sys.exit(1)
+              
+              if data['op'] <= data['ip']:
+                  print("'op' (out-point) must be greater than 'ip' (in-point)")
+                  sys.exit(1)
+              
+              print("✓ Valid Lottie JSON structure")
+              print(f"  Version: {data['v']}")
+              print(f"  Frame rate: {data['fr']} fps")
+              print(f"  Duration: {data['ip']} - {data['op']} frames")
+              print(f"  Layers: {len(data['layers'])}")
+              
+          except json.JSONDecodeError as e:
+              print(f"JSON decode error: {e}")
+              sys.exit(1)
+          except Exception as e:
+              print(f"Validation error: {e}")
+              sys.exit(1)
+          EOF
+          python3 -c "$VALIDATION_RESULT" "$file"
+          )
+            
+            if [ $? -eq 0 ]; then
+              echo "  ✅ Valid Lottie JSON"
+              VALID_FILES=$((VALID_FILES + 1))
+            else
+              echo "  ❌ Validation failed"
+              VALIDATION_FAILED=1
+            fi
+            echo ""
+          done
+          
+          # Summary
+          echo "=================================================="
+          echo "📊 Validation Summary"
+          echo "=================================================="
+          echo "Total files checked: $TOTAL_FILES"
+          echo "Valid files: $VALID_FILES"
+          echo "Failed files: $((TOTAL_FILES - VALID_FILES))"
+          echo ""
+          
+          if [ $VALIDATION_FAILED -eq 1 ]; then
+            echo "❌ Lottie JSON validation failed"
+            echo ""
+            echo "Required keys for valid Lottie JSON:"
+            echo "  - v: Lottie version string"
+            echo "  - fr: Frame rate (positive number)"
+            echo "  - ip: In-point frame (number)"
+            echo "  - op: Out-point frame (number, must be > ip)"
+            echo "  - layers: Array of animation layers"
+            echo ""
+            exit 1
+          else
+            echo "✅ All Lottie JSON files are valid!"
+            exit 0
+          fi
+          
+      - name: Comment on PR
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ **Lottie JSON Validation Failed**\n\nOne or more Lottie JSON files failed validation. Please check the workflow logs for details.\n\nRequired keys:\n- `v`: Lottie version\n- `fr`: Frame rate (positive number)\n- `ip`: In-point frame\n- `op`: Out-point frame (must be > ip)\n- `layers`: Array of animation layers'
+            })
