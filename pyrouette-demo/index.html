@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>PyRouette Studio Composer - Amped Prototype</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="PyRouette Studio Composer - An interactive choreography composition tool with advanced touch controls, timeline playback, and kinetic interactions.">
+  <meta name="keywords" content="pyrouette, choreography, composer, dance, interactive, timeline, touch controls">
+  <meta name="author" content="A.C. Van Cura">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PyRouette Studio Composer - Amped Prototype">
+  <meta property="og:description" content="Interactive choreography composition tool with advanced touch controls and timeline playback.">
+
+  <style>
+    /* CSS Variables for theming */
+    :root {
+      --primary-color: #6366f1;
+      --secondary-color: #8b5cf6;
+      --background: #0f0f23;
+      --surface: #1a1a2e;
+      --surface-light: #252538;
+      --text-primary: #e7e9ff;
+      --text-secondary: #9ca3af;
+      --border-color: #374151;
+      --accent-color: #ec4899;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      background: var(--background);
+      color: var(--text-primary);
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      touch-action: none;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Main Layout */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Header */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 0.5rem 1rem;
+      background: var(--surface-light);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+    }
+
+    .btn:hover {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .btn-small {
+      padding: 0.375rem 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    .btn-full {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-full:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Main Content Area */
+    .main-content {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 280px;
+      background: var(--surface);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .sidebar-section {
+      padding: 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .sidebar-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .pattern-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .pattern-item {
+      padding: 0.75rem;
+      background: var(--surface-light);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pattern-item:hover {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+      transform: translateX(4px);
+    }
+
+    .pattern-name {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .pattern-duration {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    /* Canvas Area */
+    .canvas-area {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #0f0f23 100%);
+      touch-action: none;
+    }
+
+    .stage-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      cursor: grab;
+    }
+
+    .stage-container.panning {
+      cursor: grabbing;
+    }
+
+    .stage-canvas {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: center center;
+      transition: transform 0.1s ease-out;
+    }
+
+    /* Grid overlay */
+    .grid-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    /* Dancers/Markers */
+    .dancer-marker {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(236, 72, 153, 0.5);
+      cursor: move;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.875rem;
+      transition: transform 0.2s ease;
+      user-select: none;
+    }
+
+    .dancer-marker:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(236, 72, 153, 0.7);
+    }
+
+    .dancer-1 { left: 30%; top: 40%; }
+    .dancer-2 { left: 50%; top: 50%; }
+    .dancer-3 { left: 70%; top: 60%; }
+
+    /* Timeline Panel */
+    .timeline-panel {
+      background: var(--surface);
+      border-top: 1px solid var(--border-color);
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .timeline-header {
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .timeline-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .playback-controls {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .playback-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: var(--surface-light);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .playback-btn:hover {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .playback-btn.active {
+      background: var(--accent-color);
+      border-color: var(--accent-color);
+    }
+
+    .time-display {
+      margin-left: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .timeline-content {
+      flex: 1;
+      padding: 1rem;
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .timeline-track {
+      height: 60px;
+      background: var(--surface-light);
+      border-radius: 6px;
+      position: relative;
+      border: 1px solid var(--border-color);
+    }
+
+    .timeline-ruler {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      padding: 0.5rem;
+    }
+
+    .timeline-marker {
+      position: absolute;
+      width: 2px;
+      height: 100%;
+      background: var(--accent-color);
+      top: 0;
+      left: 0;
+      transition: left 0.05s linear;
+      box-shadow: 0 0 8px var(--accent-color);
+    }
+
+    .timeline-keyframe {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--success-color);
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.5);
+    }
+
+    .timeline-keyframe:hover {
+      transform: translateY(-50%) scale(1.2);
+    }
+
+    .keyframe-1 { left: 10%; }
+    .keyframe-2 { left: 30%; }
+    .keyframe-3 { left: 60%; }
+    .keyframe-4 { left: 85%; }
+
+    /* Zoom Controls */
+    .zoom-controls {
+      position: absolute;
+      bottom: 220px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 10;
+    }
+
+    .zoom-btn {
+      width: 40px;
+      height: 40px;
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .zoom-btn:hover {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+      transform: scale(1.05);
+    }
+
+    .zoom-level {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Info Panel */
+    .info-panel {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(26, 26, 46, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      min-width: 200px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.25rem 0;
+      font-size: 0.875rem;
+    }
+
+    .info-label {
+      color: var(--text-secondary);
+    }
+
+    .info-value {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Status Badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.25rem 0.75rem;
+      background: var(--surface-light);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--success-color);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: absolute;
+        left: -280px;
+        top: 0;
+        height: 100%;
+        z-index: 50;
+        transition: left 0.3s ease;
+      }
+
+      .sidebar.open {
+        left: 0;
+        box-shadow: 4px 0 12px rgba(0, 0, 0, 0.5);
+      }
+
+      .header {
+        padding: 0.75rem 1rem;
+      }
+
+      .logo {
+        font-size: 1rem;
+      }
+
+      .btn {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.8rem;
+      }
+
+      .info-panel {
+        top: 10px;
+        left: 10px;
+        padding: 0.75rem;
+        min-width: 150px;
+      }
+
+      .zoom-controls {
+        bottom: 220px;
+        right: 10px;
+      }
+
+      .timeline-panel {
+        height: 160px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-controls {
+        gap: 0.5rem;
+      }
+
+      .btn-text {
+        display: none;
+      }
+
+      .timeline-panel {
+        height: 140px;
+      }
+    }
+
+    /* Touch Feedback */
+    .touch-feedback {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border: 2px solid var(--accent-color);
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.3s ease;
+    }
+
+    .touch-feedback.active {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+
+    /* Loading State */
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 15, 35, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .loading-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border-color);
+      border-top-color: var(--primary-color);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Tooltip */
+    .tooltip {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      pointer-events: none;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      z-index: 1000;
+    }
+
+    .tooltip.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">PyRouette Studio Composer</div>
+      <div class="header-controls">
+        <button type="button" class="btn btn-small" id="menuBtn">
+          <span>☰</span>
+          <span class="btn-text">Menu</span>
+        </button>
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span>Ready</span>
+        </div>
+        <button type="button" class="btn btn-primary btn-small" id="exportBtn">
+          <span>↓</span>
+          <span class="btn-text">Export</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Patterns Library</h3>
+          <div class="pattern-list">
+            <div class="pattern-item" data-pattern="pirouette">
+              <span class="pattern-name">Classic Pirouette</span>
+              <span class="pattern-duration">2.5s</span>
+            </div>
+            <div class="pattern-item" data-pattern="arabesque">
+              <span class="pattern-name">Grand Arabesque</span>
+              <span class="pattern-duration">3.0s</span>
+            </div>
+            <div class="pattern-item" data-pattern="jete">
+              <span class="pattern-name">Grand Jeté</span>
+              <span class="pattern-duration">1.8s</span>
+            </div>
+            <div class="pattern-item" data-pattern="fouette">
+              <span class="pattern-name">Fouetté Turn</span>
+              <span class="pattern-duration">2.2s</span>
+            </div>
+            <div class="pattern-item" data-pattern="passe">
+              <span class="pattern-name">Passé Position</span>
+              <span class="pattern-duration">1.5s</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Composition Tools</h3>
+          <button type="button" class="btn btn-full">
+            <span>+</span>
+            <span>Add Dancer</span>
+          </button>
+          <button type="button" class="btn btn-full">
+            <span>✂</span>
+            <span>Split Timeline</span>
+          </button>
+          <button type="button" class="btn btn-full">
+            <span>⚡</span>
+            <span>Auto-Arrange</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Canvas Area -->
+      <div class="canvas-area">
+        <div class="grid-overlay"></div>
+
+        <!-- Info Panel -->
+        <div class="info-panel">
+          <div class="info-row">
+            <span class="info-label">Zoom:</span>
+            <span class="info-value" id="zoomDisplay">100%</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Pan X:</span>
+            <span class="info-value" id="panXDisplay">0</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Pan Y:</span>
+            <span class="info-value" id="panYDisplay">0</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Dancers:</span>
+            <span class="info-value" id="dancerCount">3</span>
+          </div>
+        </div>
+
+        <!-- Zoom Controls -->
+        <div class="zoom-controls">
+          <button type="button" class="zoom-btn" id="zoomInBtn" title="Zoom In">+</button>
+          <div class="zoom-level" id="zoomLevel">100%</div>
+          <button type="button" class="zoom-btn" id="zoomOutBtn" title="Zoom Out">−</button>
+          <button type="button" class="zoom-btn" id="resetViewBtn" title="Reset View">⊙</button>
+        </div>
+
+        <!-- Stage Container -->
+        <div class="stage-container" id="stageContainer">
+          <div class="stage-canvas" id="stageCanvas">
+            <!-- Placeholder dancers -->
+            <div class="dancer-marker dancer-1" data-dancer="1">D1</div>
+            <div class="dancer-marker dancer-2" data-dancer="2">D2</div>
+            <div class="dancer-marker dancer-3" data-dancer="3">D3</div>
+          </div>
+        </div>
+
+        <!-- Touch Feedback -->
+        <div class="touch-feedback" id="touchFeedback"></div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Panel -->
+    <div class="timeline-panel">
+      <div class="timeline-header">
+        <span class="timeline-title">Composition Timeline</span>
+        <div class="playback-controls">
+          <button type="button" class="playback-btn" id="playBtn" title="Play">▶</button>
+          <button type="button" class="playback-btn" id="pauseBtn" title="Pause">⏸</button>
+          <button type="button" class="playback-btn" id="stopBtn" title="Stop">⏹</button>
+          <button type="button" class="playback-btn" id="rewindBtn" title="Rewind">⏮</button>
+          <span class="time-display" id="timeDisplay">0:00 / 5:00</span>
+        </div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-track">
+          <div class="timeline-ruler">
+            <div class="timeline-marker" id="timelineMarker"></div>
+            <!-- Placeholder keyframes -->
+            <div class="timeline-keyframe keyframe-1" title="Keyframe 1"></div>
+            <div class="timeline-keyframe keyframe-2" title="Keyframe 2"></div>
+            <div class="timeline-keyframe keyframe-3" title="Keyframe 3"></div>
+            <div class="timeline-keyframe keyframe-4" title="Keyframe 4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tooltip -->
+  <div class="tooltip" id="tooltip"></div>
+
+  <script>
+    // PyRouette Studio Composer - Amped Prototype
+    // Advanced interaction controls and timeline management
+
+    class PyRouetteStudio {
+      constructor() {
+        // Canvas and interaction state
+        this.zoom = 1;
+        this.minZoom = 0.25;
+        this.maxZoom = 4;
+        this.panX = 0;
+        this.panY = 0;
+        this.isPanning = false;
+        this.lastPanX = 0;
+        this.lastPanY = 0;
+        this.velocityX = 0;
+        this.velocityY = 0;
+        this.lastTouchDistance = 0;
+        this.lastTapTime = 0;
+
+        // Timeline state
+        this.isPlaying = false;
+        this.currentTime = 0;
+        this.duration = 300; // 5 minutes in seconds
+        this.playbackSpeed = 1;
+
+        // UI state
+        this.sidebarOpen = false;
+
+        // Touch tracking
+        this.touches = [];
+
+        // Timing constants
+        this.LOADING_DELAY = 1000;
+        this.TOOLTIP_DURATION = 2000;
+        this.TOUCH_FEEDBACK_DURATION = 300;
+
+        this.initElements();
+        this.initEventListeners();
+        this.startAnimationLoop();
+      }
+
+      initElements() {
+        this.stageContainer = document.getElementById('stageContainer');
+        this.stageCanvas = document.getElementById('stageCanvas');
+        this.sidebar = document.getElementById('sidebar');
+        this.touchFeedback = document.getElementById('touchFeedback');
+        this.tooltip = document.getElementById('tooltip');
+
+        // Display elements
+        this.zoomDisplay = document.getElementById('zoomDisplay');
+        this.zoomLevel = document.getElementById('zoomLevel');
+        this.panXDisplay = document.getElementById('panXDisplay');
+        this.panYDisplay = document.getElementById('panYDisplay');
+        this.timeDisplay = document.getElementById('timeDisplay');
+        this.timelineMarker = document.getElementById('timelineMarker');
+      }
+
+      initEventListeners() {
+        // Zoom controls
+        document.getElementById('zoomInBtn').addEventListener('click', () => this.zoomIn());
+        document.getElementById('zoomOutBtn').addEventListener('click', () => this.zoomOut());
+        document.getElementById('resetViewBtn').addEventListener('click', () => this.resetView());
+
+        // Menu toggle
+        document.getElementById('menuBtn').addEventListener('click', () => this.toggleSidebar());
+
+        // Playback controls
+        document.getElementById('playBtn').addEventListener('click', () => this.play());
+        document.getElementById('pauseBtn').addEventListener('click', () => this.pause());
+        document.getElementById('stopBtn').addEventListener('click', () => this.stop());
+        document.getElementById('rewindBtn').addEventListener('click', () => this.rewind());
+
+        // Export button
+        document.getElementById('exportBtn').addEventListener('click', () => this.showExportDialog());
+
+        // Mouse events for panning
+        this.stageContainer.addEventListener('mousedown', (e) => this.handleMouseDown(e));
+        this.stageContainer.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+        this.stageContainer.addEventListener('mouseup', (e) => this.handleMouseUp(e));
+        this.stageContainer.addEventListener('mouseleave', (e) => this.handleMouseUp(e));
+
+        // Mouse wheel for zooming
+        this.stageContainer.addEventListener('wheel', (e) => this.handleWheel(e), { passive: false });
+
+        // Touch events
+        this.stageContainer.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: false });
+        this.stageContainer.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
+        this.stageContainer.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: false });
+
+        // Pattern items
+        document.querySelectorAll('.pattern-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const pattern = item.dataset.pattern;
+            this.loadPattern(pattern);
+          });
+        });
+
+        // Dancer markers (drag functionality)
+        document.querySelectorAll('.dancer-marker').forEach(marker => {
+          marker.addEventListener('mousedown', (e) => this.startDragDancer(e, marker));
+        });
+
+        // Window resize
+        window.addEventListener('resize', () => this.handleResize());
+      }
+
+      // Zoom methods
+      zoomIn() {
+        this.setZoom(this.zoom * 1.25);
+      }
+
+      zoomOut() {
+        this.setZoom(this.zoom / 1.25);
+      }
+
+      setZoom(newZoom) {
+        this.zoom = Math.max(this.minZoom, Math.min(this.maxZoom, newZoom));
+        this.updateTransform();
+        this.updateDisplays();
+      }
+
+      resetView() {
+        this.zoom = 1;
+        this.panX = 0;
+        this.panY = 0;
+        this.velocityX = 0;
+        this.velocityY = 0;
+        this.updateTransform();
+        this.updateDisplays();
+      }
+
+      // Mouse panning
+      handleMouseDown(e) {
+        if (e.button !== 0) return;
+        this.isPanning = true;
+        this.lastPanX = e.clientX;
+        this.lastPanY = e.clientY;
+        this.velocityX = 0;
+        this.velocityY = 0;
+        this.stageContainer.classList.add('panning');
+      }
+
+      handleMouseMove(e) {
+        if (!this.isPanning) return;
+
+        const deltaX = e.clientX - this.lastPanX;
+        const deltaY = e.clientY - this.lastPanY;
+
+        this.panX += deltaX;
+        this.panY += deltaY;
+
+        this.velocityX = deltaX;
+        this.velocityY = deltaY;
+
+        this.lastPanX = e.clientX;
+        this.lastPanY = e.clientY;
+
+        this.updateTransform();
+        this.updateDisplays();
+      }
+
+      handleMouseUp(e) {
+        if (!this.isPanning) return;
+        this.isPanning = false;
+        this.stageContainer.classList.remove('panning');
+      }
+
+      // Mouse wheel zooming
+      handleWheel(e) {
+        e.preventDefault();
+
+        const delta = -e.deltaY / 1000;
+        const newZoom = this.zoom * (1 + delta);
+
+        // Zoom towards cursor position
+        const rect = this.stageContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const oldZoom = this.zoom;
+        this.setZoom(newZoom);
+        const zoomChange = this.zoom / oldZoom;
+
+        this.panX = x - (x - this.panX) * zoomChange;
+        this.panY = y - (y - this.panY) * zoomChange;
+
+        this.updateTransform();
+        this.updateDisplays();
+      }
+
+      // Touch handling
+      handleTouchStart(e) {
+        e.preventDefault();
+        this.touches = Array.from(e.touches);
+
+        if (this.touches.length === 1) {
+          // Single touch - pan
+          this.isPanning = true;
+          this.lastPanX = this.touches[0].clientX;
+          this.lastPanY = this.touches[0].clientY;
+
+          // Check for double tap
+          const now = Date.now();
+          if (now - this.lastTapTime < 300) {
+            this.handleDoubleTap(this.touches[0]);
+          }
+          this.lastTapTime = now;
+
+          this.showTouchFeedback(this.touches[0].clientX, this.touches[0].clientY);
+        } else if (this.touches.length === 2) {
+          // Two touches - pinch zoom
+          this.lastTouchDistance = this.getTouchDistance();
+        }
+      }
+
+      handleTouchMove(e) {
+        e.preventDefault();
+        this.touches = Array.from(e.touches);
+
+        if (this.touches.length === 1 && this.isPanning) {
+          // Single touch pan
+          const deltaX = this.touches[0].clientX - this.lastPanX;
+          const deltaY = this.touches[0].clientY - this.lastPanY;
+
+          this.panX += deltaX;
+          this.panY += deltaY;
+
+          this.velocityX = deltaX;
+          this.velocityY = deltaY;
+
+          this.lastPanX = this.touches[0].clientX;
+          this.lastPanY = this.touches[0].clientY;
+
+          this.updateTransform();
+          this.updateDisplays();
+        } else if (this.touches.length === 2) {
+          // Pinch zoom
+          const distance = this.getTouchDistance();
+          const scale = distance / this.lastTouchDistance;
+
+          if (Math.abs(scale - 1) > 0.01) {
+            const centerX = (this.touches[0].clientX + this.touches[1].clientX) / 2;
+            const centerY = (this.touches[0].clientY + this.touches[1].clientY) / 2;
+
+            const rect = this.stageContainer.getBoundingClientRect();
+            const x = centerX - rect.left;
+            const y = centerY - rect.top;
+
+            const oldZoom = this.zoom;
+            this.setZoom(this.zoom * scale);
+            const zoomChange = this.zoom / oldZoom;
+
+            this.panX = x - (x - this.panX) * zoomChange;
+            this.panY = y - (y - this.panY) * zoomChange;
+
+            this.lastTouchDistance = distance;
+
+            this.updateTransform();
+            this.updateDisplays();
+          }
+        }
+      }
+
+      handleTouchEnd(e) {
+        e.preventDefault();
+        this.touches = Array.from(e.touches);
+
+        if (this.touches.length === 0) {
+          this.isPanning = false;
+        } else if (this.touches.length === 1) {
+          this.lastPanX = this.touches[0].clientX;
+          this.lastPanY = this.touches[0].clientY;
+          this.lastTouchDistance = 0;
+        }
+      }
+
+      getTouchDistance() {
+        if (this.touches.length < 2) return 0;
+        const dx = this.touches[0].clientX - this.touches[1].clientX;
+        const dy = this.touches[0].clientY - this.touches[1].clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+      }
+
+      handleDoubleTap(touch) {
+        const rect = this.stageContainer.getBoundingClientRect();
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+
+        // Toggle between 100% and 200% zoom
+        const targetZoom = this.zoom < 1.5 ? 2 : 1;
+        const oldZoom = this.zoom;
+        this.setZoom(targetZoom);
+        const zoomChange = this.zoom / oldZoom;
+
+        this.panX = x - (x - this.panX) * zoomChange;
+        this.panY = y - (y - this.panY) * zoomChange;
+
+        this.updateTransform();
+        this.updateDisplays();
+      }
+
+      showTouchFeedback(x, y) {
+        this.touchFeedback.style.left = `${x - 30}px`;
+        this.touchFeedback.style.top = `${y - 30}px`;
+        this.touchFeedback.classList.add('active');
+
+        setTimeout(() => {
+          this.touchFeedback.classList.remove('active');
+        }, this.TOUCH_FEEDBACK_DURATION);
+      }
+
+      // Transform updates
+      updateTransform() {
+        this.stageCanvas.style.transform =
+          `translate(${this.panX}px, ${this.panY}px) scale(${this.zoom})`;
+      }
+
+      updateDisplays() {
+        const zoomPercent = Math.round(this.zoom * 100);
+        this.zoomDisplay.textContent = `${zoomPercent}%`;
+        this.zoomLevel.textContent = `${zoomPercent}%`;
+        this.panXDisplay.textContent = Math.round(this.panX);
+        this.panYDisplay.textContent = Math.round(this.panY);
+      }
+
+      // Kinetic panning (momentum)
+      applyKineticScroll() {
+        if (!this.isPanning && (Math.abs(this.velocityX) > 0.1 || Math.abs(this.velocityY) > 0.1)) {
+          this.panX += this.velocityX;
+          this.panY += this.velocityY;
+
+          this.velocityX *= 0.95;
+          this.velocityY *= 0.95;
+
+          if (Math.abs(this.velocityX) < 0.1) this.velocityX = 0;
+          if (Math.abs(this.velocityY) < 0.1) this.velocityY = 0;
+
+          this.updateTransform();
+          this.updateDisplays();
+        }
+      }
+
+      // Timeline playback
+      play() {
+        this.isPlaying = true;
+        document.getElementById('playBtn').classList.add('active');
+      }
+
+      pause() {
+        this.isPlaying = false;
+        document.getElementById('playBtn').classList.remove('active');
+      }
+
+      stop() {
+        this.isPlaying = false;
+        this.currentTime = 0;
+        this.updateTimeline();
+        document.getElementById('playBtn').classList.remove('active');
+      }
+
+      rewind() {
+        this.currentTime = 0;
+        this.updateTimeline();
+      }
+
+      updateTimeline() {
+        if (this.isPlaying) {
+          this.currentTime += 0.016 * this.playbackSpeed; // ~60fps
+          if (this.currentTime >= this.duration) {
+            this.currentTime = this.duration;
+            this.pause();
+          }
+        }
+
+        const progress = (this.currentTime / this.duration) * 100;
+        this.timelineMarker.style.left = `${progress}%`;
+
+        const minutes = Math.floor(this.currentTime / 60);
+        const seconds = Math.floor(this.currentTime % 60);
+        const totalMinutes = Math.floor(this.duration / 60);
+        const totalSeconds = Math.floor(this.duration % 60);
+
+        this.timeDisplay.textContent =
+          `${minutes}:${seconds.toString().padStart(2, '0')} / ${totalMinutes}:${totalSeconds.toString().padStart(2, '0')}`;
+      }
+
+      // UI interactions
+      toggleSidebar() {
+        this.sidebarOpen = !this.sidebarOpen;
+        if (this.sidebarOpen) {
+          this.sidebar.classList.add('open');
+        } else {
+          this.sidebar.classList.remove('open');
+        }
+      }
+
+      loadPattern(pattern) {
+        console.log('Loading pattern:', pattern);
+        // Placeholder for pattern loading
+        this.showLoading();
+        setTimeout(() => {
+          this.hideLoading();
+          this.showTooltip('Pattern loaded: ' + pattern);
+        }, this.LOADING_DELAY);
+      }
+
+      showLoading() {
+        document.getElementById('loadingOverlay').classList.add('active');
+      }
+
+      hideLoading() {
+        document.getElementById('loadingOverlay').classList.remove('active');
+      }
+
+      showTooltip(message) {
+        this.tooltip.textContent = message;
+        this.tooltip.classList.add('visible');
+        setTimeout(() => {
+          this.tooltip.classList.remove('visible');
+        }, this.TOOLTIP_DURATION);
+      }
+
+      showExportDialog() {
+        this.showTooltip('Export functionality coming soon! Will support JSON, video, and other formats.');
+      }
+
+      startDragDancer(e, marker) {
+        e.stopPropagation();
+        // Placeholder for dancer drag functionality
+        console.log('Dragging dancer:', marker.dataset.dancer);
+      }
+
+      handleResize() {
+        // Handle responsive layout changes
+        if (window.innerWidth <= 768) {
+          this.sidebar.classList.remove('open');
+          this.sidebarOpen = false;
+        }
+      }
+
+      // Animation loop
+      startAnimationLoop() {
+        const loop = () => {
+          this.applyKineticScroll();
+          this.updateTimeline();
+          requestAnimationFrame(loop);
+        };
+        requestAnimationFrame(loop);
+      }
+    }
+
+    // Initialize the application
+    document.addEventListener('DOMContentLoaded', () => {
+      const studio = new PyRouetteStudio();
+      console.log('PyRouette Studio Composer initialized');
+      console.log('Features: Pinch-zoom, Kinetic pan, Double-tap zoom, Timeline controls');
+    });
+  </script>
+</body>
+</html>
