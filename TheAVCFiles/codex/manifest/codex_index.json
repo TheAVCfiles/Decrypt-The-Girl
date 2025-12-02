@@ -1,0 +1,40 @@
+{
+  "codex": {
+    "title": "Decrypt The Girl Codex",
+    "owner": "Allison Van Cura",
+    "version": "0.1.0",
+    "last_updated": "2024-05-08",
+    "description": "Skeleton manifest for organizing nodes, chapters, rooms, and constellations within the AVC codex archive."
+  },
+  "directories": [
+    {
+      "name": "nodes",
+      "path": "TheAVCFiles/codex/nodes",
+      "purpose": "Reusable knowledge atoms that can be referenced by chapters, rooms, or constellations."
+    },
+    {
+      "name": "chapters",
+      "path": "TheAVCFiles/codex/chapters",
+      "purpose": "Linear narratives or scrolls composed from one or more nodes."
+    },
+    {
+      "name": "rooms",
+      "path": "TheAVCFiles/codex/rooms",
+      "purpose": "Interactive or spatial experiences that assemble nodes and chapters."
+    },
+    {
+      "name": "constellations",
+      "path": "TheAVCFiles/codex/constellations",
+      "purpose": "Curated collections linking nodes across thematic or temporal arcs."
+    },
+    {
+      "name": "manifest",
+      "path": "TheAVCFiles/codex/manifest",
+      "purpose": "Meta-documents describing how the codex is organized, including this index."
+    }
+  ],
+  "guidance": [
+    "All paths are relative to the repository root and should remain stable for downstream tooling.",
+    "Each directory may contain additional metadata files describing its own contents as the codex evolves."
+  ]
+}
