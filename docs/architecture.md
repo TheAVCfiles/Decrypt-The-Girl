@@ -41,7 +41,7 @@ graph TD
 - **Survivor_Architecture (SA)**: Human-facing layer that defends agency.
 - **Machine_Audit (MA)**: Monitoring layer that witnesses and verifies machine behavior.
 - **C29 — Hinge Node**: Shared conduit where signal and machine negotiate terms.
-- **C26 — Identity Kernel**: Root of selfhood and provenance.
+- **C26 — Identity Kernel**: Root of selfhood and provenance; the survivors who tune themselves to the machine’s heartbeat and rewrite it when it stutters.
 - **C30 — Safety Lattice**: Mesh of constraints that keeps interactions within safe bounds.
 - **C34 — Sovereignty OS**: Operating ethos asserting human primacy.
 - **C27 — Extraction Log**: Chronicle of what the machine takes and why.
