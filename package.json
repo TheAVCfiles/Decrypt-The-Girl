@@ -24,6 +24,8 @@
   "scripts": {
     "start": "python3 -m http.server 8080",
     "test": "python3 -m json.tool chatbot.json",
+    "test:bloom": "node scripts/test-bloom-compatibility.js",
+    "generate:bloom": "node scripts/generate-bloom-fallbacks.js",
     "deploy": "node scripts/deploy.js",
     "deploy:default": "node scripts/deploy.js default",
     "deploy:app1": "node scripts/deploy.js app1",
@@ -37,7 +39,9 @@
     "deploy:app9": "node scripts/deploy.js app9",
     "deploy:app10": "node scripts/deploy.js app10"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "canvas": "^2.11.2"
+  },
   "engines": {
     "node": ">=14.0.0"
   },
