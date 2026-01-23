@@ -3,41 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MoveMint Card - Fitness Tracking Reimagined</title>
+  <title>MoveMint – The Body as Signal</title>
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="MoveMint Card - A beautiful, minimalist fitness tracking component showcasing real-time metrics and achievements." />
-  <meta name="keywords" content="fitness tracking, MoveMint, health metrics, activity tracking, wellness dashboard" />
+  <meta name="description" content="MoveMint - Decrypt the language of motion. Every step is a cipher, every breath a transmission." />
+  <meta name="keywords" content="motion cipher, body signals, movement encryption, kinetic poetry, somatic code" />
   <meta name="author" content="A.C. Van Cura" />
   
   <!-- Open Graph / Social Media Meta Tags -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="MoveMint Card - Fitness Tracking Reimagined" />
-  <meta property="og:description" content="A beautiful, minimalist fitness tracking component with real-time metrics." />
+  <meta property="og:title" content="MoveMint – The Body as Signal" />
+  <meta property="og:description" content="Decrypt the language of motion. Every step is a cipher, every breath a transmission." />
   <meta property="og:url" content="https://theavcfiles.github.io/Decrypt-The-Girl/docs/movemint-card.html" />
   
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="MoveMint Card - Fitness Tracking Reimagined" />
-  <meta name="twitter:description" content="A beautiful, minimalist fitness tracking component with real-time metrics." />
+  <meta name="twitter:title" content="MoveMint – The Body as Signal" />
+  <meta name="twitter:description" content="Decrypt the language of motion. Every step is a cipher, every breath a transmission." />
   
   <style>
-    /* StudioOS Luxe Theme - Global Styles */
+    /* Decrypt The Girl Theme - Cipher Aesthetics */
     :root {
-      /* Luxe Color Palette */
+      /* Mystical Color Palette */
       --luxe-deep: #0a0a0f;
       --luxe-ink: #1a1a2e;
       --luxe-charcoal: #2a2a3e;
       --luxe-mist: #f5f5f7;
       --luxe-pearl: #fafafa;
-      --luxe-accent: #6366f1;
-      --luxe-accent-light: #818cf8;
-      --luxe-accent-dark: #4f46e5;
+      --luxe-accent: #9778ff;
+      --luxe-accent-light: #b49bff;
+      --luxe-accent-dark: #7c5cdb;
       --luxe-success: #10b981;
-      --luxe-warning: #f59e0b;
+      --luxe-cipher: #c77dff;
+      --luxe-signal: #9d4edd;
       --luxe-border: #e5e7eb;
-      --luxe-shadow: rgba(0, 0, 0, 0.08);
-      --luxe-shadow-lg: rgba(0, 0, 0, 0.12);
+      --luxe-shadow: rgba(151, 120, 255, 0.15);
+      --luxe-shadow-lg: rgba(151, 120, 255, 0.25);
     }
 
     * {
@@ -48,7 +49,7 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Display', 'Inter', system-ui, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: radial-gradient(circle at 30% 20%, #240046 0%, #10002b 50%, #000000 100%);
       color: var(--luxe-ink);
       min-height: 100vh;
       display: flex;
@@ -57,6 +58,29 @@
       padding: 20px;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Add mystical particles effect */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(157, 78, 221, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(199, 125, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 10%, rgba(151, 120, 255, 0.06) 0%, transparent 40%);
+      pointer-events: none;
+      animation: pulse 8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
     }
 
     /* MoveMint Card Container */
@@ -83,12 +107,13 @@
 
     /* Card Header */
     .card-header {
-      background: linear-gradient(135deg, var(--luxe-accent) 0%, var(--luxe-accent-dark) 100%);
+      background: linear-gradient(135deg, #240046 0%, #3c096c 50%, #5a189a 100%);
       color: white;
       padding: 32px 28px;
       text-align: center;
       position: relative;
       overflow: hidden;
+      border-bottom: 2px solid rgba(199, 125, 255, 0.3);
     }
 
     .card-header::before {
@@ -255,7 +280,7 @@
     .cta-button {
       width: 100%;
       padding: 18px 32px;
-      background: linear-gradient(135deg, var(--luxe-accent) 0%, var(--luxe-accent-dark) 100%);
+      background: linear-gradient(135deg, #9d4edd 0%, #7b2cbf 50%, #5a189a 100%);
       color: white;
       border: none;
       border-radius: 14px;
@@ -263,9 +288,10 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+      box-shadow: 0 4px 16px rgba(157, 78, 221, 0.4);
       position: relative;
       overflow: hidden;
+      border: 1px solid rgba(199, 125, 255, 0.3);
     }
 
     .cta-button::before {
@@ -275,13 +301,14 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      background: linear-gradient(90deg, transparent, rgba(199, 125, 255, 0.3), transparent);
       transition: left 0.5s ease;
     }
 
     .cta-button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+      box-shadow: 0 8px 24px rgba(157, 78, 221, 0.6);
+      border-color: rgba(199, 125, 255, 0.6);
     }
 
     .cta-button:hover::before {
@@ -366,114 +393,117 @@
     .status-badge {
       display: inline-block;
       padding: 6px 12px;
-      background: rgba(16, 185, 129, 0.1);
-      color: var(--luxe-success);
+      background: rgba(199, 125, 255, 0.15);
+      color: var(--luxe-cipher);
       border-radius: 20px;
       font-size: 0.75rem;
       font-weight: 600;
       margin-top: 8px;
       position: relative;
       z-index: 1;
+      border: 1px solid rgba(199, 125, 255, 0.3);
     }
 
     .status-badge::before {
-      content: '●';
+      content: '◈';
       margin-right: 6px;
-      animation: pulse 2s ease-in-out infinite;
+      animation: pulseGlow 2s ease-in-out infinite;
     }
 
-    @keyframes pulse {
+    @keyframes pulseGlow {
       0%, 100% {
         opacity: 1;
+        text-shadow: 0 0 8px rgba(199, 125, 255, 0.8);
       }
       50% {
-        opacity: 0.5;
+        opacity: 0.6;
+        text-shadow: 0 0 4px rgba(199, 125, 255, 0.4);
       }
     }
   </style>
 </head>
 <body>
   <!-- MoveMint Card Section -->
-  <section class="movemint-card" role="main" aria-label="MoveMint fitness tracking card">
+  <section class="movemint-card" role="main" aria-label="MoveMint motion cipher interface">
     <!-- Card Header -->
     <header class="card-header">
-      <div class="brand-logo" aria-hidden="true">🏃‍♀️</div>
+      <div class="brand-logo" aria-hidden="true">🌀</div>
       <h1 class="brand-title">MoveMint</h1>
-      <p class="brand-subtitle">Your Fitness Journey, Reimagined</p>
-      <span class="status-badge">Live Tracking</span>
+      <p class="brand-subtitle">The Body as Signal</p>
+      <span class="status-badge">Decrypting Motion</span>
     </header>
 
     <!-- Card Content -->
     <div class="card-content">
       <!-- Metrics Section -->
-      <h2 class="section-title">Today's Activity</h2>
+      <h2 class="section-title">Somatic Transmissions</h2>
       <div class="metrics-grid">
         <div class="metric-card">
-          <span class="metric-icon" aria-hidden="true">👟</span>
+          <span class="metric-icon" aria-hidden="true">👣</span>
           <div class="metric-value" data-metric="steps">8,542</div>
-          <div class="metric-label">Steps</div>
-          <span class="metric-trend" aria-label="12% increase">↑ 12%</span>
+          <div class="metric-label">Echoes</div>
+          <span class="metric-trend" aria-label="Signal strength">⚡</span>
         </div>
         
         <div class="metric-card">
           <span class="metric-icon" aria-hidden="true">🔥</span>
           <div class="metric-value" data-metric="calories">542</div>
-          <div class="metric-label">Calories</div>
-          <span class="metric-trend" aria-label="8% increase">↑ 8%</span>
+          <div class="metric-label">Ignitions</div>
+          <span class="metric-trend" aria-label="Burning bright">✨</span>
         </div>
         
         <div class="metric-card">
-          <span class="metric-icon" aria-hidden="true">⏱️</span>
+          <span class="metric-icon" aria-hidden="true">⏳</span>
           <div class="metric-value" data-metric="duration">45</div>
-          <div class="metric-label">Minutes</div>
-          <span class="metric-trend" aria-label="15% increase">↑ 15%</span>
+          <div class="metric-label">Cycles</div>
+          <span class="metric-trend" aria-label="Time loops">∞</span>
         </div>
         
         <div class="metric-card">
-          <span class="metric-icon" aria-hidden="true">💪</span>
+          <span class="metric-icon" aria-hidden="true">🌙</span>
           <div class="metric-value" data-metric="streak">12</div>
-          <div class="metric-label">Day Streak</div>
-          <span class="metric-trend" aria-label="On fire">🔥</span>
+          <div class="metric-label">Moons</div>
+          <span class="metric-trend" aria-label="Orbital resonance">🔮</span>
         </div>
       </div>
 
       <!-- Features Section -->
-      <h2 class="section-title">Key Features</h2>
+      <h2 class="section-title">Cipher Protocols</h2>
       <div class="features-list">
         <div class="feature-item">
-          <span class="feature-icon" aria-hidden="true">📊</span>
+          <span class="feature-icon" aria-hidden="true">📡</span>
           <div class="feature-content">
-            <div class="feature-title">Real-Time Analytics</div>
-            <div class="feature-description">Track your progress with live updates and detailed insights</div>
+            <div class="feature-title">Signal Intelligence</div>
+            <div class="feature-description">Your body broadcasts data you cannot see. We decode it.</div>
           </div>
         </div>
         
         <div class="feature-item">
-          <span class="feature-icon" aria-hidden="true">🎯</span>
+          <span class="feature-icon" aria-hidden="true">🧬</span>
           <div class="feature-content">
-            <div class="feature-title">Smart Goals</div>
-            <div class="feature-description">AI-powered goal setting that adapts to your lifestyle</div>
+            <div class="feature-title">Recursive Patterns</div>
+            <div class="feature-description">Every movement is a loop. Every loop rewrites the code.</div>
           </div>
         </div>
         
         <div class="feature-item">
-          <span class="feature-icon" aria-hidden="true">🏆</span>
+          <span class="feature-icon" aria-hidden="true">🔓</span>
           <div class="feature-content">
-            <div class="feature-title">Achievement System</div>
-            <div class="feature-description">Unlock badges and rewards as you reach milestones</div>
+            <div class="feature-title">Unlock the Grid</div>
+            <div class="feature-description">Motion is encrypted memory. Decrypt yourself, one step at a time.</div>
           </div>
         </div>
       </div>
 
       <!-- CTA Button -->
-      <button class="cta-button" aria-label="Start your fitness journey with MoveMint">
-        Start Your Journey
+      <button class="cta-button" aria-label="Begin decrypting your motion">
+        Decrypt Yourself
       </button>
     </div>
 
     <!-- Card Footer -->
     <footer class="card-footer">
-      <p>Powered by <a href="https://theavcfiles.github.io/Decrypt-The-Girl/" target="_blank" rel="noopener noreferrer">StudioOS Luxe</a></p>
+      <p>A transmission from <a href="https://theavcfiles.github.io/Decrypt-The-Girl/" target="_blank" rel="noopener noreferrer">Decrypt The Girl</a></p>
     </footer>
   </section>
 
@@ -592,16 +622,16 @@
           const button = this;
           
           // Show accessible notification
-          notification.textContent = '🎉 Welcome to MoveMint! Your fitness journey begins now.';
+          notification.textContent = '🌀 The signal is live. Your body is transmitting. Begin the decryption.';
           notification.style.opacity = '1';
           
           // Add visual feedback to button
-          button.textContent = '✓ Journey Started!';
+          button.textContent = '⚡ Signal Active';
           
           // Hide notification and reset button after 3 seconds
           setTimeout(() => {
             notification.style.opacity = '0';
-            button.textContent = 'Start Your Journey';
+            button.textContent = 'Decrypt Yourself';
           }, 3000);
         });
 
@@ -616,7 +646,7 @@
 
       // Initialize the application
       function init() {
-        console.log('MoveMint Card initialized');
+        console.log('🌀 MoveMint: Decryption protocol active. Body signals incoming...');
         
         // Set initial metric values
         initializeMetrics();
