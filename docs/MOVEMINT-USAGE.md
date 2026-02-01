@@ -417,7 +417,7 @@ body {
 
 **Created by**: A.C. Van Cura  
 **Project**: [Decrypt The Girl](https://github.com/TheAVCfiles/Decrypt-The-Girl)  
-**License**: MIT (with commercial use restrictions)  
+**License**: Dual License (MIT for personal/educational | Commercial license required)  
 **Year**: 2024-2026
 
 ---
