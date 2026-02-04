@@ -65,6 +65,16 @@ A mystical, self-contained motion cipher component that transforms fitness track
 
 **[📖 Full Usage Documentation](docs/MOVEMINT-USAGE.md)** | **[🌀 Live Demo](https://theavcfiles.github.io/Decrypt-The-Girl/docs/movemint-card.html)**
 
+**Screenshots:**
+
+<img src="https://github.com/user-attachments/assets/0a799842-a516-4ae0-8845-728ca7acbdba" alt="MoveMint Desktop - Dramatic Cipher Theme" width="600">
+
+*Desktop view with dark cosmic background and mystical purple gradients*
+
+<img src="https://github.com/user-attachments/assets/1008a38d-783f-47b5-a81c-d508fefee8d7" alt="MoveMint Mobile - Responsive Dark Theme" width="300">
+
+*Mobile responsive view maintaining the dramatic cipher aesthetic*
+
 **License Note**: Free for personal/educational use with attribution. Commercial use requires permission.
 
 ### CROWN·SIGNAL·NODE v3
