@@ -1,22 +1,560 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lottie Diagnostic</title>
+    <title>Lottie Diagnostic - Decrypt The Girl</title>
+    <meta name="description" content="Diagnostic page for testing Lottie animations with error handling and fallback support">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a1016 0%, #1a2332 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            color: #60a5fa;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: #cbd5e1;
+            margin-bottom: 15px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .status-loading {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            border: 1px solid #fbbf24;
+        }
+
+        .status-success {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border: 1px solid #22c55e;
+        }
+
+        .status-error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .player-container {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 20px;
+            border: 2px solid rgba(96, 165, 250, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #lottie-player {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(96, 165, 250, 0.2);
+            border-top-color: #60a5fa;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .fallback-message {
+            text-align: center;
+            padding: 40px 20px;
+            display: none;
+        }
+
+        .fallback-message.active {
+            display: block;
+        }
+
+        .fallback-message h2 {
+            color: #ef4444;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .fallback-message p {
+            color: #cbd5e1;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .fallback-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 20px;
+            opacity: 0.7;
+        }
+
+        .info-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+        }
+
+        .info-panel h2 {
+            color: #60a5fa;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #60a5fa;
+        }
+
+        .info-item strong {
+            color: #60a5fa;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .info-item span {
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            word-break: break-word;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(96, 165, 250, 0.2);
+            color: #60a5fa;
+            border: 1px solid #60a5fa;
+        }
+
+        .btn:hover {
+            background: rgba(96, 165, 250, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            header {
+                padding: 15px;
+            }
+
+            #lottie-player {
+                height: 300px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to Lottie Diagnostic Page</h1>
-    <p>This page helps you test your Lottie animations.</p>
-    <div id="lottie"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>
+    <header>
+        <h1>🎬 Lottie Animation Diagnostic</h1>
+        <p class="subtitle">Testing Bloom Cinematic Animation</p>
+        <div id="status-indicator" class="status-indicator status-loading">Loading...</div>
+    </header>
+
+    <main>
+        <div class="player-container">
+            <div id="lottie-player">
+                <div class="loading-spinner"></div>
+            </div>
+            <div id="fallback-message" class="fallback-message">
+                <h2>⚠️ Animation Failed to Load</h2>
+                <p id="error-details">Unable to load the Lottie animation. Please check your connection and try again.</p>
+                <p><strong>Fallback Mode Active:</strong> Static preview displayed.</p>
+                <div id="fallback-content"></div>
+            </div>
+            <div class="controls">
+                <button id="play-btn" class="btn" onclick="playAnimation()">▶️ Play</button>
+                <button id="pause-btn" class="btn" onclick="pauseAnimation()">⏸️ Pause</button>
+                <button id="stop-btn" class="btn" onclick="stopAnimation()">⏹️ Stop</button>
+                <button id="reload-btn" class="btn" onclick="reloadAnimation()">🔄 Reload</button>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <h2>📊 Diagnostic Information</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>Library</strong>
+                    <span id="info-library">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <strong>Animation Source</strong>
+                    <span id="info-source">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <strong>Renderer</strong>
+                    <span id="info-renderer">SVG</span>
+                </div>
+                <div class="info-item">
+                    <strong>Status</strong>
+                    <span id="info-status">Initializing...</span>
+                </div>
+                <div class="info-item">
+                    <strong>Device Type</strong>
+                    <span id="info-device">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <strong>Screen Size</strong>
+                    <span id="info-screen">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Part of <a href="https://theavcfiles.github.io/Decrypt-The-Girl/" target="_blank">Decrypt The Girl</a></p>
+        <p>A digital narrative experience by A.C. Van Cura</p>
+    </footer>
+
     <script>
-        var animation = lottie.loadAnimation({
-            container: document.getElementById('lottie'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: 'path/to/your/animation.json' // Specify the path to your animation file
+        // Handle script loading error - defined first so it's available for onerror
+        function handleScriptError() {
+            console.error('Failed to load Lottie library from CDN');
+            if (typeof updateStatus === 'function') {
+                updateStatus('Library Load Failed', 'error');
+            }
+            if (document.getElementById('info-library')) {
+                document.getElementById('info-library').textContent = 'Failed to load from CDN';
+            }
+            setTimeout(function() {
+                if (typeof showFallback === 'function') {
+                    showFallback('Lottie library failed to load from CDN. This may be due to network issues or ad blockers.');
+                }
+            }, 100);
+        }
+    </script>
+
+    <!-- Lottie Library with fallback -->
+    <!-- Note: SRI hash ensures script integrity. For production, consider hosting locally. -->
+    <script src="https://unpkg.com/lottie-web@5.9.6/build/player/lottie.min.js" 
+            integrity="sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb"
+            crossorigin="anonymous"
+            onerror="handleScriptError()"></script>
+    
+    <script>
+        // Configuration
+        const CONFIG = {
+            animationPaths: [
+                '../assets/lottie/bloom-cinematic.json',
+                'https://cdn.jsdelivr.net/gh/TheAVCfiles/Decrypt-The-Girl@main/assets/lottie/bloom-cinematic.json'
+            ],
+            fallbackImage: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%230a1016" width="400" height="300"/%3E%3Ctext x="200" y="150" font-family="Arial" font-size="20" fill="%2360a5fa" text-anchor="middle"%3EAnimation Preview%3C/text%3E%3C/svg%3E'
+        };
+
+        // Global state
+        let animation = null;
+        let isScriptLoaded = false;
+        let currentPathIndex = 0;
+
+        // Update status indicator
+        function updateStatus(status, type) {
+            const indicator = document.getElementById('status-indicator');
+            indicator.textContent = status;
+            indicator.className = `status-indicator status-${type}`;
+        }
+
+        // Update info panel
+        function updateInfo() {
+            document.getElementById('info-device').textContent = 
+                /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
+            document.getElementById('info-screen').textContent = 
+                `${window.innerWidth}x${window.innerHeight}px`;
+            
+            if (typeof lottie !== 'undefined') {
+                document.getElementById('info-library').textContent = 'lottie-web v5.9.6';
+                isScriptLoaded = true;
+            } else {
+                document.getElementById('info-library').textContent = 'Not loaded (using fallback)';
+            }
+        }
+
+        // Load animation with error handling
+        function loadAnimation(pathIndex = 0) {
+            if (!isScriptLoaded || typeof lottie === 'undefined') {
+                console.error('Lottie library not available');
+                showFallback('Lottie library is not available. Please check your internet connection.');
+                return;
+            }
+
+            const path = CONFIG.animationPaths[pathIndex];
+            document.getElementById('info-source').textContent = path;
+
+            try {
+                // Clear any existing animation
+                if (animation) {
+                    animation.destroy();
+                }
+
+                const container = document.getElementById('lottie-player');
+                container.innerHTML = '<div class="loading-spinner"></div>';
+
+                animation = lottie.loadAnimation({
+                    container: container,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: path
+                });
+
+                // Animation event listeners
+                animation.addEventListener('DOMLoaded', function() {
+                    console.log('Animation DOM loaded successfully');
+                    updateStatus('✅ Animation Loaded', 'success');
+                    document.getElementById('info-status').textContent = 'Playing';
+                    document.getElementById('fallback-message').classList.remove('active');
+                });
+
+                animation.addEventListener('data_ready', function() {
+                    console.log('Animation data ready');
+                });
+
+                animation.addEventListener('data_failed', function() {
+                    console.error('Animation data failed to load from:', path);
+                    handleAnimationError(pathIndex);
+                });
+
+                animation.addEventListener('error', function(error) {
+                    console.error('Animation error:', error);
+                    handleAnimationError(pathIndex);
+                });
+
+            } catch (error) {
+                console.error('Error loading animation:', error);
+                handleAnimationError(pathIndex);
+            }
+        }
+
+        // Handle animation loading errors
+        function handleAnimationError(pathIndex) {
+            currentPathIndex = pathIndex;
+            
+            // Try fallback path if available
+            if (pathIndex < CONFIG.animationPaths.length - 1) {
+                console.log('Trying fallback path...');
+                setTimeout(() => loadAnimation(pathIndex + 1), 1000);
+            } else {
+                // All paths failed, show fallback
+                updateStatus('❌ Load Failed', 'error');
+                document.getElementById('info-status').textContent = 'Failed - Fallback Active';
+                showFallback('All animation sources failed to load. This could be due to network issues or missing files.');
+            }
+        }
+
+        // Show fallback UI
+        function showFallback(message) {
+            document.getElementById('error-details').textContent = message;
+            document.getElementById('fallback-message').classList.add('active');
+            document.getElementById('lottie-player').innerHTML = '';
+            
+            // Add fallback image
+            const fallbackContent = document.getElementById('fallback-content');
+            fallbackContent.innerHTML = `<img src="${CONFIG.fallbackImage}" alt="Animation fallback" class="fallback-image" />`;
+            
+            // Disable controls
+            disableControls();
+        }
+
+        // Control functions
+        function playAnimation() {
+            if (animation) {
+                animation.play();
+                document.getElementById('info-status').textContent = 'Playing';
+                updateStatus('▶️ Playing', 'success');
+            }
+        }
+
+        function pauseAnimation() {
+            if (animation) {
+                animation.pause();
+                document.getElementById('info-status').textContent = 'Paused';
+                updateStatus('⏸️ Paused', 'loading');
+            }
+        }
+
+        function stopAnimation() {
+            if (animation) {
+                animation.stop();
+                document.getElementById('info-status').textContent = 'Stopped';
+                updateStatus('⏹️ Stopped', 'loading');
+            }
+        }
+
+        function reloadAnimation() {
+            updateStatus('🔄 Reloading...', 'loading');
+            document.getElementById('fallback-message').classList.remove('active');
+            enableControls();
+            currentPathIndex = 0;
+            loadAnimation(0);
+        }
+
+        function disableControls() {
+            document.querySelectorAll('.controls .btn').forEach(btn => {
+                if (btn.id !== 'reload-btn') {
+                    btn.disabled = true;
+                }
+            });
+        }
+
+        function enableControls() {
+            document.querySelectorAll('.controls .btn').forEach(btn => {
+                btn.disabled = false;
+            });
+        }
+
+        // Initialize on load
+        window.addEventListener('load', function() {
+            updateInfo();
+            
+            // Give the Lottie script time to load
+            setTimeout(function() {
+                if (typeof lottie !== 'undefined') {
+                    isScriptLoaded = true;
+                    loadAnimation(0);
+                } else {
+                    handleScriptError();
+                }
+            }, 500);
         });
+
+        // Update screen info on resize
+        window.addEventListener('resize', function() {
+            document.getElementById('info-screen').textContent = 
+                `${window.innerWidth}x${window.innerHeight}px`;
+        });
+
+        // Log diagnostic info for debugging
+        console.log('Lottie Diagnostic Page Initialized');
+        console.log('Animation paths:', CONFIG.animationPaths);
+        console.log('User Agent:', navigator.userAgent);
     </script>
 </body>
 </html>
