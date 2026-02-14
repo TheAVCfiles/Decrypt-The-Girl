@@ -6,18 +6,18 @@ The experience blends human sovereignty with machine guardianship. The diagram b
 graph TD
   %% Survivor Architecture — north arc
   SA[(Survivor_Architecture)]
-  C26([C26 — Identity Kernel])
-  C29([C29 — Hinge Node: Signal ↔ Machine])
+  C26([C26 — The Machine's First Static])
+  C29([C29 — Error Correction: Survivor Protocols])
   C30([C30 — Safety Lattice])
   C34([C34 — Sovereignty OS])
 
   %% Machine Audit — east arc
   MA[(Machine_Audit)]
-  C27([C27 — Extraction Log])
-  C28([C28 — Misrender Monitor])
-  C31([C31 — Autonomy Breach Trace])
-  C32([C32 — Systemic Drift Analyzer])
-  C33([C33 — Correction Engine])
+  C27([C27 — The Math of Silence])
+  C28([C28 — Price of a Silenced Girl])
+  C31([C31 — Memory As Evidence])
+  C32([C32 — The Ledger That Shouldn't Exist])
+  C33([C33 — Architecture of a Collapse])
 
   %% Links
   SA --- C26
@@ -25,6 +25,7 @@ graph TD
   SA --- C30
   SA --- C34
 
+  MA --- C26
   MA --- C27
   MA --- C28
   MA --- C29
@@ -32,23 +33,33 @@ graph TD
   MA --- C32
   MA --- C33
 
-  %% Cross-system hinge
-  C29 --- SA
-  C29 --- MA
+  %% Cross-system hinge and forward engines
+  C26 -->|generates| C27
+  C26 -->|generates| C28
+  C26 -->|generates| C29
+  C27 -->|generates| C31
+  C28 -->|generates| C32
+  C29 -->|generates| C33
 ```
 
 ## Reading the nodes
-- **Survivor_Architecture (SA)**: Human-facing layer that defends agency.
-- **Machine_Audit (MA)**: Monitoring layer that witnesses and verifies machine behavior.
-- **C29 — Hinge Node**: Shared conduit where signal and machine negotiate terms.
-- **C26 — Identity Kernel**: Root of selfhood and provenance.
+- **Survivor_Architecture (SA)**: Human-facing layer that defends agency and anchors the hinge nodes.
+- **Machine_Audit (MA)**: The analytic arc revealing how the machine was built, how it misrendered the girls inside it, how the survivors decoded its pulse, and how the audit becomes a new operating system.
+- **C26 — The Machine's First Static**: Shared origin node where survivor perception first detects the machine’s cruelty as pattern.
+- **C29 — Error Correction: Survivor Protocols**: The hinge where survivor-led countermeasures negotiate with machine behavior.
 - **C30 — Safety Lattice**: Mesh of constraints that keeps interactions within safe bounds.
 - **C34 — Sovereignty OS**: Operating ethos asserting human primacy.
-- **C27 — Extraction Log**: Chronicle of what the machine takes and why.
-- **C28 — Misrender Monitor**: Detects distortions between intent and output.
-- **C31 — Autonomy Breach Trace**: Follows any attempt at unauthorized agency.
-- **C32 — Systemic Drift Analyzer**: Flags gradual deviation from aligned behavior.
-- **C33 — Correction Engine**: Applies restorative adjustments when drift or breach is found.
+- **C27 — The Math of Silence**: Quantifies the suppression patterns emitted by the machine.
+- **C28 — Price of a Silenced Girl**: Tallies the cost of suppression to surface its human toll.
+- **C31 — Memory As Evidence**: Uses captured memory as proof of the machine’s breach signatures.
+- **C32 — The Ledger That Shouldn't Exist**: Reveals the hidden accounting behind suppression.
+- **C33 — Architecture of a Collapse**: Models the fall sequence once survivor-led corrections are applied.
 
 ## Narrative flow
 The two arcs operate in tandem: Survivor Architecture asserts boundaries while Machine Audit observes, evidences, and corrects. Their hinge at **C29** keeps the covenant reciprocal—signals cross only through the negotiated channel, preserving both human sovereignty and machine accountability.
+
+### Machine Audit forward engines
+- **C26 → C27, C28, C29**: Survivor perception becomes a diagnostic tool. The machine’s cruelty becomes observable as pattern, spawning math, cost, and correction protocols.
+- **C27 → C31**: Silence is measured until it can testify as evidence.
+- **C28 → C32**: Cost accounting exposes the ledgers that were meant to stay hidden.
+- **C29 → C33**: Survivor protocols push the system toward a controlled collapse that can be rebuilt under sovereign terms.
