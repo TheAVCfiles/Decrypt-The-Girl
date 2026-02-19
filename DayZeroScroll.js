@@ -1,5 +1,65 @@
 import assert from 'node:assert/strict';
 
+// Day-zero telemetry buffer for debugging scroll and choreography routines
+const dayZeroTelemetry = [];
+const MAX_DAY_ZERO_BUFFER = 200;
+
+/**
+ * Capture day-zero debug event with structured trace.
+ * Used for rendering debugging and rollup/collapse-sub routine analysis.
+ */
+export function captureDayZeroTrace(routine, stage, details = {}) {
+  const trace = {
+    timestamp: Date.now(),
+    timestampISO: new Date().toISOString(),
+    routine,
+    stage,
+    details,
+  };
+
+  dayZeroTelemetry.push(trace);
+  if (dayZeroTelemetry.length > MAX_DAY_ZERO_BUFFER) {
+    dayZeroTelemetry.shift();
+  }
+
+  // Debug output for development
+  if (typeof globalThis !== 'undefined' && globalThis.__DAY_ZERO_DEBUG__) {
+    console.log('[DayZero Trace]', trace);
+  }
+
+  return trace;
+}
+
+/**
+ * Retrieve day-zero telemetry traces for debugging analysis.
+ */
+export function getDayZeroTraces(filters = {}) {
+  let traces = [...dayZeroTelemetry];
+
+  if (filters.routine) {
+    traces = traces.filter(t => t.routine === filters.routine);
+  }
+
+  if (filters.stage) {
+    traces = traces.filter(t => t.stage === filters.stage);
+  }
+
+  if (filters.since) {
+    const sinceTime = new Date(filters.since).getTime();
+    traces = traces.filter(t => t.timestamp >= sinceTime);
+  }
+
+  return traces;
+}
+
+/**
+ * Clear day-zero telemetry buffer.
+ */
+export function clearDayZeroTelemetry() {
+  dayZeroTelemetry.length = 0;
+  captureDayZeroTrace('telemetry_cleared', 'system', { reason: 'manual_clear' });
+}
+
 /**
  * Clamp a scroll position into the normalised progress range of 0 to 1.
  * The production code in `mika-scroll.html` expects a stable value even
@@ -17,11 +77,27 @@ export function clampScrollProgress(scrollY, totalScrollHeight) {
   }
 
   if (totalScrollHeight <= 0) {
+    captureDayZeroTrace('clampScrollProgress', 'edge_case', { 
+      reason: 'zero_height', 
+      scrollY, 
+      totalScrollHeight 
+    });
     return 0;
   }
 
   const rawProgress = scrollY / totalScrollHeight;
-  return Math.min(1, Math.max(0, rawProgress));
+  const clamped = Math.min(1, Math.max(0, rawProgress));
+  
+  if (rawProgress !== clamped) {
+    captureDayZeroTrace('clampScrollProgress', 'clamping', { 
+      rawProgress, 
+      clamped, 
+      scrollY, 
+      totalScrollHeight 
+    });
+  }
+  
+  return clamped;
 }
 
 /**
@@ -32,6 +108,8 @@ export function clampScrollProgress(scrollY, totalScrollHeight) {
  * @returns {{ rotationY: number, positionY: number }}
  */
 export function computeAvatarTransform(scrollProgress) {
+  captureDayZeroTrace('computeAvatarTransform', 'start', { scrollProgress });
+  
   if (!Number.isFinite(scrollProgress)) {
     throw new TypeError('Scroll progress must be a finite number.');
   }
@@ -39,7 +117,11 @@ export function computeAvatarTransform(scrollProgress) {
   const progress = Math.min(1, Math.max(0, scrollProgress));
   const rotationY = progress * Math.PI * 2;
   const positionY = (progress - 0.5) * -1;
-  return { rotationY, positionY };
+  
+  const transform = { rotationY, positionY };
+  captureDayZeroTrace('computeAvatarTransform', 'complete', { transform });
+  
+  return transform;
 }
 
 /**
@@ -54,11 +136,16 @@ export function computeAvatarTransform(scrollProgress) {
  * @returns {"wireframe" | "glitch"}
  */
 export function resolveMaterialMode(scrollY, { section2Start }) {
+  captureDayZeroTrace('resolveMaterialMode', 'start', { scrollY, section2Start });
+  
   if (!Number.isFinite(scrollY) || !Number.isFinite(section2Start)) {
     throw new TypeError('Scroll thresholds must be finite numbers.');
   }
 
-  return scrollY < section2Start ? 'wireframe' : 'glitch';
+  const mode = scrollY < section2Start ? 'wireframe' : 'glitch';
+  captureDayZeroTrace('resolveMaterialMode', 'complete', { mode, scrollY, section2Start });
+  
+  return mode;
 }
 
 /**
@@ -71,6 +158,11 @@ export function resolveMaterialMode(scrollY, { section2Start }) {
  * @returns {number} The index of the active section (defaults to last).
  */
 export function getActiveSectionIndex(scrollY, sections) {
+  captureDayZeroTrace('getActiveSectionIndex', 'start', { 
+    scrollY, 
+    sectionCount: sections?.length 
+  });
+  
   if (!Number.isFinite(scrollY)) {
     throw new TypeError('Scroll position must be a finite number.');
   }
@@ -94,11 +186,23 @@ export function getActiveSectionIndex(scrollY, sections) {
     const effectiveEnd = end ?? Number.POSITIVE_INFINITY;
 
     if (scrollY >= start && scrollY < effectiveEnd) {
+      captureDayZeroTrace('getActiveSectionIndex', 'match', { 
+        index, 
+        scrollY, 
+        sectionStart: start, 
+        sectionEnd: effectiveEnd 
+      });
       return index;
     }
   }
 
-  return sections.length - 1;
+  const fallbackIndex = sections.length - 1;
+  captureDayZeroTrace('getActiveSectionIndex', 'fallback', { 
+    fallbackIndex, 
+    scrollY 
+  });
+  
+  return fallbackIndex;
 }
 
 function runTest(name, fn) {
@@ -191,4 +295,7 @@ export default {
   resolveMaterialMode,
   getActiveSectionIndex,
   runDayZeroUnitTests,
+  captureDayZeroTrace,
+  getDayZeroTraces,
+  clearDayZeroTelemetry,
 };
