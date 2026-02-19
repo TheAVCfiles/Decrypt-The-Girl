@@ -4,7 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Bloom — Animation Preview</title>
-  <script src="https://unpkg.com/lottie-web@5.9.6/build/player/lottie.min.js"></script>
+  <!-- Local Lottie stub (fallback implementation) -->
+  <script src="../assets/vendor/js/lottie-stub.js"></script>
   <style>
     body{display:flex;justify-content:center;align-items:center;margin:0;height:100vh;background:#0a1016;color:#fff;font-family:Arial,sans-serif}
     #player{width:90vw;max-width:900px;height:50vh;max-height:540px;background:#000;border-radius:12px;overflow:hidden}
@@ -18,7 +19,8 @@
   </div>
 
   <script>
-    const jsonUrl = "https://raw.githack.com/TheAVCfiles/Decrypt-The-Girl/main/assets/lottie/bloom-cinematic.json";
+    // Use local Lottie JSON file instead of external CDN
+    const jsonUrl = "assets/lottie/bloom-cinematic.json";
     const el = document.getElementById('player');
     const anim = lottie.loadAnimation({
       container: el,

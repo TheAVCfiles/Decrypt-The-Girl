@@ -4,10 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mika Scroll Experience</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script async src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Local Tailwind CSS utilities -->
+    <link rel="stylesheet" href="assets/vendor/css/tailwind-minimal.css">
+    <!-- Local Three.js stub (fallback implementation) -->
+    <script src="assets/vendor/js/three-stub.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        /* Using system fonts instead of Google Fonts for offline capability */
+        @import url('data:text/css;charset=utf-8,');
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400 700;
+            font-display: swap;
+            src: local('Inter'), local('-apple-system'), local('BlinkMacSystemFont'), local('Segoe UI'), local('Roboto');
+        }
         body {
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
