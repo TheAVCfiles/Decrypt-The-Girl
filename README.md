@@ -33,6 +33,7 @@ The application features two distinct but complementary experiences:
 - **CSS3 Animations** - Smooth transitions and elegant visual effects
 - **Reusable Ephemeris Component** - Drop-in `DayZeroScroll` widget with auto-initialisation, manual factory, and web component
   support
+- **Comprehensive Telemetry** - Built-in trace capture for debugging choreography, stage-trade operations, and day-zero routines
 
 ### Accessibility Features
 - **ARIA Labels** - Screen reader support throughout

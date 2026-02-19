@@ -23,7 +23,8 @@
   "license": "MIT",
   "scripts": {
     "start": "python3 -m http.server 8080",
-    "test": "python3 -m json.tool chatbot.json",
+    "test": "python3 -m json.tool chatbot.json && node tests/telemetry.test.js",
+    "test:telemetry": "node tests/telemetry.test.js",
     "deploy": "node scripts/deploy.js",
     "deploy:default": "node scripts/deploy.js default",
     "deploy:app1": "node scripts/deploy.js app1",

@@ -116,13 +116,14 @@ const BalletRubikTrader = () => {
       sq.layers.memory.lastPerformed = new Date().toISOString();
 
       // LAYER 5: CAPITAL (generate trading signal)
-      sq.layers.capital.signal = movement.signal;
-      sq.layers.capital.strength = movement.strength;
+      // Use standardized tradeAction.side from adapter
+      sq.layers.capital.signal = out.tradeAction.side;
+      sq.layers.capital.strength = out.tradeAction.confidence;
 
-      const positionSize = totalCapital * 0.02 * movement.strength; // 2% risk per trade
-      if (movement.signal === 'BUY') {
+      const positionSize = totalCapital * out.tradeAction.size; // Use adapter-calculated size
+      if (out.tradeAction.side === 'BUY') {
         sq.layers.capital.position = (sq.layers.capital.position || 0) + positionSize;
-      } else if (movement.signal === 'SELL') {
+      } else if (out.tradeAction.side === 'SELL') {
         sq.layers.capital.position = (sq.layers.capital.position || 0) - positionSize;
       }
 
@@ -132,16 +133,17 @@ const BalletRubikTrader = () => {
 
       sq.currentMovement = movementKey;
 
-      // record executedTrades like before
-      if (movement.signal !== 'HOLD') {
+      // record executedTrades with standardized tradeAction data
+      if (out.tradeAction.side !== 'HOLD') {
         setExecutedTrades(prev => [
           {
             timestamp: new Date().toLocaleTimeString(),
             square: sq.notation,
             movement: movementKey,
-            signal: movement.signal,
-            strength: movement.strength,
-            position: positionSize.toFixed(2)
+            signal: out.tradeAction.side,
+            strength: out.tradeAction.confidence,
+            position: positionSize.toFixed(2),
+            rationale: out.tradeAction.rationale
           },
           ...prev
         ].slice(0, 10));
