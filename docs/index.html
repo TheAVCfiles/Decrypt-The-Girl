@@ -19,8 +19,7 @@
   </div>
 
   <script>
-    // Relative path from docs/ directory to repository root
-    // This resolves to: assets/lottie/bloom-cinematic.json
+    // Path from docs/ directory: ../ navigates to root, then into assets/lottie/
     const jsonUrl = "../assets/lottie/bloom-cinematic.json";
     const el = document.getElementById('player');
     const anim = lottie.loadAnimation({
