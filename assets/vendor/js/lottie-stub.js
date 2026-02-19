@@ -97,5 +97,6 @@
     }
   };
   
-  console.log('Lottie stub loaded. For full functionality, use the complete lottie-web library.');
+  console.log('Lottie stub loaded - animations will show placeholder content.');
+  console.log('For full animation functionality, download the complete lottie-web library.');
 })();
