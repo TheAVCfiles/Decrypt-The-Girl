@@ -35,9 +35,9 @@ This work builds upon commit `3f62aba0f27154e1a639b0b1428d6744319f5fa4`, which s
 
 #### Google Fonts
 - **Before**: `@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap')`
-- **After**: `font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;`
+- **After**: `font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;`
 - **Location**: `mika-scroll.html`
-- **Impact**: Uses native system fonts for instant loading (Inter as preference if installed)
+- **Impact**: Uses native system fonts for instant loading
 
 ### 2. External API Calls Handled
 
