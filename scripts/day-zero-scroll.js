@@ -526,6 +526,8 @@
     let entries = Array.isArray(this.options.entries) ? this.options.entries : null;
     let usedExternal = false;
 
+    // Try to fetch from external ephemeris API if URL is provided
+    // Falls back to local fallback data if unavailable (offline-first approach)
     if (!entries && this.options.ephemerisUrl) {
       try {
         const response = await fetch(this.options.ephemerisUrl, {
@@ -552,6 +554,7 @@
       }
     }
 
+    // Use fallback entries when external API is unavailable (primary data source for offline use)
     if (!entries || entries.length === 0) {
       entries = Array.isArray(this.options.fallbackEntries) && this.options.fallbackEntries.length > 0
         ? this.options.fallbackEntries

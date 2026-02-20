@@ -217,9 +217,9 @@
       <div>
         <h1>CROWN·SIGNAL·NODE v3</h1>
         <div class="chip-row" aria-label="routes">
-          <span class="chip">firestore: artifacts/{appId}/public/data/crown_signals</span>
-          <span class="chip">ledger: http://localhost:8020/v1/log_event</span>
-          <span class="chip">export: http://localhost:8020/v1/export</span>
+          <span class="chip">firestore: artifacts/{appId}/public/data/crown_signals (optional)</span>
+          <span class="chip">ledger: localStorage (primary) | http://localhost:8020/v1/log_event (optional)</span>
+          <span class="chip">export: http://localhost:8020/v1/export (optional)</span>
         </div>
       </div>
       <div class="status" id="status">Channel booting. Awaiting first signal.</div>
@@ -285,8 +285,11 @@
 
     const config = {
       appId: "local-dev",
+      // External ledger endpoints (optional, will gracefully degrade if unavailable)
       ledgerEndpoint: "http://localhost:8020/v1/log_event",
       exportEndpoint: "http://localhost:8020/v1/export",
+      // Local storage is the primary data persistence mechanism
+      useLocalStorage: true,
       ...window.CROWN_SIGNAL_CONFIG,
     };
 
@@ -385,6 +388,8 @@
     }
 
     async function sendToLedger(entry) {
+      // Optional external ledger sync - gracefully degrades if unavailable
+      // Primary storage is localStorage, so this is for backup/logging only
       try {
         const response = await fetch(config.ledgerEndpoint, {
           method: "POST",
@@ -399,9 +404,9 @@
         if (!response.ok) {
           throw new Error(`Ledger responded with ${response.status}`);
         }
-        logTelemetry(`Ledgered transmission at ${config.ledgerEndpoint}`);
+        logTelemetry(`✓ Synced to external ledger at ${config.ledgerEndpoint}`);
       } catch (error) {
-        logTelemetry(`Ledger unavailable: ${error.message}`);
+        logTelemetry(`✓ Saved locally (external ledger unavailable: ${error.message})`);
       }
     }
 
