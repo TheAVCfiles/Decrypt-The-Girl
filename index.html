@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Decrypt The Girl – Interactive Poetic Codebook</title>
-  
+
   <!-- SEO Meta Tags -->
-  <meta name="description" content="An interactive poetic codebook blending myth, encryption, and feminine mystery. Navigate through recursive poems and encrypted narratives by A.C. Van Cura." />
-  <meta name="keywords" content="interactive poetry, digital art, codebook, encryption, narrative, web art, A.C. Van Cura" />
-  <meta name="author" content="A.C. Van Cura" />
-  
+  <meta name="description" content="An interactive poetic codebook blending myth, encryption, and feminine mystery. Navigate through recursive poems and encrypted narratives by A.C. Van Cura.">
+  <meta name="keywords" content="interactive poetry, digital art, codebook, encryption, narrative, web art, A.C. Van Cura">
+  <meta name="author" content="A.C. Van Cura">
+
   <!-- Open Graph / Social Media Meta Tags -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Decrypt The Girl – Interactive Poetic Codebook" />
-  <meta property="og:description" content="An interactive poetic codebook blending myth, encryption, and feminine mystery." />
-  <meta property="og:url" content="https://theavcfiles.github.io/Decrypt-The-Girl/" />
-  <meta property="og:site_name" content="Decrypt The Girl" />
-  
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Decrypt The Girl – Interactive Poetic Codebook">
+  <meta property="og:description" content="An interactive poetic codebook blending myth, encryption, and feminine mystery.">
+  <meta property="og:url" content="https://theavcfiles.github.io/Decrypt-The-Girl/">
+  <meta property="og:site_name" content="Decrypt The Girl">
+
   <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Decrypt The Girl – Interactive Poetic Codebook" />
-  <meta name="twitter:description" content="An interactive poetic codebook blending myth, encryption, and feminine mystery." />
-  <meta name="twitter:creator" content="@DeCrypt_The_Girl" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Decrypt The Girl – Interactive Poetic Codebook">
+  <meta name="twitter:description" content="An interactive poetic codebook blending myth, encryption, and feminine mystery.">
+  <meta name="twitter:creator" content="@DeCrypt_The_Girl">
   <style>
     /* Global Styles - Mobile-first approach */
     body {
@@ -96,17 +96,17 @@
       min-width: 60px;
       font-family: inherit;
     }
-    
+
     .nav button:hover {
       background: #e9e9e9;
       border-color: #999;
     }
-    
+
     .nav button:focus {
       outline: 2px solid #4a90e2;
       outline-offset: 2px;
     }
-    
+
     .nav button:active {
       transform: translateY(1px);
     }
@@ -115,13 +115,13 @@
       box-shadow: 0 0 10px 2px rgba(150, 120, 255, 0.2);
       animation: pulse 2.5s infinite ease-in-out;
     }
-    
+
     @keyframes pulse {
       0% { box-shadow: 0 0 10px 2px rgba(150, 120, 255, 0.15); }
       50% { box-shadow: 0 0 14px 4px rgba(150, 120, 255, 0.3); }
       100% { box-shadow: 0 0 10px 2px rgba(150, 120, 255, 0.15); }
     }
-    
+
     /* Responsive Design - Mobile Optimization */
     @media (max-width: 480px) {
       .reader {
@@ -130,16 +130,16 @@
         padding: 30px 20px;
         margin: 20px;
       }
-      
+
       .header {
         font-size: 1.3em;
       }
-      
+
       .content {
         font-size: 0.95em;
       }
     }
-    
+
     /* Tablet Optimization */
     @media (min-width: 481px) and (max-width: 768px) {
       .reader {
@@ -147,13 +147,13 @@
         max-width: 500px;
       }
     }
-    
+
     /* Accessibility - Reduced Motion */
     @media (prefers-reduced-motion: reduce) {
       .glow {
         animation: none;
       }
-      
+
       .content,
       .reader {
         transition: none;
@@ -163,22 +163,22 @@
 </head>
 <body>
   <!-- Main Application Container -->
-  <main class="reader glow" role="main" aria-label="Interactive Poetic Codebook">
+  <main class="reader glow" aria-label="Interactive Poetic Codebook">
     <!-- Page Header -->
     <header>
-      <h1 class="header" id="pageTitle"></h1>
+      <h1 class="header" id="pageTitle">Decrypt The Girl</h1>
       <p class="subhead" id="pageSubtitle"></p>
     </header>
-    
+
     <!-- Page Content Area -->
-    <div class="content" id="pageContent" role="article" aria-live="polite"></div>
-    
+    <article class="content" id="pageContent" aria-live="polite"></article>
+
     <!-- Navigation Controls -->
-    <nav class="nav" role="navigation" aria-label="Page navigation">
-      <button onclick="prevPage()" aria-label="Go to previous page">Prev</button>
-      <button onclick="nextPage()" aria-label="Go to next page">Next</button>
+    <nav class="nav" aria-label="Page navigation">
+      <button type="button" onclick="prevPage()" aria-label="Go to previous page">Prev</button>
+      <button type="button" onclick="nextPage()" aria-label="Go to next page">Next</button>
     </nav>
-    
+
     <!-- Footer with Attribution -->
     <footer class="footer" id="pageFooter">
       by A.C. Van Cura — <span id="pageIndicator" aria-live="polite"></span>
@@ -189,7 +189,7 @@
     /**
      * Decrypt The Girl - Interactive Poetic Codebook
      * Author: A.C. Van Cura
-     * 
+     *
      * This script manages the interactive navigation and content rendering
      * for a poetic codebook experience that blends art, technology, and narrative.
      */
@@ -245,22 +245,22 @@
      * Renders the content for a specific page index
      * Updates all dynamic elements with page-specific content
      * Handles special footer rendering for the final page
-     * 
+     *
      * @param {number} index - The page index to render (0-based)
      */
     function renderPage(index) {
       const page = pages[index];
       const footer = document.getElementById('pageFooter');
-      
+
       // Special footer treatment for the final page - includes GitHub link
       if (index === pages.length - 1) {
-        footer.innerHTML = `by A.C. Van Cura — <a href="https://github.com/TheAVCfiles/Decrypt-The-Girl" 
-                           target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub">GitHub</a> 
+        footer.innerHTML = `by A.C. Van Cura — <a href="https://github.com/TheAVCfiles/Decrypt-The-Girl"
+                           target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub">GitHub</a>
                            — <span id="pageIndicator"></span>`;
       } else {
         footer.innerHTML = 'by A.C. Van Cura — <span id="pageIndicator"></span>';
       }
-      
+
       // Update page content elements
       document.getElementById('pageTitle').textContent = page.title;
       document.getElementById('pageSubtitle').textContent = page.subtitle;
@@ -293,17 +293,17 @@
      */
     let touchStartX = 0;
     const MIN_SWIPE_DISTANCE = 50; // Minimum pixels for a valid swipe
-    
+
     // Capture initial touch position
     document.querySelector('.reader').addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
     }, { passive: true });
-    
+
     // Handle swipe completion and determine direction
     document.querySelector('.reader').addEventListener('touchend', (e) => {
       const touchEndX = e.changedTouches[0].screenX;
       const deltaX = touchEndX - touchStartX;
-      
+
       // Right swipe (shows previous page) - intuitive book-like navigation
       if (deltaX > MIN_SWIPE_DISTANCE) {
         prevPage();
