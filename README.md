@@ -58,6 +58,24 @@ Experience the interactive codebook live:
 - **Astro Finance Guide**: [astro-finance.html](https://theavcfiles.github.io/Decrypt-The-Girl/astro-finance.html)
 - **Day Zero Scroll**: [day-zero-scroll.html](https://theavcfiles.github.io/Decrypt-The-Girl/day-zero-scroll.html)
 - **CROWN·SIGNAL·NODE v3**: [crown-signal-node.html](https://theavcfiles.github.io/Decrypt-The-Girl/crown-signal-node.html)
+- **MoveMint Card**: [docs/movemint-card.html](https://theavcfiles.github.io/Decrypt-The-Girl/docs/movemint-card.html) - Dramatic cipher-themed motion tracker ([Usage Guide](docs/MOVEMINT-USAGE.md))
+
+### MoveMint – The Body as Signal
+A mystical, self-contained motion cipher component that transforms fitness tracking into poetic somatic transmissions. Features dark cosmic aesthetics, zero dependencies, and full accessibility. Perfect for embedding in wellness apps or artistic installations.
+
+**[📖 Full Usage Documentation](docs/MOVEMINT-USAGE.md)** | **[🌀 Live Demo](https://theavcfiles.github.io/Decrypt-The-Girl/docs/movemint-card.html)**
+
+**Screenshots:**
+
+<img src="https://github.com/user-attachments/assets/0a799842-a516-4ae0-8845-728ca7acbdba" alt="MoveMint Desktop - Dramatic Cipher Theme" width="600">
+
+*Desktop view with dark cosmic background and mystical purple gradients*
+
+<img src="https://github.com/user-attachments/assets/1008a38d-783f-47b5-a81c-d508fefee8d7" alt="MoveMint Mobile - Responsive Dark Theme" width="300">
+
+*Mobile responsive view maintaining the dramatic cipher aesthetic*
+
+**License Note**: Free for personal/educational use with attribution. Commercial use requires permission.
 
 ### CROWN·SIGNAL·NODE v3
 The CROWN console is a Firebase-ready signal room that respects the triadic ritual (Surface → Cipher → Echo) while maintaining a living CODA from the freshest transmission. It operates locally by default, caching signals in the browser and compressing the latest payload into a one-line seed.
@@ -183,6 +201,33 @@ We welcome contributions that enhance the artistic and technical vision of this 
 ## 📜 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### 🔒 Usage & Attribution Guidelines
+
+**Personal/Educational/Non-Profit Use:**
+- ✅ Free to use with proper attribution
+- ✅ Open source projects (with credit)
+- ✅ Educational demonstrations
+- ✅ Personal portfolios
+
+**Commercial Use:**
+- ⚠️ Requires explicit permission and licensing
+- ⚠️ Contact author for commercial terms
+- ⚠️ Includes: paid products, client work, revenue-generating apps, commercial themes
+
+**Required Attribution for ALL uses:**
+```
+"[Component Name] by A.C. Van Cura (Decrypt The Girl)"
+Link: https://github.com/TheAVCfiles/Decrypt-The-Girl
+```
+
+**Not Allowed:**
+- ❌ Removing copyright/attribution notices
+- ❌ Claiming work as your own
+- ❌ Commercial use without permission
+- ❌ Redistribution without attribution
+
+For commercial licensing inquiries, open an issue or contact via the links above.
 
 ## 🙏 Acknowledgments
 
