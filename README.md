@@ -58,6 +58,7 @@ Experience the interactive codebook live:
 - **Astro Finance Guide**: [astro-finance.html](https://theavcfiles.github.io/Decrypt-The-Girl/astro-finance.html)
 - **Day Zero Scroll**: [day-zero-scroll.html](https://theavcfiles.github.io/Decrypt-The-Girl/day-zero-scroll.html)
 - **CROWN·SIGNAL·NODE v3**: [crown-signal-node.html](https://theavcfiles.github.io/Decrypt-The-Girl/crown-signal-node.html)
+- **Glossary Q&A Assistant**: [glossary-qa.html](https://theavcfiles.github.io/Decrypt-The-Girl/glossary-qa.html)
 
 ### CROWN·SIGNAL·NODE v3
 The CROWN console is a Firebase-ready signal room that respects the triadic ritual (Surface → Cipher → Echo) while maintaining a living CODA from the freshest transmission. It operates locally by default, caching signals in the browser and compressing the latest payload into a one-line seed.
@@ -75,6 +76,22 @@ To connect to the wider mesh, provide a config object before the module executes
 ```
 
 Set the configuration before the page script executes (edit the file or inject via a wrapper), then load `crown-signal-node.html`. If the Firebase SDK is present, the console will subscribe to the configured collection and push emissions with server timestamps; otherwise it quietly stays local while still emitting ledger telemetry.
+
+### Glossary Q&A Assistant
+The Glossary Q&A Assistant is an interactive form that allows users to ask questions about the Decrypt The Girl codebook. It features:
+
+- **Smart Demo Mode**: Automatically activates when no serverless function URL is configured, providing a believable static response
+- **URL Validation**: Prevents errors by checking if `FUNCTION_URL` is a valid HTTP/HTTPS URL before attempting backend calls
+- **Graceful Degradation**: Works perfectly for demonstrations and prototyping without requiring backend infrastructure
+- **Easy Backend Integration**: Simply update the `FUNCTION_URL` constant to switch from demo mode to live AI-powered responses
+
+To enable live backend functionality, edit `glossary-qa.html` and set the `FUNCTION_URL` constant to your serverless function endpoint:
+
+```javascript
+const FUNCTION_URL = "https://your-function-url.com/api/qa";
+```
+
+When `FUNCTION_URL` is empty, a placeholder, or a relative path, the form operates in static demo mode and logs the payload to the console for development purposes.
 
 ## 💻 Installation & Usage
 
@@ -125,14 +142,15 @@ Decrypt-The-Girl/
 ├── astro-finance.html      # Weekly astro finance guide
 ├── day-zero-scroll.html    # Ephemeris intelligence timeline experience
 ├── crown-signal-node.html  # CROWN signal console with optional Firestore/ledger sync
-├── chatbot.json           # Chatbot configuration
-├── README.md              # Project documentation
-├── LICENSE                # MIT license
-├── CONTRIBUTING.md        # Contribution guidelines
-├── CHANGELOG.md           # Version history
-├── docs/choreocode.md     # Draft language notes for ChoreoCode v0.1
+├── glossary-qa.html        # Q&A assistant with demo mode support
+├── chatbot.json            # Chatbot configuration
+├── README.md               # Project documentation
+├── LICENSE                 # MIT license
+├── CONTRIBUTING.md         # Contribution guidelines
+├── CHANGELOG.md            # Version history
+├── docs/choreocode.md      # Draft language notes for ChoreoCode v0.1
 └── .github/
-    └── workflows/         # CI/CD automation
+    └── workflows/          # CI/CD automation
         ├── deploy-pages.yml
         └── quality-check.yml
 ```
