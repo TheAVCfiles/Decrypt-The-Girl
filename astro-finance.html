@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Weekly Astro Finance Guide - Stock Market Wolf x Astrology</title>
-  
+
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Weekly financial astrology guide combining Andrew Diaz's Stock Market Wolf confluence approach with planetary movements for market analysis." />
-  <meta name="keywords" content="financial astrology, stock market, trading, Andrew Diaz, Stock Market Wolf, confluence trading" />
-  <meta name="author" content="A.C. Van Cura" />
-  
+  <meta name="description" content="Weekly financial astrology guide combining Andrew Diaz's Stock Market Wolf confluence approach with planetary movements for market analysis.">
+  <meta name="keywords" content="financial astrology, stock market, trading, Andrew Diaz, Stock Market Wolf, confluence trading">
+  <meta name="author" content="A.C. Van Cura">
+
   <!-- Open Graph / Social Media Meta Tags -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Weekly Astro Finance Guide" />
-  <meta property="og:description" content="Weekly financial astrology guide for market analysis and trading insights." />
-  <meta property="og:url" content="https://theavcfiles.github.io/Decrypt-The-Girl/astro-finance.html" />
-  
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Weekly Astro Finance Guide">
+  <meta property="og:description" content="Weekly financial astrology guide for market analysis and trading insights.">
+  <meta property="og:url" content="https://theavcfiles.github.io/Decrypt-The-Girl/astro-finance.html">
+
   <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Weekly Astro Finance Guide" />
-  <meta name="twitter:description" content="Weekly financial astrology guide for market analysis and trading insights." />
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Weekly Astro Finance Guide">
+  <meta name="twitter:description" content="Weekly financial astrology guide for market analysis and trading insights.">
   <style>
     /* Global Styles - Mobile-first responsive design */
     body {
@@ -85,12 +85,12 @@
       min-width: 60px;
       font-family: inherit;
     }
-    
+
     .nav button:hover {
       background: #e9e9e9;
       border-color: #999;
     }
-    
+
     .nav button:focus {
       outline: 2px solid #4a90e2;
       outline-offset: 2px;
@@ -108,16 +108,16 @@
         padding: 30px 20px;
         margin: 20px;
       }
-      
+
       .header {
         font-size: 1.3em;
       }
-      
+
       .content {
         font-size: 0.95em;
       }
     }
-    
+
     @media (min-width: 481px) and (max-width: 768px) {
       .reader {
         width: 80%;
@@ -128,22 +128,22 @@
 </head>
 <body>
   <!-- Main Application Container -->
-  <main class="reader" role="main" aria-label="Weekly Astro Finance Guide">
+  <main class="reader" aria-label="Weekly Astro Finance Guide">
     <!-- Page Header -->
     <header>
-      <h1 class="header" id="pageTitle"></h1>
+      <h1 class="header" id="pageTitle">Intro</h1>
       <p class="subhead" id="pageSubtitle"></p>
     </header>
-    
+
     <!-- Page Content Area -->
-    <div class="content" id="pageContent" role="article" aria-live="polite"></div>
-    
+    <article class="content" id="pageContent" aria-live="polite"></article>
+
     <!-- Navigation Controls -->
-    <nav class="nav" role="navigation" aria-label="Day navigation">
-      <button onclick="prevPage()" aria-label="Go to previous day">Prev</button>
-      <button onclick="nextPage()" aria-label="Go to next day">Next</button>
+    <nav class="nav" aria-label="Day navigation">
+      <button type="button" onclick="prevPage()" aria-label="Go to previous day">Prev</button>
+      <button type="button" onclick="nextPage()" aria-label="Go to next day">Next</button>
     </nav>
-    
+
     <!-- Footer Disclaimer -->
     <footer class="footer">
       <small>For entertainment only. Data courtesy Reuters.</small>
@@ -193,11 +193,11 @@
 
     // Current page state - tracks which day the user is viewing
     let currentPage = 0;
-    
+
     /**
      * Renders the content for a specific day/page
      * Updates all page elements with day-specific market guidance
-     * 
+     *
      * @param {number} index - The page index to render (0-based)
      */
     function renderPage(index) {
@@ -206,7 +206,7 @@
       document.getElementById('pageSubtitle').textContent = page.subtitle;
       document.getElementById('pageContent').textContent = page.content;
     }
-    
+
     /**
      * Navigate to the previous day
      * Uses modular arithmetic for circular navigation
@@ -215,7 +215,7 @@
       currentPage = (currentPage - 1 + pages.length) % pages.length;
       renderPage(currentPage);
     }
-    
+
     /**
      * Navigate to the next day
      * Uses modular arithmetic for circular navigation
@@ -224,29 +224,29 @@
       currentPage = (currentPage + 1) % pages.length;
       renderPage(currentPage);
     }
-    
+
     /**
      * Touch/Swipe Navigation Support
      * Enables intuitive mobile navigation between days
      */
     let touchStartX = 0;
     const MIN_SWIPE_DISTANCE = 50;
-    
+
     document.querySelector('.reader').addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
     }, { passive: true });
-    
+
     document.querySelector('.reader').addEventListener('touchend', (e) => {
       const touchEndX = e.changedTouches[0].screenX;
       const deltaX = touchEndX - touchStartX;
-      
+
       if (deltaX > MIN_SWIPE_DISTANCE) {
         prevPage();
       } else if (deltaX < -MIN_SWIPE_DISTANCE) {
         nextPage();
       }
     }, { passive: true });
-    
+
     /**
      * Keyboard Navigation Support
      */
@@ -265,7 +265,7 @@
           break;
       }
     });
-    
+
     // Initialize the application
     renderPage(currentPage);
   </script>
