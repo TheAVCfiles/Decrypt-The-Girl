@@ -37,6 +37,23 @@ graph TD
   C29 --- MA
 ```
 
+## Room index
+
+- **Room004_TransmissionCorrupt**
+- **Room008_Mothernet**
+
+## Constellation registry
+
+### Survivor_Architecture
+- **Root**: C26
+- **Nodes**: C26, C29, C30, C34
+- **Description**: The architecture derived from girls who survived the machine. Converts lived pattern-recognition into system-level foresight, narrative sovereignty, and encrypted authorship.
+
+### Machine_Audit
+- **Root**: C26
+- **Nodes**: C26, C27, C28, C31, C32, C33
+- **Description**: The audit trail born from the failure of institutions to protect the girl. Uses the girl-as-signal to expose exploitation vectors, run consequence calculations, and generate ethical system intelligence.
+
 ## Reading the nodes
 - **Survivor_Architecture (SA)**: Human-facing layer that defends agency.
 - **Machine_Audit (MA)**: Monitoring layer that witnesses and verifies machine behavior.
